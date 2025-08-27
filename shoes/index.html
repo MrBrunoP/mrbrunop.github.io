@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runners' Reviews</title>
+    <!-- Use Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS from CDN for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7; /* A light gray background */
+        }
+        /* Style for the review cards */
+        .shoe-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .shoe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .placeholder-text {
+            color: #d1d5db; /* A light gray for placeholder text */
+        }
+    </style>
+</head>
+<body class="bg-zinc-50 text-zinc-800">
+
+    <!-- Main container for the landing page -->
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <!-- Header section with site title and description -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 leading-tight text-zinc-900">
+                Runners' Reviews
+            </h1>
+            <p class="text-lg text-zinc-600">
+                Your go-to source for honest, in-depth running shoe reviews.
+            </p>
+        </header>
+
+        <!-- Grid of shoe review cards -->
+        <main class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+            <!-- Card for Nike Pegasus Trail 4 Review (Active) -->
+            <a href="./pegasustrail4.html" class="block">
+                <div class="bg-white p-4 rounded-2xl shadow-lg hover:shadow-xl shoe-card">
+                    <img src="images/trailfront.jpg" alt="Nike Pegasus Trail 4" class="w-full h-auto rounded-lg mb-4">
+                    <h2 class="text-xl font-semibold mb-2 text-zinc-900">Nike Pegasus Trail 4</h2>
+                    <p class="text-sm text-zinc-600 leading-relaxed">My first trail shoe & first 10K+... a detailed review after 470 kilometers.</p>
+                </div>
+            </a>
+
+            <!-- Card for Nike ZoomX Streakfly Review (Active) -->
+            <a href="./streakfly.html" class="block">
+                <div class="bg-white p-4 rounded-2xl shadow-lg hover:shadow-xl shoe-card">
+                    <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=Nike+ZoomX+Streakfly" alt="Nike ZoomX Streakfly" class="w-full h-auto rounded-lg mb-4">
+                    <h2 class="text-xl font-semibold mb-2 text-zinc-900">Nike ZoomX Streakfly</h2>
+                    <p class="text-sm text-zinc-600 leading-relaxed">A specialized shoe for speed, but a lesson in what to look for in a racer.</p>
+                </div>
+            </a>
+            
+            <!-- Card for Kiprun KD900X LD Review (Active) -->
+            <a href="./KD900XLD.html" class="block">
+                <div class="bg-white p-4 rounded-2xl shadow-lg hover:shadow-xl shoe-card">
+                    <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=Kiprun+KD900X+LD" alt="Kiprun KD900X LD" class="w-full h-auto rounded-lg mb-4">
+                    <h2 class="text-xl font-semibold mb-2 text-zinc-900">Kiprun KD900X LD</h2>
+                    <p class="text-sm text-zinc-600 leading-relaxed">My experience with a budget-friendly carbon plate racer and its learning curve.</p>
+                </div>
+            </a>
+            
+            <!-- Card for ASICS Novablast 4 Review (Active) -->
+            <a href="./ASICS-Novablast-4.html" class="block">
+                <div class="bg-white p-4 rounded-2xl shadow-lg hover:shadow-xl shoe-card">
+                    <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=ASICS+Novablast+4" alt="ASICS Novablast 4" class="w-full h-auto rounded-lg mb-4">
+                    <h2 class="text-xl font-semibold mb-2 text-zinc-900">ASICS Novablast 4</h2>
+                    <p class="text-sm text-zinc-600 leading-relaxed">A detailed review of a daily trainer that delivers on comfort and durability.</p>
+                </div>
+            </a>
+            
+            <!-- Placeholder Cards for future reviews -->
+            <div class="bg-white p-4 rounded-2xl shadow-lg shoe-card">
+                <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=ASICS+Trabuco+Max+3" alt="ASICS Trabuco Max 3" class="w-full h-auto rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-zinc-900">ASICS Trabuco Max 3</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed placeholder-text">Review coming soon...</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-2xl shadow-lg shoe-card">
+                <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=Adidas+Takumi+Sen+10" alt="Adidas Takumi Sen 10" class="w-full h-auto rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-zinc-900">Adidas Takumi Sen 10</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed placeholder-text">Review coming soon...</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-2xl shadow-lg shoe-card">
+                <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=Adidas+Adizero+Boston+12" alt="Adidas Adizero Boston 12" class="w-full h-auto rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-zinc-900">Adidas Adizero Boston 12</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed placeholder-text">Review coming soon...</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-2xl shadow-lg shoe-card">
+                <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=Salomon+Aero+Glide+3" alt="Salomon Aero Glide 3" class="w-full h-auto rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-zinc-900">Salomon Aero Glide 3</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed placeholder-text">Review coming soon...</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-2xl shadow-lg shoe-card">
+                <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=adidas+Adizero+Evo+SL" alt="adidas Performance Adizero Evo SL" class="w-full h-auto rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-zinc-900">adidas Adizero Evo SL</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed placeholder-text">Review coming soon...</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-2xl shadow-lg shoe-card">
+                <img src="https://placehold.co/800x600/e5e7eb/4b5563?text=Asics+Gel+Nimbus+27" alt="Asics Gel Nimbus 27" class="w-full h-auto rounded-lg mb-4">
+                <h2 class="text-xl font-semibold mb-2 text-zinc-900">Asics Gel Nimbus 27</h2>
+                <p class="text-sm text-zinc-400 leading-relaxed placeholder-text">Review coming soon...</p>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
