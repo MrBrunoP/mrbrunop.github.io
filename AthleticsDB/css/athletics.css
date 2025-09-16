@@ -1,0 +1,168 @@
+/* General container and fonts */
+.athletics-profile-container {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    width: 95%; /* Use a percentage for wider screens */
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Profile header */
+.profile-header {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+.profile-name {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    color: #004d99;
+}
+.profile-country {
+    font-size: 1em;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Tab navigation */
+.tab-navigation {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 2px solid #ddd;
+}
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+.tab-button:hover:not(.active):not(.disabled) {
+    color: #004d99;
+    border-bottom: 2px solid #b3d9ff;
+}
+.tab-button.active {
+    color: #004d99;
+    border-bottom: 2px solid #004d99;
+}
+.tab-button.disabled {
+    cursor: not-allowed;
+    color: #ccc;
+}
+
+/* Tab content and data table */
+.tab-content {
+    display: none; /* Hide by default */
+    padding: 20px;
+}
+.tab-content.active {
+    display: block; /* Show active tab content */
+}
+
+/* Common table styling */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9em;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.data-table th {
+    background-color: #663399; /* Dark purple header */
+    color: #fff;
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+.data-table tbody tr {
+    background-color: #fff;
+}
+.data-table tbody tr:nth-child(even) {
+    background-color: #f9f6ff; /* A subtle, light purple for alternating rows */
+}
+.data-table tbody tr:hover {
+    background-color: #e6e6ff; /* A lighter purple on hover */
+}
+
+/* Specific styling for the new country column */
+.data-table thead th:nth-child(5) {
+    width: 100px;
+    text-align: center;
+}
+.data-table tbody td:nth-child(5) {
+    width: 100px;
+    text-align: left;
+}
+.data-table td i {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Results section specifics */
+.filter-controls {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+.filter-controls label {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #004d99;
+}
+#year-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* Medal styles */
+.medal-position {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #fff;
+    white-space: nowrap;
+}
+.gold { background-color: #ffc82a; }
+.silver { background-color: #b3b3b3; }
+.bronze { background-color: #c47c4c; }
+
+/* Flag icons */
+.flag-prt {
+    display: inline-block;
+    width: 24px;
+    height: 18px;
+    background-image: url('images/pt-flag.png'); /* You must provide this image file! */
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+.flag-esp {
+    display: inline-block;
+    width: 24px;
+    height: 18px;
+    background-image: url('images/es-flag.png'); /* You must provide this image file! */
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
