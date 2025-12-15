@@ -27,7 +27,6 @@
             border: 1px solid #ddd;
             background-color: #f9f9f9;
             font-size: 12px; /* Smaller font size */
-            
         }
 
             /* Ensure medal icons are displayed at 16px */
@@ -55,8 +54,10 @@
         }
 
         .infobox td img {
-        vertical-align: middle; /* Aligns the image vertically with the text */
-        margin-right: 5px; /* Adds a small space between the flag and the text */
+            vertical-align: middle; /* Aligns the image vertically with the text */
+            margin-right: 5px; /* Adds a small space between the flag and the text */
+            max-width: 100%;
+            height: auto;
         }
 
         .section {
@@ -81,10 +82,40 @@
         }
 
         .main-content {
-        margin-right: 270px; /* Width of infobox (250px) + margin (20px) */
-        overflow: hidden; /* Prevents wrapping under the infobox */
-        font-size: 14px; /* Smaller font size */
+            margin-right: 270px; /* Width of infobox (250px) + margin (20px) */
+            overflow: hidden; /* Prevents wrapping under the infobox */
+            font-size: 14px; /* Smaller font size */
+        }
 
+        /* Mobile tweaks: stack infobox and allow tables to scroll */
+        @media (max-width: 768px) {
+            .container {
+                padding: 12px;
+            }
+
+            .infobox {
+                float: none;
+                width: 100%;
+                margin: 0 0 16px 0;
+            }
+
+            .main-content {
+                margin-right: 0;
+            }
+
+            .section table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            .section table thead, .section table tbody, .section table tr {
+                width: 100%;
+            }
+
+            .section table th, .section table td {
+                white-space: nowrap;
+            }
         }
     </style>
 </head>
