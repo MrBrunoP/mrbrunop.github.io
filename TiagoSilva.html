@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiago Eira da Silva - Athlete Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .infobox {
+            float: right;
+            width: 250px;
+            margin: 0 0 20px 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-size: 12px;
+        }
+        .infobox th {
+            background-color: #eee;
+            padding: 5px;
+            text-align: center;
+        }
+        .infobox td {
+            padding: 5px;
+        }
+        .infobox ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .infobox ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Ensure medal icons are displayed at 16px */
+        .infobox img.medal-icon {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle; /* Aligns the icon with the text */
+        }
+        
+        .infobox td img {
+            vertical-align: middle;
+            margin-right: 5px;
+            max-width: 100%;
+            height: auto;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .section h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .section table th, .section table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .section table th {
+            background-color: #f9f9f9;
+        }
+        .main-content {
+            margin-right: 270px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 12px; }
+            .infobox { float: none; width: 100%; margin: 0 0 16px 0; }
+            .main-content { margin-right: 0; }
+            .section table { display: block; width: 100%; overflow-x: auto; }
+            .section table thead, .section table tbody, .section table tr { width: 100%; }
+            .section table th, .section table td { white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Infobox -->
+  <div class="infobox">
+    <table>
+      <tr>
+        <th colspan="2">Tiago Eira da Silva</th>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <img src="/tiago-silva.jpg" alt="Tiago Eira da Silva" width="225">
+        </td>
+      </tr>
+      <!-- Personal Information -->
+      <tr>
+        <th colspan="2" style="background: #CCCC99; color: black; text-align: center;">Personal Information</th>
+      </tr>
+      <tr>
+        <th>Full Name</th>
+        <td>Tiago Eira da Silva</td>
+      </tr>
+      <tr>
+        <th>From</th>
+        <td>Vila Real, Portugal</td>
+      </tr>
+      <tr>
+        <th>Height</th>
+        <td>1.75 m (5 ft 9 in)</td>
+      </tr>
+      <tr>
+        <th>Weight</th>
+        <td>56 kg (123 lb)</td>
+      </tr>
+      <!-- Sport -->
+      <tr>
+        <th colspan="2" style="background: #CCCC99; color: black; text-align: center;">Sport</th>
+      </tr>
+      <tr>
+        <th>Country</th>
+        <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/23px-Flag_of_Portugal.svg.png" alt="Flag of Portugal"> Portugal</td>
+      </tr>
+      <tr>
+        <th>Sport</th>
+        <td>
+          <ul>
+            <li>Athletics</li>
+          </ul>
+        </td>
+      </tr>
+      <!-- Club -->
+      <tr>
+        <th>Clubs</th>
+        <td>
+          <ul>
+            <li>NAVR</li>
+          </ul>
+        </td>
+      </tr>
+      <!-- Medal Record -->
+      <tr>
+        <th colspan="2" style="background: #CCCC99; color: black; text-align: center;">Medal Record</th>
+      </tr>
+      <tr>
+        <th>Athletics</th>
+        <td>
+          <ul>
+            <li>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Silver_medal_icon_%28S_initial%29.svg/20px-Silver_medal_icon_%28S_initial%29.svg.png" class="medal-icon" alt="Silver Medal">
+              <b>2025</b> – 10K Trail (U17)
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Tiago Eira da Silva</h1>
+    <p><strong>Tiago Eira da Silva</strong> is a Portuguese runner from Vila Real, Portugal, competing in athletics with NAVR.</p>
+
+    <div class="section">
+      <h2>Personal Bests</h2>
+      <h3>Outdoor (Road)</h3>
+      <ul>
+        <li>5K: 00:19:14.603 (1º Grande Prémio Natal 50 Anos, Paredes, Portugal, 2025)</li>
+      </ul>
+    </div>
+
+    <!-- Athletics Achievements -->
+    <div class="section">
+      <h2 style="display: inline;">Athletics Achievements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Competition</th>
+            <th>Venue</th>
+            <th>Position</th>
+            <th>Event</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="6" style="background-color: #f9f9f9; text-align: center;"><strong>Independent</strong></td>
+          </tr>
+          <tr>
+            <td>2025</td>
+            <td>Sabrosa Trail por Terras de Magalhães</td>
+            <td>Sabrosa, Portugal</td>
+            <td bgcolor="silver">8th (Overall)<br>2nd (U17)</td>
+            <td>10K Trail (545 D+)</td>
+            <td>01:14:12</td>
+          </tr>
+          <tr>
+            <td colspan="6" style="background-color: #f9f9f9; text-align: center;"><strong>Representing NAVR</strong></td>
+          </tr>
+          <tr>
+            <td>2025</td>
+            <td>Trilho dos Linces 2025</td>
+            <td>Vila Real, Portugal</td>
+            <td>6th (Overall)<br>6th (MS)</td>
+            <td>12K Trail (600 D+)</td>
+            <td>01:17:31.383</td>
+          </tr>          <tr>
+            <td>2025</td>
+            <td>1º Grande Prémio Natal 50 Anos</td>
+            <td>Paredes, Portugal</td>
+            <td>7th (Overall)<br>5th (MS)</td>
+            <td>5K</td>
+            <td>00:19:14.603</td>
+          </tr>        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Non-Competitive Events</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Type</th>
+            <th>Competition</th>
+            <th>Venue</th>
+            <th>Distance</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2024</td>
+            <td>MTB Ride</td>
+            <td>3º Rota do Voltaren</td>
+            <td>São Tomé do Castelo, Portugal</td>
+            <td>35 km</td>
+            <td>--</td>
+          </tr>
+          <tr>
+            <td>2024</td>
+            <td>MTB Ride</td>
+            <td>2º Passeio BTT Trilhos de Torga</td>
+            <td>São Martinho de Anta, Portugal</td>
+            <td>35 km</td>
+            <td>--</td>
+          </tr>
+          <tr>
+            <td>2025</td>
+            <td>Charity Run</td>
+            <td>Corrida IPO Porto 2025</td>
+            <td>Porto, Portugal</td>
+            <td>5K</td>
+            <td>21:30</td>
+          </tr>
+          <tr>
+            <td>2025</td>
+            <td>Charity Run</td>
+            <td>Corrida do Dragão 2025</td>
+            <td>Porto, Portugal</td>
+            <td>5K</td>
+            <td>--</td>
+          </tr>
+          <tr>
+            <td>2025</td>
+            <td>Charity Run</td>
+            <td>Caminhada das Luzes NAVR</td>
+            <td>Vila Real, Portugal</td>
+            <td>10 km</td>
+            <td>--</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div> <!-- End of .main-content -->
+</div> <!-- End of .container -->
+
+</body>
+</html>
