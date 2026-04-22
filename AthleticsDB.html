@@ -12,9 +12,57 @@
             padding: 0;
             background-color: #f9f9f9;
         }
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .site-nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .site-brand {
+            color: #111;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+        .site-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        .site-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 4px 6px;
+            border-bottom: 2px solid transparent;
+        }
+        .site-links a:hover {
+            color: #000;
+            border-bottom-color: #999;
+        }
+        .site-links a.active {
+            color: #000;
+            border-bottom-color: #000;
+            font-weight: 600;
+        }
         .container {
             max-width: 1200px; /* Adjust this value to control the width */
-            margin: 0 auto; /* Centers the container */
+            margin: 20px auto; /* Centers the container */
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
@@ -89,8 +137,21 @@
 
         /* Mobile tweaks: stack infobox and allow tables to scroll */
         @media (max-width: 768px) {
+            .site-nav-inner {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 12px;
+            }
+
+            .site-links {
+                width: 100%;
+                justify-content: flex-start;
+                gap: 8px;
+            }
+
             .container {
                 padding: 12px;
+                margin: 12px auto;
             }
 
             .infobox {
@@ -121,6 +182,21 @@
 </head>
 <body>
 
+        <nav class="site-nav" aria-label="Main navigation">
+            <div class="site-nav-inner">
+                <a class="site-brand" href="./index.html">Bruno Yamazaky</a>
+                <div class="site-links">
+                    <a href="./Portfolio.html">Portfolio</a>
+                    <a href="./index.html">Overview</a>
+                    <a href="./Projects.html">Projects</a>
+                    <a href="./Analog.html">Analog</a>
+                    <a href="./Motion.html">Video</a>
+                    <a href="./Blog.html">Blog</a>
+                    <a href="./AthleticsDB.html" class="active">Athlete Profile</a>
+                </div>
+            </div>
+        </nav>
+
 
         <div class="container">
             <!-- Infobox -->
@@ -131,7 +207,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <img src="/prof.JPG" alt="Bruno Yamazaky" width="225">
+                            <img src="./prof.JPG" alt="Bruno Yamazaky" width="225">
                         </td>
                     </tr>
                     <!-- Personal Information -->
@@ -154,13 +230,17 @@
                         <th>Weight</th>
                         <td>75 kg (165 lb)</td>
                     </tr>
+                    <tr>
+                        <th>Family members</th>
+                        <td><a href="./TiagoSilva.html">Tiago Eira da Silva (cousin)</a></td>
+                    </tr>
                     <!-- Sport -->
                     <tr>
                         <th colspan="2" style="background: #CCCC99; color: black; text-align: center;">Sport</th>
                     </tr>
                     <tr>
                         <th>Country</th>
-                        <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/23px-Flag_of_Portugal.svg.png" alt="Flag of Portugal"> Portugal</td>
+                        <td><img src="./images/flag-portugal.svg" alt="Flag of Portugal"> Portugal</td>
                     </tr>
                     <tr>
                         <th>Sport</th>
@@ -191,7 +271,7 @@
                         <td>
                             <ul>
                                 <li>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Gold_medal_icon_%28G_initial%29.svg/16px-Gold_medal_icon_%28G_initial%29.svg.png" class="medal-icon" alt="Gold Medal">
+                                    <img src="./images/medal-gold.svg" class="medal-icon" alt="Gold Medal">
                                     <b>2009</b>
                                 </li>
                             </ul>
@@ -202,11 +282,11 @@
                         <td>
                             <ul>
                                 <li>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bronze_medal_icon_%28B_initial%29.svg/16px-Bronze_medal_icon_%28B_initial%29.svg.png" class="medal-icon" alt="Bronze Medal">
+                                    <img src="./images/medal-bronze.svg" class="medal-icon" alt="Bronze Medal">
                                     <b>2011</b> – Shot put (5kg)
                                 </li>
                                 <li>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Bronze_medal_icon_%28B_initial%29.svg/16px-Bronze_medal_icon_%28B_initial%29.svg.png" class="medal-icon" alt="Bronze Medal">
+                                    <img src="./images/medal-bronze.svg" class="medal-icon" alt="Bronze Medal">
                                     <b>2011</b> – 100 metres
                                 </li>
                             </ul>
@@ -219,6 +299,7 @@
             <div class="main-content">
                 <h1>Bruno Yamazaky</h1>
                 <p><strong>Bruno Yamazaky</strong> is a Portuguese amateur runner who began his athletic career as a federated table tennis player with the FPTM. He also dabbled in track and field during his youth. After a decade-long break, Bruno has returned to sports, focusing on long-distance running and participating in various road and trail events.</p>
+                <p>He is the cousin of <a href="./TiagoSilva.html">Tiago Eira da Silva</a>, another runner featured on this website.</p>
 
 
                 <div class="section">
@@ -502,7 +583,7 @@
                         <td>02:11:36</td>
         <tr>
     <td>2026</td>
-    <td>IX Meia Maratona de Vila Real</td>
+    <td>IX Mini Maratona de Vila Real</td>
     <td>Vila Real, Portugal</td>
     <td>32nd (Overall)<br>14th (MS)</td>
     <td>7K</td>
@@ -667,3 +748,6 @@
 
 </div> <!-- End of .main-content -->
 </div> <!-- End of .container -->
+
+</body>
+</html>
