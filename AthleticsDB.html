@@ -167,15 +167,40 @@
             .section table {
                 display: block;
                 width: 100%;
-                overflow-x: auto;
+                overflow-x: visible;
+                border: none;
             }
 
-            .section table thead, .section table tbody, .section table tr {
+            .section table thead {
+                display: none;
+            }
+
+            .section table tbody {
+                display: block;
                 width: 100%;
             }
 
+            .section table tr {
+                display: block;
+                border: 1px solid #ddd;
+                margin-bottom: 12px;
+                border-radius: 4px;
+                overflow: hidden;
+            }
+
             .section table th, .section table td {
-                white-space: nowrap;
+                display: block;
+                width: 100%;
+                padding: 10px 12px;
+                text-align: left;
+                border: none;
+                border-bottom: 1px solid #eee;
+                white-space: normal;
+            }
+
+            .section table tr td:last-child,
+            .section table tr th:last-child {
+                border-bottom: none;
             }
         }
     </style>
@@ -308,7 +333,7 @@
                     <h3>Outdoor (Road)</h3>
                     <ul>
                         <li>5K: 23:47 (Corrida IPO Porto 2025)</li>
-                        <li>10K: 48:10 (São Silvestre Vila Real 2026)</li>
+                        <li>10K: 47:51.133 (Corrida da Liberdade 2026)</li>
                         <li>Half marathon: 2:11:57 (Vila Real 2024)</li>
                     </ul>
                 
@@ -589,6 +614,14 @@
     <td>7K</td>
     <td>00:34:17</td>
 </tr>
+                    <tr>
+                        <td>2026</td>
+                        <td>Corrida da Liberdade</td>
+                        <td>Chaves, Portugal</td>
+                        <td>20th (MS)<br>75th (Overall)</td>
+                        <td>10K</td>
+                        <td>00:47:51.133</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

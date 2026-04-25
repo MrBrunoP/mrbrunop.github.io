@@ -145,9 +145,13 @@
             .container { padding: 12px; margin: 12px auto; }
             .infobox { float: none; width: 100%; margin: 0 0 16px 0; }
             .main-content { margin-right: 0; }
-            .section table { display: block; width: 100%; overflow-x: auto; }
-            .section table thead, .section table tbody, .section table tr { width: 100%; }
-            .section table th, .section table td { white-space: nowrap; }
+            .section table { display: block; width: 100%; overflow-x: visible; border: none; }
+            .section table thead { display: none; }
+            .section table tbody { display: block; width: 100%; }
+            .section table tr { display: block; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; overflow: hidden; }
+            .section table th, .section table td { display: block; width: 100%; padding: 10px 12px; text-align: left; border: none; border-bottom: 1px solid #eee; white-space: normal; }
+            .section table tr td:last-child,
+            .section table tr th:last-child { border-bottom: none; }
         }
     </style>
 </head>
@@ -239,9 +243,13 @@
           <ul>
             <li>
               <img src="./images/medal-gold.svg" class="medal-icon" alt="Gold Medal">
-              <b>2026</b> – Trail Santa Iria (U17)
+              <b>2026</b> – Corrida da Liberdade (U23)
             </li>
             <li>
+              <img src="./images/medal-gold.svg" class="medal-icon" alt="Gold Medal">
+              <b>2026</b> – Trail Santa Iria (U17)
+            </li>
+                        <li>
               <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
               <b>2026</b> – Meia Maratona de Gaia 10K (JUN)
             </li>
@@ -251,12 +259,13 @@
             </li>
             <li>
               <img src="./images/medal-bronze.svg" class="medal-icon" alt="Bronze Medal">
-              <b>2026</b> – V Trail das Amendoeiras (U23)
+              <b>2026</b> – Grande Trail Fisgas de Ermelo (U23)
             </li>
             <li>
               <img src="./images/medal-bronze.svg" class="medal-icon" alt="Bronze Medal">
-              <b>2026</b> – Grande Trail Fisgas de Ermelo (U23)
+              <b>2026</b> – V Trail das Amendoeiras (U23)
             </li>
+            
           </ul>
         </td>
       </tr>
@@ -377,6 +386,14 @@
             <td bgcolor="#cc9966">3rd (U23)<br>28th (Overall)</td>
             <td>23K Trail (1,200 D+)</td>
             <td>2:54:06</td>
+          </tr>
+          <tr>
+            <td>2026</td>
+            <td>Corrida da Liberdade</td>
+            <td>Chaves, Portugal</td>
+            <td bgcolor="gold">1st (U23)<br>11th (Overall)</td>
+            <td>10K</td>
+            <td>00:37:27.639</td>
           </tr>
         </tbody>
       </table>
