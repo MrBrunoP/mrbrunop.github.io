@@ -6,13 +6,13 @@
     margin: 20px auto;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 /* Profile header */
 .profile-header {
-    background-color: #f0f0f0;
+    background-color: #f9f9f9;
     padding: 20px;
     border-bottom: 1px solid #ddd;
 }
@@ -20,19 +20,56 @@
     font-size: 2em;
     font-weight: bold;
     margin: 0;
-    color: #004d99;
+    color: #111;
 }
 .profile-country {
     font-size: 1em;
-    color: #666;
+    color: #444;
     margin-top: 5px;
+}
+
+.profile-links {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+}
+
+.profile-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #111;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.profile-link:hover {
+    text-decoration: underline;
+}
+
+.profile-link-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+.profile-link-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    fill: #111;
 }
 
 /* Tab navigation */
 .tab-navigation {
     display: flex;
     justify-content: flex-start;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 .tab-button {
     background-color: transparent;
@@ -41,27 +78,38 @@
     font-size: 1.1em;
     font-weight: bold;
     cursor: pointer;
-    color: #666;
+    color: #333;
     border-bottom: 2px solid transparent;
     transition: all 0.3s ease;
 }
+
+.tab-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 1em;
+    line-height: 1;
+    vertical-align: middle;
+    color: inherit;
+}
+
 .tab-button:hover:not(.active):not(.disabled) {
-    color: #004d99;
-    border-bottom: 2px solid #b3d9ff;
+    color: #000;
+    border-bottom: 2px solid #999;
 }
 .tab-button.active {
-    color: #004d99;
-    border-bottom: 2px solid #004d99;
+    color: #000;
+    border-bottom: 2px solid #000;
 }
 .tab-button.disabled {
     cursor: not-allowed;
-    color: #ccc;
+    color: #bdbdbd;
 }
 
 /* Tab content and data table */
 .tab-content {
     display: none; /* Hide by default */
     padding: 20px;
+    overflow-x: auto;
 }
 .tab-content.active {
     display: block; /* Show active tab content */
@@ -73,28 +121,29 @@
     border-collapse: collapse;
     margin-top: 15px;
     font-size: 0.9em;
+    min-width: 860px;
 }
 
 .data-table th, .data-table td {
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border: 1px solid #ddd;
 }
 .data-table th {
-    background-color: #663399; /* Dark purple header */
-    color: #fff;
+    background-color: #f9f9f9;
+    color: #111;
     padding: 10px 15px;
-    text-transform: uppercase;
+    text-transform: none;
     font-weight: normal;
 }
 .data-table tbody tr {
     background-color: #fff;
 }
 .data-table tbody tr:nth-child(even) {
-    background-color: #f9f6ff; /* A subtle, light purple for alternating rows */
+    background-color: #fcfcfc;
 }
 .data-table tbody tr:hover {
-    background-color: #e6e6ff; /* A lighter purple on hover */
+    background-color: #f2f2f2;
 }
 
 /* Specific styling for the new country column */
@@ -114,8 +163,9 @@
 /* Results section specifics */
 .filter-controls {
     margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f8f8f8;
+    padding: 10px 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -123,14 +173,111 @@
 .filter-controls label {
     font-weight: bold;
     margin-right: 10px;
-    color: #004d99;
+    color: #111;
 }
 #year-select {
     padding: 8px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: #fff;
+    color: #111;
     font-size: 1em;
     cursor: pointer;
+}
+
+/* Progression section */
+.progression-intro {
+    margin: 0 0 16px;
+    color: #444;
+    font-size: 0.95em;
+}
+
+.progression-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+.progression-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 14px;
+}
+
+.progression-card h3 {
+    margin: 0;
+    font-size: 1.05em;
+    color: #111;
+}
+
+.progression-subtitle {
+    margin: 4px 0 12px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.progression-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.progression-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    background-color: #f8f8f8;
+    color: #222;
+    font-size: 0.85em;
+}
+
+.progression-canvas-wrap {
+    height: 300px;
+}
+
+.progression-empty {
+    margin: 10px 0 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .athletics-profile-container {
+        width: calc(100% - 20px);
+        margin: 10px auto;
+    }
+
+    .tab-button {
+        padding: 12px 14px;
+        font-size: 0.98em;
+    }
+
+    .profile-name {
+        font-size: 1.6em;
+    }
+
+    .profile-links {
+        gap: 8px 12px;
+    }
+
+    .progression-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progression-canvas-wrap {
+        height: 260px;
+    }
+
+    .progression-stat {
+        width: 100%;
+        justify-content: space-between;
+        border-radius: 8px;
+    }
 }
 
 /* Medal styles */

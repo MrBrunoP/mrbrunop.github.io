@@ -13,13 +13,24 @@
     <div class="profile-header">
         <h2 class="profile-name">Bruno Yamazaky</h2>
         <p class="profile-country">Portugal</p>
+        <div class="profile-links" aria-label="Profile links">
+            <a class="profile-link" href="../AthleticsDB.html">Back to Athlete Profile</a>
+            <a class="profile-link" href="https://www.strava.com/athletes/128022452" target="_blank" rel="noopener noreferrer">
+                <span class="profile-link-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" role="presentation" focusable="false">
+                        <path d="M 14.179688 2 L 5.9003906 18 L 10.779297 18 L 14.179688 11.619141 L 17.560547 18 L 22.400391 18 L 14.179688 2 z M 22.400391 18 L 20 22.789062 L 17.560547 18 L 13.859375 18 L 20 30 L 26.099609 18 L 22.400391 18 z"></path>
+                    </svg>
+                </span>
+                <span>Strava profile</span>
+            </a>
+        </div>
     </div>
 
     <div class="tab-navigation">
-        <button class="tab-button active" onclick="openTab('personal-bests', this)">Personal Bests</button>
-        <button class="tab-button" onclick="openTab('results', this)">Results</button>
-        <button class="tab-button disabled">Honours</button>
-        <button class="tab-button disabled">Progression</button>
+        <button class="tab-button active" onclick="openTab('personal-bests', this)"><span class="tab-icon" aria-hidden="true">◈</span> Personal Bests</button>
+        <button class="tab-button" onclick="openTab('results', this)"><span class="tab-icon" aria-hidden="true">☷</span> Results</button>
+        <button class="tab-button disabled"><span class="tab-icon" aria-hidden="true">★</span> Honours</button>
+        <button class="tab-button" onclick="openTab('progression', this)"><span class="tab-icon" aria-hidden="true">↗</span> Progression</button>
     </div>
 
     <div id="personal-bests" class="tab-content active">
@@ -73,7 +84,7 @@
                     <td>8th</td>
                 </tr>
                 <tr>
-                    <td>20 Apr 2025</td>
+                    <td>17 Aug 2025</td>
                     <td>2 Mile</td>
                     <td>15:17</td>
                     <td>Carrera Popular de Portonovo III, Sanxenxo</td>
@@ -91,13 +102,13 @@
                     <td>--</td>
                 </tr>
                 <tr>
-                    <td>06 Dec 2025</td>
+                    <td>25 Apr 2026</td>
                     <td>10K (Road)</td>
-                    <td>00:48:25</td>
-                    <td>São Silvestre Cortegaça/Esmoriz 2025, Esmoriz</td>
+                    <td>00:47:51.133</td>
+                    <td>Corrida da Liberdade 2026, Chaves</td>
                     <td><i class="flag-prt"></i> PRT</td>
                     <td>MS</td>
-                    <td>96th</td>
+                    <td>20th</td>
                 </tr>
                 <tr>
                     <td>13 Apr 2025</td>
@@ -153,6 +164,7 @@
             <label for="year-select">Year:</label>
             <select id="year-select" onchange="filterResults()">
                 <option value="all">All</option>
+                <option value="2026">2026</option>
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
                 <option value="2011">2011</option>
@@ -173,6 +185,42 @@
             </thead>
             <tbody>
                 <!-- sorted newest first -->
+                <tr data-year="2026">
+                    <td>25 Apr 2026</td>
+                    <td>10K (Road)</td>
+                    <td>00:47:51.133</td>
+                    <td>Corrida da Liberdade 2026, Chaves</td>
+                    <td><i class="flag-prt"></i> PRT</td>
+                    <td>MS</td>
+                    <td>20th</td>
+                </tr>
+                <tr data-year="2026">
+                    <td>12 Apr 2026</td>
+                    <td>7K (Road)</td>
+                    <td>00:34:17</td>
+                    <td>IX Mini Maratona de Vila Real, Vila Real</td>
+                    <td><i class="flag-prt"></i> PRT</td>
+                    <td>MS</td>
+                    <td>14th</td>
+                </tr>
+                <tr data-year="2026">
+                    <td>01 Mar 2026</td>
+                    <td>14K (Trail)</td>
+                    <td>02:11:36</td>
+                    <td>V Trail das Amendoeiras Durius Pesqueira, São João da Pesqueira</td>
+                    <td><i class="flag-prt"></i> PRT</td>
+                    <td>MS</td>
+                    <td>15th</td>
+                </tr>
+                <tr data-year="2026">
+                    <td>03 Jan 2026</td>
+                    <td>10K (Road)</td>
+                    <td>00:48:10</td>
+                    <td>XIX São Silvestre Cidade de Vila Real, Vila Real</td>
+                    <td><i class="flag-prt"></i> PRT</td>
+                    <td>MS</td>
+                    <td>100th</td>
+                </tr>
                 <tr data-year="2025">
                     <td>14 Dec 2025</td>
                     <td>10K (Road)</td>
@@ -270,7 +318,7 @@
                     <td>Sabrosa Trail por Terras de Magalhães, Sabrosa</td>
                     <td><i class="flag-prt"></i> PRT</td>
                     <td>MS</td>
-                    <td>31th</td>
+                    <td>31st</td>
                 </tr>
                    <tr data-year="2024">
                     <td>26 May 2024</td>
@@ -393,8 +441,44 @@
             </tbody>
         </table>
     </div>
+
+    <div id="progression" class="tab-content">
+        <p class="progression-intro">Performance progression by modality based on official results currently in this page.</p>
+        <p id="progression-chart-fallback" class="progression-empty" hidden>Progression charts are temporarily unavailable because the chart library failed to load. Please refresh the page.</p>
+
+        <div class="progression-grid">
+            <section class="progression-card">
+                <h3>10K (Road) Progression</h3>
+                <p class="progression-subtitle">Lower is better</p>
+                <div class="progression-stats" aria-label="10K trend stats">
+                    <span class="progression-stat"><strong>Best:</strong> <span id="progression-10k-stat-best">--</span></span>
+                    <span class="progression-stat"><strong>Avg last 3:</strong> <span id="progression-10k-stat-avg">--</span></span>
+                    <span class="progression-stat"><strong>Since first:</strong> <span id="progression-10k-stat-delta">--</span></span>
+                </div>
+                <div class="progression-canvas-wrap">
+                    <canvas id="progression-10k-chart" aria-label="10K road progression chart" role="img"></canvas>
+                </div>
+                <p id="progression-10k-empty" class="progression-empty" hidden>Need at least 2 official 10K road results to draw progression.</p>
+            </section>
+
+            <section class="progression-card">
+                <h3>Half Marathon Progression</h3>
+                <p class="progression-subtitle">Lower is better</p>
+                <div class="progression-stats" aria-label="Half marathon trend stats">
+                    <span class="progression-stat"><strong>Best:</strong> <span id="progression-half-stat-best">--</span></span>
+                    <span class="progression-stat"><strong>Avg last 3:</strong> <span id="progression-half-stat-avg">--</span></span>
+                    <span class="progression-stat"><strong>Since first:</strong> <span id="progression-half-stat-delta">--</span></span>
+                </div>
+                <div class="progression-canvas-wrap">
+                    <canvas id="progression-half-chart" aria-label="Half marathon progression chart" role="img"></canvas>
+                </div>
+                <p id="progression-half-empty" class="progression-empty" hidden>Need at least 2 official half marathon results to draw progression.</p>
+            </section>
+        </div>
+    </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="js/athletics.js"></script>
 
 </body>
