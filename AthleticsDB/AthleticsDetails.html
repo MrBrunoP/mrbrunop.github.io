@@ -5,6 +5,166 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bruno Yamazaky - Athletics Profile</title>
     <link rel="stylesheet" href="css/athletics.css">
+    <style>
+        /* ── Gear Dashboard Tab ── */
+        .gear-scope-filter {
+            padding: 14px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .gear-filter-label {
+            font-size: .9rem;
+            color: #444;
+            font-weight: 600;
+        }
+        .gear-scope-btn {
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #333;
+            border-radius: 999px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: .88rem;
+        }
+        .gear-scope-btn.gear-scope-active {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+        .gear-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .gear-metric {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.04);
+            padding: 12px;
+        }
+        .gear-metric-k { margin: 0; color: #666; font-size: .85rem; }
+        .gear-metric-v { margin: 6px 0 0; font-size: 1.5rem; font-weight: 700; }
+        .gear-grid {
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(260px, 1fr));
+            gap: 12px;
+        }
+        .gear-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.04);
+            padding: 12px;
+        }
+        .gear-card h2 { margin: 0 0 8px; font-size: 1.02rem; }
+        .gear-chart-box { position: relative; height: 280px; }
+        .gear-table-wrap { overflow-x: auto; margin-top: 14px; }
+        .gear-table-wrap table.data-table { min-width: 800px; }
+        .gear-section-heading {
+            padding: 18px 0 6px;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111;
+            border-bottom: 1px solid #ddd;
+        }
+        .gear-sort-btn {
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            font: inherit;
+            text-transform: inherit;
+            letter-spacing: inherit;
+            color: inherit;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .gear-sort-indicator { color: #777; font-size: .95em; min-width: 12px; }
+        .gear-status-row-in-rotation td { background-color: #f3f8ff; }
+        .gear-status-row-to-sell td { background-color: #fff3e8; }
+        .gear-status-row-retired td { background-color: #fff0f0; }
+        .gear-status-row-sold td { background-color: #ffeaea; }
+        .gear-finance-table td.g-cell-na { color: #aaa; font-style: italic; }
+        .gear-finance-table td.g-cell-recovery { font-weight: 600; }
+        .gear-lock-panel {
+            margin-top: 14px;
+            padding: 18px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0,0,0,.04);
+        }
+        .gear-lock-panel h3 {
+            margin: 0 0 6px;
+            font-size: 1rem;
+            color: #111;
+        }
+        .gear-lock-panel p {
+            margin: 0;
+            color: #555;
+        }
+        .gear-lock-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 14px;
+        }
+        .gear-lock-input {
+            min-width: 220px;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font: inherit;
+        }
+        .gear-lock-button {
+            border: 1px solid #111;
+            background: #111;
+            color: #fff;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font: inherit;
+        }
+        .gear-lock-message {
+            margin-top: 10px;
+            min-height: 1.3em;
+            font-size: .92rem;
+            color: #9f3d15;
+        }
+        abbr.gear-tip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #bbb;
+            color: #fff;
+            font-size: .65rem;
+            font-weight: 700;
+            font-style: normal;
+            cursor: help;
+            text-decoration: none;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        abbr.gear-tip:hover { background: #555; }
+        @media (max-width: 980px) {
+            .gear-metrics { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
+            .gear-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 620px) {
+            .gear-metrics { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
@@ -31,6 +191,7 @@
         <button class="tab-button" onclick="openTab('results', this)"><span class="tab-icon" aria-hidden="true">☷</span> Results</button>
         <button class="tab-button disabled"><span class="tab-icon" aria-hidden="true">★</span> Honours</button>
         <button class="tab-button" onclick="openTab('progression', this)"><span class="tab-icon" aria-hidden="true">↗</span> Progression</button>
+        <button class="tab-button" onclick="openTab('gear', this)"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation" focusable="false" style="width:1em;height:1em;display:block;fill:currentColor;"><path d="M4 15.2c0 1.2 1 2.2 2.2 2.2h9.6c1.7 0 3.3-.6 4.6-1.6l1.6-1.3-2.1-2.1-2.6 1.8H14l-3.6-3.6 1.1-1.1-1.6-1.6-1.1 1.1L5.9 7.2 4 9.1l2.8 2.8H4.9c-.5 0-.9.4-.9.9v2.4z"></path></svg></span> Gear</button>
     </div>
 
     <div id="personal-bests" class="tab-content active">
@@ -476,9 +637,367 @@
             </section>
         </div>
     </div>
+
+    <div id="gear" class="tab-content">
+        <section class="gear-lock-panel" id="gear-lock-panel" aria-label="Gear access lock">
+            <h3>Gear Access</h3>
+            <p>Enter the page password to view spending and shoe finance details.</p>
+            <form class="gear-lock-form" id="gear-lock-form">
+                <input class="gear-lock-input" id="gear-lock-input" type="password" placeholder="Password" autocomplete="current-password">
+                <button class="gear-lock-button" type="submit">Unlock</button>
+            </form>
+            <p class="gear-lock-message" id="gear-lock-message"></p>
+        </section>
+
+        <div id="gear-dashboard-content" hidden>
+            <section class="gear-scope-filter" aria-label="Data scope">
+                <span class="gear-filter-label">View scope:</span>
+                <button type="button" class="gear-scope-btn gear-scope-active" data-gear-scope="overall">Overall</button>
+                <button type="button" class="gear-scope-btn" data-gear-scope="in_rotation">In Rotation</button>
+                <button type="button" class="gear-scope-btn" data-gear-scope="retired">Retired</button>
+            </section>
+
+            <section class="gear-metrics" aria-label="Summary metrics">
+                <article class="gear-metric">
+                    <p class="gear-metric-k">Pairs Tracked</p>
+                    <p class="gear-metric-v" id="gear-pairsCount">0</p>
+                </article>
+                <article class="gear-metric">
+                    <p class="gear-metric-k">Total Mileage</p>
+                    <p class="gear-metric-v" id="gear-totalMileage">0 km</p>
+                </article>
+                <article class="gear-metric">
+                    <p class="gear-metric-k">Total Net Cost</p>
+                    <p class="gear-metric-v" id="gear-totalSpend">0 EUR</p>
+                </article>
+                <article class="gear-metric">
+                    <p class="gear-metric-k">Avg Net Cost per KM</p>
+                    <p class="gear-metric-v" id="gear-avgPpk">0 EUR</p>
+                </article>
+            </section>
+
+            <section class="gear-grid" aria-label="Charts">
+                <article class="gear-card">
+                    <h2>Mileage by Shoe</h2>
+                    <div class="gear-chart-box"><canvas id="gear-mileageChart"></canvas></div>
+                </article>
+                <article class="gear-card">
+                    <h2>Net Cost per KM by Shoe</h2>
+                    <div class="gear-chart-box"><canvas id="gear-ppkChart"></canvas></div>
+                </article>
+                <article class="gear-card">
+                    <h2>Brand Distribution (Pairs)</h2>
+                    <div class="gear-chart-box"><canvas id="gear-brandChart"></canvas></div>
+                </article>
+            </section>
+
+            <h3 class="gear-section-heading">Performance</h3>
+            <section class="gear-table-wrap" aria-label="Shoe data table">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th><button class="gear-sort-btn" data-gear-sort="shoe">Shoe <span class="gear-sort-indicator" id="gear-sort-shoe">-</span></button></th>
+                            <th><button class="gear-sort-btn" data-gear-sort="brand">Brand <span class="gear-sort-indicator" id="gear-sort-brand">-</span></button></th>
+                            <th><button class="gear-sort-btn" data-gear-sort="status">Status <span class="gear-sort-indicator" id="gear-sort-status">-</span></button></th>
+                            <th><button class="gear-sort-btn" data-gear-sort="type">Type <span class="gear-sort-indicator" id="gear-sort-type">-</span></button></th>
+                            <th><button class="gear-sort-btn" data-gear-sort="price">Net Cost <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-sort-indicator" id="gear-sort-price">-</span></button></th>
+                            <th><button class="gear-sort-btn" data-gear-sort="mileage">Mileage <span class="gear-sort-indicator" id="gear-sort-mileage">-</span></button></th>
+                            <th><button class="gear-sort-btn" data-gear-sort="price_per_km">Net Cost/KM <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-sort-indicator" id="gear-sort-price_per_km">-</span></button></th>
+                        </tr>
+                    </thead>
+                    <tbody id="gear-gearRows"></tbody>
+                </table>
+            </section>
+
+            <h3 class="gear-section-heading">Investment &amp; Recovery</h3>
+            <section class="gear-table-wrap" aria-label="Finance table">
+                <table class="data-table gear-finance-table">
+                    <thead>
+                        <tr>
+                            <th>Shoe</th>
+                            <th>Status</th>
+                            <th>Bought</th>
+                            <th>Sold For</th>
+                            <th>Net Cost <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr></th>
+                            <th>Recovery %</th>
+                            <th>Net Cost/KM <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr></th>
+                        </tr>
+                    </thead>
+                    <tbody id="gear-financeRows"></tbody>
+                </table>
+            </section>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+    const gearSampleData = [
+        { shoe: "Adidas Adizero Evo SL", brand: "Adidas", status: "In Rotation", type: "Running", price: 120.00, mileage: 285.6, price_per_km: 0.42 },
+        { shoe: "ASICS Trabuco Max 3", brand: "ASICS", status: "In Rotation", type: "Trail", price: 92.64, mileage: 127.9, price_per_km: 0.72 },
+        { shoe: "Nike Vomero Plus", brand: "Nike", status: "In Rotation", type: "Running", price: 77.89, mileage: 99.6, price_per_km: 0.78 },
+        { shoe: "Nike Fly 6", brand: "Nike", status: "In Rotation", type: "Running", price: 101.00, mileage: 44.9, price_per_km: 2.25 },
+        { shoe: "Anta C202 Zone 2", brand: "Anta", status: "In Rotation", type: "Running", price: 98.29, mileage: 63.0, price_per_km: 1.56 },
+        { shoe: "PUMA Nitro Elite 4", brand: "PUMA", status: "In Rotation", type: "Running", price: 145.00, mileage: 18.5, price_per_km: 7.84 },
+        { shoe: "PUMA MagMax Nitro 2", brand: "PUMA", status: "In Rotation", type: "Running", price: 106.44, mileage: 30.2, price_per_km: 3.52 },
+        { shoe: "Kiprun TR2", brand: "Kiprun", status: "In Rotation", type: "Trail", price: 14.00, mileage: 16.5, price_per_km: 0.85 },
+        { shoe: "ASICS Gel Nimbus 27 TR", brand: "ASICS", status: "To Sell", type: "Trail", price: 129.99, mileage: 200.5, price_per_km: 0.65 },
+        { shoe: "Adidas Equipment Adios Pro", brand: "Adidas", status: "To Sell", type: "Running", price: 94.20, mileage: 17.4, price_per_km: 5.41 },
+        { shoe: "Adidas Adizero Adios 9", brand: "Adidas", status: "To Sell", type: "Running", price: 80.47, mileage: 4.3, price_per_km: 0.81 },
+        { shoe: "Nike Pegasus Trail 4", brand: "Nike", status: "Retired", type: "Trail", buy_price: 82.35, sell_price: 50.00, mileage: 466.3 },
+        { shoe: "Asics Novablast 4", brand: "ASICS", status: "Retired", type: "Running", buy_price: 99.15, sell_price: 50.00, mileage: 385.8 },
+        { shoe: "Kiprun KD900X LD", brand: "Kiprun", status: "Retired", type: "Running", buy_price: 141.09, sell_price: 60.00, mileage: 115.1 },
+        { shoe: "Nike ZoomX Streakfly", brand: "Nike", status: "Retired", type: "Running", buy_price: 117.99, sell_price: 95.00, mileage: 95.3 },
+        { shoe: "Salomon Aero Glide 3", brand: "Salomon", status: "Retired", type: "Running", buy_price: 151.29, sell_price: 65.00, mileage: 87.6 },
+        { shoe: "Adidas Adizero Boston 13", brand: "Adidas", status: "Retired", type: "Running", buy_price: 124.77, sell_price: 80.00, mileage: 68.2 },
+        { shoe: "Adidas Takumi Sen 10", brand: "Adidas", status: "Retired", type: "Running", buy_price: 93.65, sell_price: 60.00, mileage: 56.8 },
+        { shoe: "Adidas Adizero Boston 12", brand: "Adidas", status: "Retired", type: "Running", buy_price: 94.57, sell_price: 75.00, mileage: 53.3 }
+    ];
+
+    let gearDashboardInitialized = false;
+    let gearAccessUnlocked = window.sessionStorage.getItem('athletics-gear-unlocked') === '1';
+    let gearCurrentData = [];
+    const gearSortState = { key: null, direction: 'asc' };
+    let gearScope = 'overall';
+    const gearChartRef = { mileageChart: null, ppkChart: null, brandChart: null };
+    const gearAccessPassword = 'gear';
+
+    function initializeGearDashboard() {
+        gearUpdateAccessState();
+        if (!gearAccessUnlocked) {
+            return;
+        }
+
+        if (!gearDashboardInitialized) {
+            gearCurrentData = gearSampleData.map(gearWithDerivedCosts);
+            gearSetupSorting();
+            gearSetupScopeToggle();
+            gearRenderTable(gearCurrentData);
+            gearRenderFinanceTable(gearCurrentData);
+            gearDashboardInitialized = true;
+        }
+        gearRenderMetrics(gearScopedData(gearCurrentData));
+        gearDestroyCharts();
+        gearRenderCharts(gearCurrentData);
+    }
+
+    function gearSetupAccessGate() {
+        const form = document.getElementById('gear-lock-form');
+        const input = document.getElementById('gear-lock-input');
+        const message = document.getElementById('gear-lock-message');
+
+        if (!form || !input || !message) {
+            return;
+        }
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (input.value === gearAccessPassword) {
+                gearAccessUnlocked = true;
+                window.sessionStorage.setItem('athletics-gear-unlocked', '1');
+                message.textContent = '';
+                input.value = '';
+                initializeGearDashboard();
+                return;
+            }
+
+            message.textContent = 'Wrong password.';
+            input.select();
+        });
+
+        gearUpdateAccessState();
+    }
+
+    function gearUpdateAccessState() {
+        const panel = document.getElementById('gear-lock-panel');
+        const content = document.getElementById('gear-dashboard-content');
+        if (!panel || !content) {
+            return;
+        }
+
+        panel.hidden = gearAccessUnlocked;
+        content.hidden = !gearAccessUnlocked;
+    }
+
+    function gearScopedData(data) {
+        if (gearScope === 'in_rotation') return data.filter(d => String(d.status || '').toLowerCase() === 'in rotation');
+        if (gearScope === 'retired') return data.filter(d => String(d.status || '').toLowerCase() === 'retired');
+        return data;
+    }
+
+    function gearRenderMetrics(data) {
+        const pairs = data.length;
+        const totalMileage = gearSum(data.map(d => d.mileage));
+        const totalSpend = gearSum(data.map(d => d.price));
+        const weightedPpk = totalMileage > 0 ? totalSpend / totalMileage : gearSum(data.map(d => d.price_per_km)) / Math.max(1, pairs);
+        document.getElementById('gear-pairsCount').textContent = String(pairs);
+        document.getElementById('gear-totalMileage').textContent = gearFmtNum(totalMileage) + ' km';
+        document.getElementById('gear-totalSpend').textContent = gearFmtCur(totalSpend) + ' EUR';
+        document.getElementById('gear-avgPpk').textContent = gearFmtCur(weightedPpk) + ' EUR';
+    }
+
+    function gearRenderTable(data) {
+        const body = document.getElementById('gear-gearRows');
+        body.innerHTML = '';
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.className = gearStatusRowClass(row.status);
+            tr.innerHTML =
+                '<td>' + gearEscape(row.shoe) + '</td>' +
+                '<td>' + gearEscape(row.brand) + '</td>' +
+                '<td>' + gearEscape(row.status || 'In Rotation') + '</td>' +
+                '<td>' + gearEscape(row.type || 'Running') + '</td>' +
+                '<td>' + gearFmtCur(row.price) + ' EUR</td>' +
+                '<td>' + gearFmtNum(row.mileage) + ' km</td>' +
+                '<td>' + gearFmtCur(row.price_per_km) + ' EUR</td>';
+            body.appendChild(tr);
+        });
+    }
+
+    function gearRenderFinanceTable(data) {
+        const body = document.getElementById('gear-financeRows');
+        body.innerHTML = '';
+        data.forEach(row => {
+            const hasBuy = typeof row.buy_price === 'number' && Number.isFinite(row.buy_price);
+            const hasSell = typeof row.sell_price === 'number' && Number.isFinite(row.sell_price);
+            const buyDisplay = hasBuy ? gearFmtCur(row.buy_price) + ' EUR' : gearFmtCur(row.price) + ' EUR';
+            const soldDisplay = hasSell ? gearFmtCur(row.sell_price) + ' EUR' : null;
+            const recovery = (hasBuy && hasSell && row.buy_price > 0) ? ((row.sell_price / row.buy_price) * 100).toFixed(1) + '%' : null;
+            const tr = document.createElement('tr');
+            tr.className = gearStatusRowClass(row.status);
+            tr.innerHTML =
+                '<td>' + gearEscape(row.shoe) + '</td>' +
+                '<td>' + gearEscape(row.status || 'In Rotation') + '</td>' +
+                '<td>' + buyDisplay + '</td>' +
+                '<td class="' + (soldDisplay ? '' : 'g-cell-na') + '">' + (soldDisplay || '\u2014') + '</td>' +
+                '<td>' + gearFmtCur(row.price) + ' EUR</td>' +
+                '<td class="g-cell-recovery ' + (recovery ? '' : 'g-cell-na') + '">' + (recovery || '\u2014') + '</td>' +
+                '<td>' + gearFmtCur(row.price_per_km) + ' EUR</td>';
+            body.appendChild(tr);
+        });
+    }
+
+    function gearWithDerivedCosts(row) {
+        const hasBuy = typeof row.buy_price === 'number' && Number.isFinite(row.buy_price);
+        const hasSell = typeof row.sell_price === 'number' && Number.isFinite(row.sell_price);
+        let netCost = Number(row.price) || 0;
+        if (hasBuy || hasSell) netCost = (row.buy_price || 0) - (row.sell_price || 0);
+        const mileage = Number(row.mileage) || 0;
+        const ppk = mileage > 0 ? netCost / mileage : (Number(row.price_per_km) || 0);
+        return Object.assign({}, row, { price: gearRound2(netCost), price_per_km: gearRound2(ppk) });
+    }
+
+    function gearStatusRowClass(status) {
+        const k = String(status || '').toLowerCase();
+        if (k === 'in rotation') return 'gear-status-row-in-rotation';
+        if (k === 'to sell') return 'gear-status-row-to-sell';
+        if (k === 'sold') return 'gear-status-row-sold';
+        if (k === 'retired') return 'gear-status-row-retired';
+        return '';
+    }
+
+    function gearRenderCharts(data) {
+        const cd = gearScopedData(data);
+        const labels = cd.map(d => d.shoe);
+        gearChartRef.mileageChart = new Chart(document.getElementById('gear-mileageChart'), {
+            type: 'bar',
+            data: { labels: labels, datasets: [{ label: 'KM', data: cd.map(d => gearRound2(d.mileage)), backgroundColor: 'rgba(219,91,33,0.75)', borderColor: 'rgba(159,61,21,1)', borderWidth: 1, borderRadius: 6 }] },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Kilometers' } } } }
+        });
+        gearChartRef.ppkChart = new Chart(document.getElementById('gear-ppkChart'), {
+            type: 'bar',
+            data: { labels: labels, datasets: [{ label: 'Net EUR / KM', data: cd.map(d => gearRound2(d.price_per_km)), backgroundColor: 'rgba(38,121,196,0.72)', borderColor: 'rgba(19,76,127,1)', borderWidth: 1, borderRadius: 6 }] },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Net EUR per km' } } } }
+        });
+        const bd = gearAggregateByBrand(cd);
+        gearChartRef.brandChart = new Chart(document.getElementById('gear-brandChart'), {
+            type: 'doughnut',
+            data: { labels: bd.labels, datasets: [{ data: bd.values, backgroundColor: ['#db5b21','#2679c4','#0f8a5f','#9f3d15','#e1a838','#5c4d7d'] }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+        });
+    }
+
+    function gearDestroyCharts() {
+        Object.keys(gearChartRef).forEach(function(k) { if (gearChartRef[k]) { gearChartRef[k].destroy(); gearChartRef[k] = null; } });
+    }
+
+    function gearAggregateByBrand(data) {
+        const map = new Map();
+        data.forEach(function(row) { const b = row.brand || 'Unknown'; map.set(b, (map.get(b) || 0) + 1); });
+        const entries = Array.from(map.entries()).sort(function(a, b) { return b[1] - a[1]; });
+        return { labels: entries.map(function(x) { return x[0]; }), values: entries.map(function(x) { return x[1]; }) };
+    }
+
+    function gearSetupSorting() {
+        document.querySelectorAll('.gear-sort-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const key = btn.getAttribute('data-gear-sort');
+                if (!key) return;
+                if (gearSortState.key === key) {
+                    gearSortState.direction = gearSortState.direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                    gearSortState.key = key;
+                    gearSortState.direction = 'asc';
+                }
+                gearSortData();
+                gearRenderTable(gearCurrentData);
+                gearRenderFinanceTable(gearCurrentData);
+                gearUpdateSortIndicators();
+            });
+        });
+    }
+
+    function gearSetupScopeToggle() {
+        document.querySelectorAll('.gear-scope-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const scope = btn.getAttribute('data-gear-scope');
+                if (!scope || scope === gearScope) return;
+                gearScope = scope;
+                gearUpdateScopeButtons();
+                gearRenderMetrics(gearScopedData(gearCurrentData));
+                gearDestroyCharts();
+                gearRenderCharts(gearCurrentData);
+            });
+        });
+    }
+
+    function gearUpdateScopeButtons() {
+        document.querySelectorAll('.gear-scope-btn').forEach(function(btn) {
+            btn.classList.toggle('gear-scope-active', btn.getAttribute('data-gear-scope') === gearScope);
+        });
+    }
+
+    function gearSortData() {
+        const key = gearSortState.key;
+        if (!key) return;
+        const dir = gearSortState.direction === 'asc' ? 1 : -1;
+        const numeric = new Set(['price', 'mileage', 'price_per_km']);
+        gearCurrentData.sort(function(a, b) {
+            const av = a[key], bv = b[key];
+            if (numeric.has(key)) return ((Number(av) || 0) - (Number(bv) || 0)) * dir;
+            return String(av || '').localeCompare(String(bv || '')) * dir;
+        });
+    }
+
+    function gearUpdateSortIndicators() {
+        document.querySelectorAll('.gear-sort-indicator').forEach(function(n) { n.textContent = '-'; });
+        if (!gearSortState.key) return;
+        const icon = gearSortState.direction === 'asc' ? '\u25b2' : '\u25bc';
+        const node = document.getElementById('gear-sort-' + gearSortState.key);
+        if (node) node.textContent = icon;
+    }
+
+    function gearFmtCur(v) { return gearRound2(v).toFixed(2); }
+    function gearFmtNum(v) { return gearRound2(v).toLocaleString(); }
+    function gearRound2(v) { return Math.round((Number(v) || 0) * 100) / 100; }
+    function gearSum(arr) { return arr.reduce(function(a, c) { return a + (Number(c) || 0); }, 0); }
+    function gearEscape(v) {
+        return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    gearSetupAccessGate();
+</script>
 <script src="js/athletics.js"></script>
 
 </body>

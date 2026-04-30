@@ -81,6 +81,36 @@
             padding: 5px;
             text-align: center;
         }
+        .infobox-title {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          transform: translateX(14px);
+        }
+        .infobox-title-text {
+          display: inline-flex;
+          align-items: center;
+        }
+        .infobox-title-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          color: #111;
+          text-decoration: none;
+          flex: 0 0 auto;
+        }
+        .infobox-title-link:hover {
+          color: #db5b21;
+        }
+        .infobox-title-link svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+          fill: currentColor;
+        }
         .infobox td {
             padding: 5px;
         }
@@ -167,6 +197,99 @@
         .collapsible-content {
           margin-top: 10px;
         }
+        .progression-intro {
+          margin: 0 0 12px;
+          color: #444;
+        }
+        .progression-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(280px, 1fr));
+          gap: 16px;
+        }
+        .progression-card {
+          background: #fff;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+          padding: 14px;
+        }
+        .progression-card-wide {
+          grid-column: 1 / -1;
+        }
+        .progression-card h3 {
+          margin: 0 0 4px;
+          font-size: 1.05rem;
+        }
+        .progression-subtitle {
+          margin: 0 0 6px;
+          color: #666;
+          font-size: 0.92em;
+        }
+        .progression-stats {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(160px, 1fr));
+          gap: 8px 12px;
+          margin: 8px 0 10px;
+          font-size: 0.92em;
+        }
+        .progression-stat {
+          color: #333;
+          padding: 6px 8px;
+          border: 1px solid #ececec;
+          border-radius: 6px;
+          background: #fafafa;
+        }
+        .progression-canvas-wrap {
+          position: relative;
+          height: 300px;
+        }
+        .progression-empty {
+          margin: 12px 0 0;
+          color: #666;
+          font-size: 0.95em;
+        }
+        abbr.progression-tip {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: #bbb;
+          color: #fff;
+          font-size: 0.65rem;
+          font-weight: 700;
+          font-style: normal;
+          cursor: help;
+          text-decoration: none;
+          vertical-align: middle;
+          line-height: 1;
+          margin-left: 4px;
+        }
+        abbr.progression-tip:hover {
+          background: #555;
+        }
+        .progression-effort-title {
+          margin: 12px 0 6px;
+          font-size: 0.92em;
+          color: #555;
+        }
+        .progression-effort-list {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          color: #333;
+          font-size: 0.9em;
+          display: grid;
+          gap: 6px;
+        }
+        .progression-effort-list li {
+          margin: 0;
+          padding: 6px 8px;
+          border: 1px solid #eee;
+          border-radius: 6px;
+          background: #fcfcfc;
+        }
         .section table {
             width: 100%;
             border-collapse: collapse;
@@ -186,6 +309,9 @@
             font-size: 14px;
         }
         @media (max-width: 768px) {
+          .progression-grid {
+            grid-template-columns: 1fr;
+          }
             .site-nav-inner {
                 flex-direction: column;
                 align-items: flex-start;
@@ -231,7 +357,16 @@
   <div class="infobox">
     <table>
       <tr>
-        <th colspan="2">Tiago Eira da Silva</th>
+        <th colspan="2">
+          <span class="infobox-title">
+            <span class="infobox-title-text">Tiago Eira da Silva</span>
+            <a class="infobox-title-link" href="https://www.strava.com/athletes/117794191?oq=tiago%20" target="_blank" rel="noopener noreferrer" aria-label="Open Strava profile" title="Strava profile">
+              <svg viewBox="0 0 32 32" role="presentation" focusable="false">
+                <path d="M 14.179688 2 L 5.9003906 18 L 10.779297 18 L 14.179688 11.619141 L 17.560547 18 L 22.400391 18 L 14.179688 2 z M 22.400391 18 L 20 22.789062 L 17.560547 18 L 13.859375 18 L 20 30 L 26.099609 18 L 22.400391 18 z"></path>
+              </svg>
+            </a>
+          </span>
+        </th>
       </tr>
       <tr>
         <td colspan="2">
@@ -361,7 +496,7 @@
           <span class="collapsible-arrow" aria-hidden="true">▾</span>
         </summary>
         <div class="collapsible-content">
-      <table>
+      <table id="tiago-results-table">
         <thead>
           <tr>
             <th>Year</th>
@@ -479,6 +614,67 @@
           <span class="collapsible-label">
             <span class="section-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                <path d="M4 16.5h4.5"></path>
+                <path d="M4 12h8.5"></path>
+                <path d="M4 7.5H13"></path>
+                <path d="M16 18l4-4-4-4"></path>
+                <path d="M10 14h10"></path>
+              </svg>
+            </span>
+            <span>Progression</span>
+          </span>
+          <span class="collapsible-arrow" aria-hidden="true">▾</span>
+        </summary>
+        <div class="collapsible-content">
+          <p class="progression-intro">10K road progression based on Tiago's official results listed on this page.</p>
+          <div class="progression-grid">
+            <section class="progression-card">
+              <h3>10K (Road) Progression</h3>
+              <p class="progression-subtitle">Lower is better</p>
+              <div class="progression-stats" aria-label="10K trend stats">
+                <span class="progression-stat"><strong>Best:</strong> <span id="tiago-progression-10k-stat-best">--</span></span>
+                <span class="progression-stat"><strong>Avg last 3:</strong> <span id="tiago-progression-10k-stat-avg">--</span></span>
+                <span class="progression-stat"><strong>Since first:</strong> <span id="tiago-progression-10k-stat-delta">--</span></span>
+              </div>
+              <div class="progression-canvas-wrap">
+                <canvas id="tiago-progression-10k-chart" aria-label="10K road progression chart" role="img"></canvas>
+              </div>
+              <p id="tiago-progression-10k-empty" class="progression-empty" hidden>Need at least 2 official 10K road results to draw progression.</p>
+            </section>
+
+            <section class="progression-card">
+              <h3>10K Effort-Adjusted Progression <abbr class="progression-tip" title="Adjusted pace = raw pace / ((1 + elevation gain per km / 250) x surface factor). Harder courses normalize to faster flat-equivalent pace.">?</abbr></h3>
+              <p class="progression-subtitle">Flat-equivalent (lower is better)</p>
+              <div class="progression-stats" aria-label="10K effort-adjusted trend stats">
+                <span class="progression-stat"><strong>Best adjusted:</strong> <span id="tiago-progression-10k-stat-adjusted-best">--</span></span>
+                <span class="progression-stat"><strong>Avg last 3 adjusted:</strong> <span id="tiago-progression-10k-stat-adjusted-avg">--</span></span>
+              </div>
+              <div class="progression-canvas-wrap">
+                <canvas id="tiago-progression-10k-effort-chart" aria-label="10K effort-adjusted progression chart" role="img"></canvas>
+              </div>
+              <p id="tiago-progression-10k-effort-empty" class="progression-empty" hidden>Need at least 2 official 10K road results to draw adjusted progression.</p>
+            </section>
+
+            <section class="progression-card progression-card-wide">
+              <h3>Effort Index Summary</h3>
+              <p class="progression-subtitle">Pace and elevation adjusted overview across all 10K races above.</p>
+              <div class="progression-stats" aria-label="10K effort index summary stats">
+                <span class="progression-stat"><strong>Best EI:</strong> <span id="tiago-progression-10k-stat-ei">--</span></span>
+              </div>
+              <p class="progression-effort-title">Effort Index (EI) by race:</p>
+              <ul id="tiago-progression-10k-effort-list" class="progression-effort-list"></ul>
+            </section>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="section">
+      <details class="collapsible-section">
+        <summary class="collapsible-summary">
+          <span class="collapsible-label">
+            <span class="section-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation" focusable="false">
                 <path d="M4.5 18c2.8-3.8 6.6-6.1 11.5-7.4"></path>
                 <path d="M17.2 10.2V5.2"></path>
                 <path d="M17.2 5.2l2.8 1.7"></path>
@@ -551,6 +747,380 @@
 
   </div> <!-- End of .main-content -->
 </div> <!-- End of .container -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  let tiagoProgression10kChart = null;
+  let tiagoProgression10kEffortChart = null;
+  const tiagoTenKElevationByCompetition = {
+    'XIX S. Silvestre Cidade de Vila Real': 104,
+    'Meia Maratona de Gaia': 38,
+    'Corrida da Liberdade': 98
+  };
+  const tiagoTenKSurfaceFactorByCompetition = {
+    'Corrida da Liberdade': 1.05
+  };
+
+  function tiagoComputeEffortIndex(seconds, distanceKm, elevationGainMeters, surfaceFactor) {
+    const safeDistance = distanceKm > 0 ? distanceKm : 1;
+    const paceSecondsPerKm = seconds / safeDistance;
+    const gainPerKm = elevationGainMeters / safeDistance;
+
+    // EI formula: pace scaled by climbing load (1 point per ~2.5 m/km) and optional surface factor.
+    const climbLoadMultiplier = 1 + (gainPerKm / 250);
+    const terrainMultiplier = typeof surfaceFactor === 'number' ? surfaceFactor : 1;
+    return paceSecondsPerKm * climbLoadMultiplier * terrainMultiplier;
+  }
+
+  function tiagoFormatEffortIndex(value) {
+    if (typeof value !== 'number' || Number.isNaN(value)) {
+      return '--';
+    }
+    return value.toFixed(1);
+  }
+
+  function tiagoParseTimeToSeconds(value) {
+    const clean = (value || '').trim();
+    if (!clean || clean === '--') {
+      return null;
+    }
+
+    const parts = clean.split(':');
+    if (parts.length === 3) {
+      const hours = Number(parts[0]);
+      const minutes = Number(parts[1]);
+      const seconds = Number(parts[2]);
+      if ([hours, minutes, seconds].some(Number.isNaN)) {
+        return null;
+      }
+      return hours * 3600 + minutes * 60 + seconds;
+    }
+
+    if (parts.length === 2) {
+      const minutes = Number(parts[0]);
+      const seconds = Number(parts[1]);
+      if ([minutes, seconds].some(Number.isNaN)) {
+        return null;
+      }
+      return minutes * 60 + seconds;
+    }
+
+    const onlySeconds = Number(clean);
+    return Number.isNaN(onlySeconds) ? null : onlySeconds;
+  }
+
+  function tiagoFormatDurationReadable(totalSeconds) {
+    if (typeof totalSeconds !== 'number' || Number.isNaN(totalSeconds)) {
+      return '--';
+    }
+
+    const rounded = Math.round(totalSeconds);
+    const hours = Math.floor(rounded / 3600);
+    const minutes = Math.floor((rounded % 3600) / 60);
+    const seconds = rounded % 60;
+
+    if (hours > 0) {
+      return `${hours}h${minutes}m${seconds}s`;
+    }
+
+    return `${minutes}m${seconds}s`;
+  }
+
+  function tiagoFormatSecondsForLabel(totalSeconds) {
+    if (typeof totalSeconds !== 'number' || Number.isNaN(totalSeconds)) {
+      return '--';
+    }
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds - minutes * 60;
+    return `${minutes}:${seconds.toFixed(3).padStart(6, '0').replace(/\.000$/, '')}`;
+  }
+
+  function tiagoRead10kProgressionSeries() {
+    const rows = document.querySelectorAll('#tiago-results-table tbody tr');
+    const series = [];
+
+    rows.forEach((row) => {
+      const cells = row.querySelectorAll('td');
+      if (cells.length !== 6) {
+        return;
+      }
+
+      const yearText = cells[0].textContent.trim();
+      const competitionText = cells[1].textContent.trim();
+      const eventText = cells[4].textContent.trim();
+      const resultText = cells[5].textContent.trim();
+
+      if (eventText !== '10K') {
+        return;
+      }
+
+      const seconds = tiagoParseTimeToSeconds(resultText);
+      if (seconds === null) {
+        return;
+      }
+
+      const distanceKm = 10;
+      const elevationGain = tiagoTenKElevationByCompetition[competitionText] || 0;
+      const surfaceFactor = tiagoTenKSurfaceFactorByCompetition[competitionText] || 1;
+      const effortIndex = tiagoComputeEffortIndex(seconds, distanceKm, elevationGain, surfaceFactor);
+      const paceSecondsPerKm = seconds / distanceKm;
+      const gainPerKm = elevationGain / distanceKm;
+      const normalizationFactor = (1 + (gainPerKm / 250)) * surfaceFactor;
+      const adjustedSeconds = paceSecondsPerKm / normalizationFactor;
+
+      series.push({
+        label: `${competitionText} (${yearText})`,
+        shortLabel: tiagoShortCompetitionLabel(competitionText),
+        competitionText: competitionText,
+        yearText: yearText,
+        seconds: seconds,
+        elevationGain: elevationGain,
+        surfaceFactor: surfaceFactor,
+        effortIndex: effortIndex,
+        adjustedSeconds: adjustedSeconds
+      });
+    });
+
+    return series;
+  }
+
+  function tiagoShortCompetitionLabel(competitionText) {
+    if (competitionText === 'XIX S. Silvestre Cidade de Vila Real') return 'Vila Real';
+    if (competitionText === 'Meia Maratona de Gaia') return 'Gaia';
+    if (competitionText === 'Corrida da Liberdade') return 'Chaves';
+    return competitionText;
+  }
+
+  function tiagoSet10kTrendStats(series) {
+    const bestEl = document.getElementById('tiago-progression-10k-stat-best');
+    const avgEl = document.getElementById('tiago-progression-10k-stat-avg');
+    const deltaEl = document.getElementById('tiago-progression-10k-stat-delta');
+    const bestEiEl = document.getElementById('tiago-progression-10k-stat-ei');
+    const effortListEl = document.getElementById('tiago-progression-10k-effort-list');
+    if (!bestEl || !avgEl || !deltaEl || !bestEiEl || !effortListEl) {
+      return;
+    }
+
+    if (series.length === 0) {
+      bestEl.textContent = '--';
+      avgEl.textContent = '--';
+      deltaEl.textContent = '--';
+      bestEiEl.textContent = '--';
+      effortListEl.innerHTML = '';
+      return;
+    }
+
+    const bestSeconds = Math.min(...series.map((item) => item.seconds));
+    bestEl.textContent = tiagoFormatDurationReadable(bestSeconds);
+
+    const lastThree = series.slice(-3);
+    const avgLastThree = lastThree.reduce((sum, item) => sum + item.seconds, 0) / lastThree.length;
+    avgEl.textContent = tiagoFormatDurationReadable(avgLastThree);
+
+    if (series.length < 2) {
+      deltaEl.textContent = '--';
+    } else {
+      const first = series[0].seconds;
+      const latest = series[series.length - 1].seconds;
+      const delta = first - latest;
+      const deltaAbs = Math.abs(delta);
+
+      if (deltaAbs < 0.05) {
+        deltaEl.textContent = 'No change';
+      } else if (delta > 0) {
+        deltaEl.textContent = `${tiagoFormatDurationReadable(deltaAbs)} faster`;
+      } else {
+        deltaEl.textContent = `${tiagoFormatDurationReadable(deltaAbs)} slower`;
+      }
+    }
+
+    const bestEi = Math.min(...series.map((item) => item.effortIndex));
+    bestEiEl.textContent = tiagoFormatEffortIndex(bestEi);
+
+    effortListEl.innerHTML = '';
+    series.forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = `${item.competitionText} (${item.yearText}): EI ${tiagoFormatEffortIndex(item.effortIndex)} | Elev +${item.elevationGain} m`;
+      effortListEl.appendChild(li);
+    });
+  }
+
+  function tiagoSet10kAdjustedStats(series) {
+    const bestEl = document.getElementById('tiago-progression-10k-stat-adjusted-best');
+    const avgEl = document.getElementById('tiago-progression-10k-stat-adjusted-avg');
+    if (!bestEl || !avgEl) {
+      return;
+    }
+
+    if (series.length === 0) {
+      bestEl.textContent = '--';
+      avgEl.textContent = '--';
+      return;
+    }
+
+    const bestAdjusted = Math.min(...series.map((item) => item.adjustedSeconds));
+    bestEl.textContent = tiagoFormatSecondsForLabel(bestAdjusted);
+
+    const lastThree = series.slice(-3);
+    const avgLastThree = lastThree.reduce((sum, item) => sum + item.adjustedSeconds, 0) / lastThree.length;
+    avgEl.textContent = tiagoFormatSecondsForLabel(avgLastThree);
+  }
+
+  function initializeTiagoProgressionChart() {
+    const canvas = document.getElementById('tiago-progression-10k-chart');
+    const emptyState = document.getElementById('tiago-progression-10k-empty');
+    const effortCanvas = document.getElementById('tiago-progression-10k-effort-chart');
+    const effortEmptyState = document.getElementById('tiago-progression-10k-effort-empty');
+    if (!canvas || !emptyState || !effortCanvas || !effortEmptyState) {
+      return;
+    }
+
+    const series = tiagoRead10kProgressionSeries();
+    tiagoSet10kTrendStats(series);
+    tiagoSet10kAdjustedStats(series);
+
+    if (typeof Chart === 'undefined' || series.length < 2) {
+      canvas.style.display = 'none';
+      emptyState.hidden = series.length >= 2;
+      effortCanvas.style.display = 'none';
+      effortEmptyState.hidden = series.length >= 2;
+      return;
+    }
+
+    canvas.style.display = '';
+    emptyState.hidden = true;
+    effortCanvas.style.display = '';
+    effortEmptyState.hidden = true;
+
+    if (tiagoProgression10kChart) {
+      tiagoProgression10kChart.destroy();
+    }
+    if (tiagoProgression10kEffortChart) {
+      tiagoProgression10kEffortChart.destroy();
+    }
+
+    tiagoProgression10kChart = new Chart(canvas.getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: series.map((item) => item.shortLabel),
+        datasets: [{
+          label: '10K Time',
+          data: series.map((item) => item.seconds),
+          borderColor: '#db5b21',
+          backgroundColor: 'rgba(219, 91, 33, 0.14)',
+          pointBackgroundColor: '#db5b21',
+          pointBorderColor: '#9f3d15',
+          pointRadius: 4,
+          pointHoverRadius: 5,
+          tension: 0.25,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              title: function(context) {
+                const point = series[context[0].dataIndex];
+                return point.label;
+              },
+              label: function(context) {
+                const point = series[context.dataIndex];
+                return `Time: ${tiagoFormatSecondsForLabel(context.parsed.y)} | EI: ${tiagoFormatEffortIndex(point.effortIndex)} | Elev +${point.elevationGain} m`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: function(value) {
+                return tiagoFormatSecondsForLabel(value);
+              }
+            },
+            title: {
+              display: true,
+              text: 'Time'
+            }
+          },
+          x: {
+            ticks: {
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }
+        }
+      }
+    });
+
+    tiagoProgression10kEffortChart = new Chart(effortCanvas.getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: series.map((item) => item.shortLabel),
+        datasets: [{
+          label: '10K Effort-Adjusted Time',
+          data: series.map((item) => item.adjustedSeconds),
+          borderColor: '#2679c4',
+          backgroundColor: 'rgba(38, 121, 196, 0.14)',
+          pointBackgroundColor: '#2679c4',
+          pointBorderColor: '#134c7f',
+          pointRadius: 4,
+          pointHoverRadius: 5,
+          tension: 0.25,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              title: function(context) {
+                const point = series[context[0].dataIndex];
+                return point.label;
+              },
+              label: function(context) {
+                const point = series[context.dataIndex];
+                return `Adjusted: ${tiagoFormatSecondsForLabel(context.parsed.y)} | Elev +${point.elevationGain} m | Surface x${point.surfaceFactor.toFixed(2)}`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: function(value) {
+                return tiagoFormatSecondsForLabel(value);
+              }
+            },
+            title: {
+              display: true,
+              text: 'Adjusted Time'
+            }
+          },
+          x: {
+            ticks: {
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }
+        }
+      }
+    });
+  }
+
+  initializeTiagoProgressionChart();
+</script>
 
 </body>
 </html>

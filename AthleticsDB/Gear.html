@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Gear Dashboard</title>
+    <link rel="stylesheet" href="css/athletics.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            background-color: #f9f9f9;
+            line-height: 1.5;
+        }
+
+        .wrap {
+            width: 95%;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding-bottom: 18px;
+        }
+
+        .profile-header {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        h1 {
+            margin: 0;
+            color: #111;
+            font-size: 2em;
+        }
+
+        .sub {
+            margin: 4px 0 0;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        .card,
+        .metric {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .metrics {
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .metric {
+            padding: 12px;
+        }
+
+        .metric .k {
+            margin: 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .metric .v {
+            margin: 6px 0 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .grid {
+            padding: 0 20px;
+            margin-top: 14px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(260px, 1fr));
+            gap: 12px;
+        }
+
+        .card {
+            padding: 12px;
+        }
+
+        .card h2 {
+            margin: 0 0 8px;
+            font-size: 1.02rem;
+        }
+
+        .chart-box {
+            position: relative;
+            height: 280px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            padding: 0 20px;
+            margin-top: 14px;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: 900px;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .data-table th {
+            background: #faf7f5;
+            font-size: 0.82rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: #3c4047;
+        }
+
+        .sort-btn {
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            font: inherit;
+            text-transform: inherit;
+            letter-spacing: inherit;
+            color: inherit;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sort-indicator {
+            color: #777;
+            font-size: 0.95em;
+            min-width: 12px;
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .status-row-in-rotation td {
+            background-color: #f3f8ff;
+        }
+
+        .status-row-to-sell td {
+            background-color: #fff3e8;
+        }
+
+        .status-row-retired td {
+            background-color: #fff0f0;
+        }
+
+        .status-row-sold td {
+            background-color: #ffeaea;
+        }
+
+        .section-heading {
+            padding: 18px 20px 6px;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .finance-table td.cell-na {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .finance-table td.cell-recovery {
+            font-weight: 600;
+        }
+
+        abbr.tip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #bbb;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            font-style: normal;
+            cursor: help;
+            text-decoration: none;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        abbr.tip:hover {
+            background: #555;
+        }
+
+        .status {
+            padding: 0 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .status strong {
+            color: #111;
+        }
+
+        .chart-filter {
+            padding: 0 20px;
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chart-filter-label {
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 600;
+        }
+
+        .chart-filter-btn {
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #333;
+            border-radius: 999px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.88rem;
+        }
+
+        .chart-filter-btn.active {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        @media (max-width: 980px) {
+            .metrics {
+                grid-template-columns: repeat(2, minmax(140px, 1fr));
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .wrap {
+                width: calc(100% - 16px);
+                margin: 8px;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+                padding: 0 10px;
+            }
+
+            .grid,
+            .chart-filter,
+            .table-wrap,
+            .section-heading,
+            .status {
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 1.45rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="profile-header">
+            <h1>Running Gear Dashboard</h1>
+            <p class="sub">Track your shoe usage, status, and cost efficiency.</p>
+            <div class="profile-links" aria-label="Profile links">
+                <a class="profile-link" href="../AthleticsDB.html">Back to Athlete Profile</a>
+                <a class="profile-link" href="../shoes/index.html">Open Shoe Reviews</a>
+            </div>
+        </header>
+
+        <section class="chart-filter" aria-label="Data scope">
+            <span class="chart-filter-label">View scope:</span>
+            <button type="button" class="chart-filter-btn active" data-chart-scope="overall">Overall</button>
+            <button type="button" class="chart-filter-btn" data-chart-scope="in_rotation">In Rotation</button>
+            <button type="button" class="chart-filter-btn" data-chart-scope="retired">Retired</button>
+        </section>
+
+        <section class="metrics" aria-label="Summary metrics">
+            <article class="metric">
+                <p class="k">Pairs Tracked</p>
+                <p class="v" id="pairsCount">0</p>
+            </article>
+            <article class="metric">
+                <p class="k">Total Mileage</p>
+                <p class="v" id="totalMileage">0 km</p>
+            </article>
+            <article class="metric">
+                <p class="k">Total Net Cost</p>
+                <p class="v" id="totalSpend">0 EUR</p>
+            </article>
+            <article class="metric">
+                <p class="k">Avg Net Cost per KM</p>
+                <p class="v" id="avgPpk">0 EUR</p>
+            </article>
+        </section>
+
+        <section class="grid" aria-label="Charts">
+            <article class="card">
+                <h2>Mileage by Shoe</h2>
+                <div class="chart-box">
+                    <canvas id="mileageChart"></canvas>
+                </div>
+            </article>
+            <article class="card">
+                <h2>Net Cost per KM by Shoe</h2>
+                <div class="chart-box">
+                    <canvas id="ppkChart"></canvas>
+                </div>
+            </article>
+            <article class="card">
+                <h2>Brand Distribution (Pairs)</h2>
+                <div class="chart-box">
+                    <canvas id="brandChart"></canvas>
+                </div>
+            </article>
+        </section>
+
+        <h3 class="section-heading">Performance</h3>
+        <section class="table-wrap" aria-label="Shoe data table">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th><button class="sort-btn" data-sort="shoe">Shoe <span class="sort-indicator" id="sort-shoe">-</span></button></th>
+                        <th><button class="sort-btn" data-sort="brand">Brand <span class="sort-indicator" id="sort-brand">-</span></button></th>
+                        <th><button class="sort-btn" data-sort="status">Status <span class="sort-indicator" id="sort-status">-</span></button></th>
+                        <th><button class="sort-btn" data-sort="type">Type <span class="sort-indicator" id="sort-type">-</span></button></th>
+                        <th><button class="sort-btn" data-sort="price">Net Cost <abbr class="tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="sort-indicator" id="sort-price">-</span></button></th>
+                        <th><button class="sort-btn" data-sort="mileage">Mileage <span class="sort-indicator" id="sort-mileage">-</span></button></th>
+                        <th><button class="sort-btn" data-sort="price_per_km">Net Cost/KM <abbr class="tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="sort-indicator" id="sort-price_per_km">-</span></button></th>
+                    </tr>
+                </thead>
+                <tbody id="gearRows"></tbody>
+            </table>
+        </section>
+
+        <h3 class="section-heading">Investment &amp; Recovery</h3>
+        <section class="table-wrap" aria-label="Finance table">
+            <table class="data-table finance-table">
+                <thead>
+                    <tr>
+                        <th>Shoe</th>
+                        <th>Status</th>
+                        <th>Bought</th>
+                        <th>Sold For</th>
+                        <th>Net Cost <abbr class="tip" title="Retired shoe net cost = buy price minus sold price">?</abbr></th>
+                        <th>Recovery %</th>
+                        <th>Net Cost/KM <abbr class="tip" title="Retired shoe net cost = buy price minus sold price">?</abbr></th>
+                    </tr>
+                </thead>
+                <tbody id="financeRows"></tbody>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        const sampleData = [
+            { shoe: "Adidas Adizero Evo SL", brand: "Adidas", status: "In Rotation", type: "Running", price: 120.00, mileage: 285.6, price_per_km: 0.42 },
+            { shoe: "ASICS Trabuco Max 3", brand: "ASICS", status: "In Rotation", type: "Trail", price: 92.64, mileage: 127.9, price_per_km: 0.72 },
+            { shoe: "Nike Vomero Plus", brand: "Nike", status: "In Rotation", type: "Running", price: 77.89, mileage: 99.6, price_per_km: 0.78 },
+            { shoe: "Nike Fly 6", brand: "Nike", status: "In Rotation", type: "Running", price: 101.00, mileage: 44.9, price_per_km: 2.25 },
+            { shoe: "Anta C202 Zone 2", brand: "Anta", status: "In Rotation", type: "Running", price: 98.29, mileage: 63.0, price_per_km: 1.56 },
+            { shoe: "PUMA Nitro Elite 4", brand: "PUMA", status: "In Rotation", type: "Running", price: 145.00, mileage: 18.5, price_per_km: 7.84 },
+            { shoe: "PUMA MagMax Nitro 2", brand: "PUMA", status: "In Rotation", type: "Running", price: 106.44, mileage: 30.2, price_per_km: 3.52 },
+            { shoe: "Kiprun TR2", brand: "Kiprun", status: "In Rotation", type: "Trail", price: 14.00, mileage: 16.5, price_per_km: 0.85 },
+            { shoe: "ASICS Gel Nimbus 27 TR", brand: "ASICS", status: "To Sell", type: "Trail", price: 129.99, mileage: 200.5, price_per_km: 0.65 },
+            { shoe: "Adidas Equipment Adios Pro", brand: "Adidas", status: "To Sell", type: "Running", price: 94.20, mileage: 17.4, price_per_km: 5.41 },
+            { shoe: "Adidas Adizero Adios 9", brand: "Adidas", status: "To Sell", type: "Running", price: 80.47, mileage: 4.3, price_per_km: 0.81 },
+            { shoe: "Nike Pegasus Trail 4", brand: "Nike", status: "Retired", type: "Trail", buy_price: 82.35, sell_price: 50.00, mileage: 466.3 },
+            { shoe: "Asics Novablast 4", brand: "ASICS", status: "Retired", type: "Running", buy_price: 99.15, sell_price: 50.00, mileage: 385.8 },
+            { shoe: "Kiprun KD900X LD", brand: "Kiprun", status: "Retired", type: "Running", buy_price: 141.09, sell_price: 60.00, mileage: 115.1 },
+            { shoe: "Nike ZoomX Streakfly", brand: "Nike", status: "Retired", type: "Running", buy_price: 117.99, sell_price: 95.00, mileage: 95.3 },
+            { shoe: "Salomon Aero Glide 3", brand: "Salomon", status: "Retired", type: "Running", buy_price: 151.29, sell_price: 65.00, mileage: 87.6 },
+            { shoe: "Adidas Adizero Boston 13", brand: "Adidas", status: "Retired", type: "Running", buy_price: 124.77, sell_price: 80.00, mileage: 68.2 },
+            { shoe: "Adidas Takumi Sen 10", brand: "Adidas", status: "Retired", type: "Running", buy_price: 93.65, sell_price: 60.00, mileage: 56.8 },
+            { shoe: "Adidas Adizero Boston 12", brand: "Adidas", status: "Retired", type: "Running", buy_price: 94.57, sell_price: 75.00, mileage: 53.3 }
+        ];
+
+        let currentData = sampleData.map(withDerivedCosts);
+        const sortState = { key: null, direction: "asc" };
+        let chartScope = "overall";
+
+        const chartRef = {
+            mileageChart: null,
+            ppkChart: null,
+            brandChart: null
+        };
+
+        function scopedData(data) {
+            if (chartScope === "in_rotation") return data.filter((d) => String(d.status || "").toLowerCase() === "in rotation");
+            if (chartScope === "retired") return data.filter((d) => String(d.status || "").toLowerCase() === "retired");
+            return data;
+        }
+
+        function renderDashboard(data) {
+            const scoped = scopedData(data);
+            renderMetrics(scoped);
+            renderTable(data);
+            renderFinanceTable(data);
+            renderCharts(data);
+        }
+
+        function renderMetrics(data) {
+            const pairs = data.length;
+            const totalMileage = sum(data.map((d) => d.mileage));
+            const totalSpend = sum(data.map((d) => d.price));
+
+            const weightedPpk = totalMileage > 0 ? totalSpend / totalMileage : sum(data.map((d) => d.price_per_km)) / Math.max(1, pairs);
+
+            document.getElementById("pairsCount").textContent = String(pairs);
+            document.getElementById("totalMileage").textContent = `${formatNumber(totalMileage)} km`;
+            document.getElementById("totalSpend").textContent = `${formatCurrency(totalSpend)} EUR`;
+            document.getElementById("avgPpk").textContent = `${formatCurrency(weightedPpk)} EUR`;
+        }
+
+        function renderTable(data) {
+            const body = document.getElementById("gearRows");
+            body.innerHTML = "";
+
+            data.forEach((row) => {
+                const tr = document.createElement("tr");
+                tr.className = statusRowClass(row.status);
+                tr.innerHTML = `
+                    <td>${escapeHtml(row.shoe)}</td>
+                    <td>${escapeHtml(row.brand)}</td>
+                    <td>${escapeHtml(row.status || "In Rotation")}</td>
+                    <td>${escapeHtml(row.type || "Running")}</td>
+                    <td>${formatCurrency(row.price)} EUR</td>
+                    <td>${formatNumber(row.mileage)} km</td>
+                    <td>${formatCurrency(row.price_per_km)} EUR</td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+
+        function renderFinanceTable(data) {
+            const body = document.getElementById("financeRows");
+            body.innerHTML = "";
+
+            data.forEach((row) => {
+                const hasBuy = typeof row.buy_price === "number" && Number.isFinite(row.buy_price);
+                const hasSell = typeof row.sell_price === "number" && Number.isFinite(row.sell_price);
+
+                const buyDisplay = hasBuy ? formatCurrency(row.buy_price) + " EUR" : formatCurrency(row.price) + " EUR";
+                const soldDisplay = hasSell ? formatCurrency(row.sell_price) + " EUR" : null;
+                const recovery = (hasBuy && hasSell && row.buy_price > 0)
+                    ? ((row.sell_price / row.buy_price) * 100).toFixed(1) + "%"
+                    : null;
+
+                const tr = document.createElement("tr");
+                tr.className = statusRowClass(row.status);
+                tr.innerHTML = `
+                    <td>${escapeHtml(row.shoe)}</td>
+                    <td>${escapeHtml(row.status || "In Rotation")}</td>
+                    <td>${buyDisplay}</td>
+                    <td class="${soldDisplay ? "" : "cell-na"}">${soldDisplay || "\u2014"}</td>
+                    <td>${formatCurrency(row.price)} EUR</td>
+                    <td class="cell-recovery ${recovery ? "" : "cell-na"}">${recovery || "\u2014"}</td>
+                    <td>${formatCurrency(row.price_per_km)} EUR</td>
+                `;
+                body.appendChild(tr);
+            });
+        }
+
+        function withDerivedCosts(row) {
+            const hasBuy = typeof row.buy_price === "number" && Number.isFinite(row.buy_price);
+            const hasSell = typeof row.sell_price === "number" && Number.isFinite(row.sell_price);
+
+            let netCost = Number(row.price) || 0;
+            if (hasBuy || hasSell) {
+                netCost = (row.buy_price || 0) - (row.sell_price || 0);
+            }
+
+            const mileage = Number(row.mileage) || 0;
+            const netCostPerKm = mileage > 0
+                ? netCost / mileage
+                : (Number(row.price_per_km) || 0);
+
+            return {
+                ...row,
+                price: roundTo2(netCost),
+                price_per_km: roundTo2(netCostPerKm)
+            };
+        }
+
+        function statusRowClass(status) {
+            const key = String(status || "").toLowerCase();
+            if (key === "in rotation") {
+                return "status-row-in-rotation";
+            }
+            if (key === "to sell") {
+                return "status-row-to-sell";
+            }
+            if (key === "sold") {
+                return "status-row-sold";
+            }
+            if (key === "retired") {
+                return "status-row-retired";
+            }
+            return "";
+        }
+
+        function renderCharts(data) {
+            destroyCharts();
+
+            const chartData = scopedData(data);
+
+            const labels = chartData.map((d) => d.shoe);
+            const mileageValues = chartData.map((d) => roundTo2(d.mileage));
+            const ppkValues = chartData.map((d) => roundTo2(d.price_per_km));
+
+            chartRef.mileageChart = new Chart(document.getElementById("mileageChart"), {
+                type: "bar",
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "KM",
+                        data: mileageValues,
+                        backgroundColor: "rgba(219, 91, 33, 0.75)",
+                        borderColor: "rgba(159, 61, 21, 1)",
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: "Kilometers" }
+                        }
+                    }
+                }
+            });
+
+            chartRef.ppkChart = new Chart(document.getElementById("ppkChart"), {
+                type: "bar",
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Net EUR / KM",
+                        data: ppkValues,
+                        backgroundColor: "rgba(38, 121, 196, 0.72)",
+                        borderColor: "rgba(19, 76, 127, 1)",
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: "Net EUR per km" }
+                        }
+                    }
+                }
+            });
+
+            const brandDistribution = aggregateByBrand(chartData);
+            chartRef.brandChart = new Chart(document.getElementById("brandChart"), {
+                type: "doughnut",
+                data: {
+                    labels: brandDistribution.labels,
+                    datasets: [{
+                        data: brandDistribution.values,
+                        backgroundColor: [
+                            "#db5b21",
+                            "#2679c4",
+                            "#0f8a5f",
+                            "#9f3d15",
+                            "#e1a838",
+                            "#5c4d7d"
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "bottom"
+                        }
+                    }
+                }
+            });
+        }
+
+        function destroyCharts() {
+            Object.keys(chartRef).forEach((key) => {
+                if (chartRef[key]) {
+                    chartRef[key].destroy();
+                }
+                chartRef[key] = null;
+            });
+        }
+
+        function aggregateByBrand(data) {
+            const map = new Map();
+            data.forEach((row) => {
+                const brand = row.brand || "Unknown";
+                map.set(brand, (map.get(brand) || 0) + 1);
+            });
+
+            const entries = Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
+            return {
+                labels: entries.map((x) => x[0]),
+                values: entries.map((x) => x[1])
+            };
+        }
+
+        function updateStatus(message, ok) {
+            const status = document.getElementById("statusText");
+            status.innerHTML = ok ? `<strong>${escapeHtml(message)}</strong>` : escapeHtml(message);
+            status.style.color = ok ? "#333" : "#9f3d15";
+        }
+
+        function setupSorting() {
+            document.querySelectorAll(".sort-btn").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const key = button.getAttribute("data-sort");
+                    if (!key) return;
+
+                    if (sortState.key === key) {
+                        sortState.direction = sortState.direction === "asc" ? "desc" : "asc";
+                    } else {
+                        sortState.key = key;
+                        sortState.direction = "asc";
+                    }
+
+                    sortData();
+                    renderDashboard(currentData);
+                    updateSortIndicators();
+                });
+            });
+        }
+
+        function setupChartScopeToggle() {
+            document.querySelectorAll(".chart-filter-btn").forEach((button) => {
+                button.addEventListener("click", () => {
+                    const scope = button.getAttribute("data-chart-scope");
+                    if (!scope || scope === chartScope) return;
+
+                    chartScope = scope;
+                    updateChartScopeButtons();
+                    renderMetrics(scopedData(currentData));
+                    renderCharts(currentData);
+                });
+            });
+        }
+
+        function updateChartScopeButtons() {
+            document.querySelectorAll(".chart-filter-btn").forEach((button) => {
+                const isActive = button.getAttribute("data-chart-scope") === chartScope;
+                button.classList.toggle("active", isActive);
+            });
+        }
+
+        function sortData() {
+            const key = sortState.key;
+            if (!key) return;
+
+            const direction = sortState.direction === "asc" ? 1 : -1;
+            const numericFields = new Set(["price", "mileage", "price_per_km"]);
+
+            currentData.sort((a, b) => {
+                const aValue = a[key];
+                const bValue = b[key];
+
+                if (numericFields.has(key)) {
+                    return ((Number(aValue) || 0) - (Number(bValue) || 0)) * direction;
+                }
+
+                return String(aValue || "").localeCompare(String(bValue || "")) * direction;
+            });
+        }
+
+        function updateSortIndicators() {
+            document.querySelectorAll(".sort-indicator").forEach((node) => {
+                node.textContent = "-";
+            });
+
+            if (!sortState.key) return;
+            const icon = sortState.direction === "asc" ? "▲" : "▼";
+            const node = document.getElementById(`sort-${sortState.key}`);
+            if (node) {
+                node.textContent = icon;
+            }
+        }
+
+        function formatCurrency(value) {
+            return roundTo2(value).toFixed(2);
+        }
+
+        function formatNumber(value) {
+            return roundTo2(value).toLocaleString();
+        }
+
+        function roundTo2(value) {
+            return Math.round((Number(value) || 0) * 100) / 100;
+        }
+
+        function sum(values) {
+            return values.reduce((acc, current) => acc + (Number(current) || 0), 0);
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        setupSorting();
+        setupChartScopeToggle();
+        renderDashboard(currentData);
+    </script>
+</body>
+</html>

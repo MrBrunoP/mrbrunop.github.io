@@ -19,6 +19,9 @@ function openTab(tabId, element) {
     if (tabId === 'progression') {
         initializeProgressionCharts();
     }
+    if (tabId === 'gear') {
+        initializeGearDashboard();
+    }
 }
 
 // Function to filter results by year

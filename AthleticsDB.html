@@ -89,6 +89,36 @@
             padding: 5px;
             text-align: center;
         }
+        .infobox-title {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transform: translateX(14px);
+        }
+        .infobox-title-text {
+            display: inline-flex;
+            align-items: center;
+        }
+        .infobox-title-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            color: #111;
+            text-decoration: none;
+            flex: 0 0 auto;
+        }
+        .infobox-title-link:hover {
+            color: #db5b21;
+        }
+        .infobox-title-link svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: currentColor;
+        }
         .infobox td {
             padding: 5px;
         }
@@ -311,7 +341,16 @@
             <div class="infobox">
                 <table>
                     <tr>
-                        <th colspan="2">Bruno Peixoto</th>
+                        <th colspan="2">
+                            <span class="infobox-title">
+                                <span class="infobox-title-text">Bruno Peixoto</span>
+                                <a class="infobox-title-link" href="https://www.strava.com/athletes/128022452" target="_blank" rel="noopener noreferrer" aria-label="Open Strava profile" title="Strava profile">
+                                    <svg viewBox="0 0 32 32" role="presentation" focusable="false">
+                                        <path d="M 14.179688 2 L 5.9003906 18 L 10.779297 18 L 14.179688 11.619141 L 17.560547 18 L 22.400391 18 L 14.179688 2 z M 22.400391 18 L 20 22.789062 L 17.560547 18 L 13.859375 18 L 20 30 L 26.099609 18 L 22.400391 18 z"></path>
+                                    </svg>
+                                </a>
+                            </span>
+                        </th>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -368,19 +407,6 @@
                                 <li>NACVS</li>
                                 <li>NAVR</li>
                             </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Strava</th>
-                        <td>
-                            <a class="profile-link" href="https://www.strava.com/athletes/128022452" target="_blank" rel="noopener noreferrer">
-                                <span class="profile-link-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 32 32" role="presentation" focusable="false">
-                                        <path d="M 14.179688 2 L 5.9003906 18 L 10.779297 18 L 14.179688 11.619141 L 17.560547 18 L 22.400391 18 L 14.179688 2 z M 22.400391 18 L 20 22.789062 L 17.560547 18 L 13.859375 18 L 20 30 L 26.099609 18 L 22.400391 18 z"></path>
-                                    </svg>
-                                </span>
-                                <span>Strava profile</span>
-                            </a>
                         </td>
                     </tr>
                     <!-- Medal Record -->
