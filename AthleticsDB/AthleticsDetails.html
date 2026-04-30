@@ -14,6 +14,19 @@
             gap: 8px;
             flex-wrap: wrap;
         }
+        .gear-security-quick {
+            margin-left: auto;
+        }
+        .gear-security-button {
+            border: 1px solid #999;
+            background: #fff;
+            color: #222;
+            border-radius: 999px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: .86rem;
+            font-weight: 600;
+        }
         .gear-filter-label {
             font-size: .9rem;
             color: #444;
@@ -73,6 +86,33 @@
             color: #111;
             border-bottom: 1px solid #ddd;
         }
+        .gear-section-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
+            text-align: left;
+        }
+        .gear-section-toggle-caret {
+            color: #666;
+            font-weight: 700;
+            min-width: 1.2em;
+            text-align: center;
+        }
+        .gear-section-body[hidden] {
+            display: none;
+        }
+        .gear-card-wide {
+            grid-column: 1 / -1;
+        }
         .gear-sort-btn {
             border: none;
             background: transparent;
@@ -87,7 +127,7 @@
             align-items: center;
             gap: 6px;
         }
-        .gear-sort-indicator { color: #777; font-size: .95em; min-width: 12px; }
+        .gear-sort-indicator, .gear-finance-sort-indicator { color: #777; font-size: .95em; min-width: 12px; }
         .gear-status-row-in-rotation td { background-color: #f3f8ff; }
         .gear-status-row-to-sell td { background-color: #fff3e8; }
         .gear-status-row-retired td { background-color: #fff0f0; }
@@ -95,12 +135,12 @@
         .gear-finance-table td.g-cell-na { color: #aaa; font-style: italic; }
         .gear-finance-table td.g-cell-recovery { font-weight: 600; }
         .gear-lock-panel {
-            margin-top: 14px;
+            width: min(560px, calc(100vw - 32px));
             padding: 18px;
             border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 10px;
             background: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,.04);
+            box-shadow: 0 14px 38px rgba(0,0,0,.22);
         }
         .gear-lock-panel h3 {
             margin: 0 0 6px;
@@ -139,6 +179,106 @@
             min-height: 1.3em;
             font-size: .92rem;
             color: #9f3d15;
+        }
+        .gear-lock-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: #555;
+            white-space: nowrap;
+        }
+        .gear-lock-icon {
+            font-size: .95em;
+            line-height: 1;
+        }
+        .gear-lock-secondary {
+            border: 1px solid #999;
+            background: #fff;
+            color: #222;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font: inherit;
+        }
+        .gear-lock-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1400;
+            display: grid;
+            place-items: center;
+            padding: 16px;
+            background: rgba(17, 17, 17, .5);
+        }
+        .gear-lock-modal[hidden] {
+            display: none;
+        }
+        .gear-sync-panel {
+            position: fixed;
+            right: 18px;
+            bottom: 88px;
+            z-index: 1300;
+            width: min(360px, calc(100vw - 24px));
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+        }
+        .gear-sync-panel h3 {
+            margin: 0 0 6px;
+            font-size: 1rem;
+            color: #111;
+        }
+        .gear-sync-help {
+            margin: 0;
+            color: #555;
+            font-size: .92rem;
+        }
+        .gear-sync-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .gear-sync-textarea {
+            width: 100%;
+            min-height: 130px;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font: inherit;
+            resize: vertical;
+        }
+        .gear-sync-message {
+            margin: 8px 0 0;
+            min-height: 1.3em;
+            color: #555;
+            font-size: .9rem;
+        }
+        .gear-sync-fab {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 1310;
+            width: 54px;
+            height: 54px;
+            border: none;
+            border-radius: 50%;
+            background: #111;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(0,0,0,.3);
+        }
+        .gear-sync-fab:hover { background: #222; }
+        .gear-lock-trigger {
+            border: none;
+            background: transparent;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
         }
         abbr.gear-tip {
             display: inline-flex;
@@ -639,22 +779,27 @@
     </div>
 
     <div id="gear" class="tab-content">
-        <section class="gear-lock-panel" id="gear-lock-panel" aria-label="Gear access lock">
-            <h3>Gear Access</h3>
-            <p>Enter the page password to view spending and shoe finance details.</p>
-            <form class="gear-lock-form" id="gear-lock-form">
-                <input class="gear-lock-input" id="gear-lock-input" type="password" placeholder="Password" autocomplete="current-password">
-                <button class="gear-lock-button" type="submit">Unlock</button>
-            </form>
-            <p class="gear-lock-message" id="gear-lock-message"></p>
+        <section class="gear-sync-panel" id="gear-sync-panel" aria-label="Strava mileage sync" hidden>
+            <h3>Strava Mileage Sync</h3>
+            <p class="gear-sync-help">Copy your shoes list from Strava, paste it below, then click sync.</p>
+            <div class="gear-sync-actions">
+                <a class="gear-lock-secondary" href="https://www.strava.com/athletes/128022452" target="_blank" rel="noopener noreferrer">Open Strava Profile</a>
+                <button class="gear-lock-button" type="button" id="gear-sync-backend">Sync from Text</button>
+                <button class="gear-lock-secondary" type="button" id="gear-sync-lock">Lock Sync</button>
+            </div>
+            <textarea class="gear-sync-textarea" id="gear-sync-input" placeholder="Paste lines like:\nASICS Trabuco Max 3 127.9 km\nNike Zoom Fly 6 50.8 km"></textarea>
+            <p class="gear-sync-message" id="gear-sync-message"></p>
         </section>
 
-        <div id="gear-dashboard-content" hidden>
+        <div id="gear-dashboard-content">
             <section class="gear-scope-filter" aria-label="Data scope">
                 <span class="gear-filter-label">View scope:</span>
                 <button type="button" class="gear-scope-btn gear-scope-active" data-gear-scope="overall">Overall</button>
                 <button type="button" class="gear-scope-btn" data-gear-scope="in_rotation">In Rotation</button>
                 <button type="button" class="gear-scope-btn" data-gear-scope="retired">Retired</button>
+                <div class="gear-security-quick">
+                    <button type="button" class="gear-security-button" id="gear-security-button" aria-label="Unlock financial details">🔓 Unlock</button>
+                </div>
             </section>
 
             <section class="gear-metrics" aria-label="Summary metrics">
@@ -677,54 +822,88 @@
             </section>
 
             <section class="gear-grid" aria-label="Charts">
-                <article class="gear-card">
+                <article class="gear-card gear-card-wide">
                     <h2>Mileage by Shoe</h2>
                     <div class="gear-chart-box"><canvas id="gear-mileageChart"></canvas></div>
-                </article>
-                <article class="gear-card">
-                    <h2>Net Cost per KM by Shoe</h2>
-                    <div class="gear-chart-box"><canvas id="gear-ppkChart"></canvas></div>
                 </article>
                 <article class="gear-card">
                     <h2>Brand Distribution (Pairs)</h2>
                     <div class="gear-chart-box"><canvas id="gear-brandChart"></canvas></div>
                 </article>
+                <article class="gear-card">
+                    <h2>Net Cost per KM by Shoe</h2>
+                    <div class="gear-chart-box"><canvas id="gear-ppkChart"></canvas></div>
+                </article>
             </section>
 
-            <h3 class="gear-section-heading">Performance</h3>
-            <section class="gear-table-wrap" aria-label="Shoe data table">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th><button class="gear-sort-btn" data-gear-sort="shoe">Shoe <span class="gear-sort-indicator" id="gear-sort-shoe">-</span></button></th>
-                            <th><button class="gear-sort-btn" data-gear-sort="brand">Brand <span class="gear-sort-indicator" id="gear-sort-brand">-</span></button></th>
-                            <th><button class="gear-sort-btn" data-gear-sort="status">Status <span class="gear-sort-indicator" id="gear-sort-status">-</span></button></th>
-                            <th><button class="gear-sort-btn" data-gear-sort="type">Type <span class="gear-sort-indicator" id="gear-sort-type">-</span></button></th>
-                            <th><button class="gear-sort-btn" data-gear-sort="price">Net Cost <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-sort-indicator" id="gear-sort-price">-</span></button></th>
-                            <th><button class="gear-sort-btn" data-gear-sort="mileage">Mileage <span class="gear-sort-indicator" id="gear-sort-mileage">-</span></button></th>
-                            <th><button class="gear-sort-btn" data-gear-sort="price_per_km">Net Cost/KM <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-sort-indicator" id="gear-sort-price_per_km">-</span></button></th>
-                        </tr>
-                    </thead>
-                    <tbody id="gear-gearRows"></tbody>
-                </table>
+            <section>
+                <h3 class="gear-section-heading">
+                    <button type="button" class="gear-section-toggle" data-gear-toggle="gear-performance-body" aria-expanded="true">
+                        <span class="gear-section-toggle-caret" aria-hidden="true">▾</span>
+                        <span>Performance</span>
+                    </button>
+                </h3>
+                <div class="gear-section-body" id="gear-performance-body">
+                    <section class="gear-table-wrap" aria-label="Shoe data table">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th><button class="gear-sort-btn" data-gear-sort="shoe">Shoe <span class="gear-sort-indicator" id="gear-sort-shoe">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-sort="brand">Brand <span class="gear-sort-indicator" id="gear-sort-brand">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-sort="status">Status <span class="gear-sort-indicator" id="gear-sort-status">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-sort="type">Type <span class="gear-sort-indicator" id="gear-sort-type">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-sort="price">Net Cost <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-sort-indicator" id="gear-sort-price">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-sort="mileage">Mileage <span class="gear-sort-indicator" id="gear-sort-mileage">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-sort="price_per_km">Net Cost/KM <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-sort-indicator" id="gear-sort-price_per_km">-</span></button></th>
+                                </tr>
+                            </thead>
+                            <tbody id="gear-gearRows"></tbody>
+                        </table>
+                    </section>
+                </div>
             </section>
 
-            <h3 class="gear-section-heading">Investment &amp; Recovery</h3>
-            <section class="gear-table-wrap" aria-label="Finance table">
-                <table class="data-table gear-finance-table">
-                    <thead>
-                        <tr>
-                            <th>Shoe</th>
-                            <th>Status</th>
-                            <th>Bought</th>
-                            <th>Sold For</th>
-                            <th>Net Cost <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr></th>
-                            <th>Recovery %</th>
-                            <th>Net Cost/KM <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr></th>
-                        </tr>
-                    </thead>
-                    <tbody id="gear-financeRows"></tbody>
-                </table>
+            <section>
+                <h3 class="gear-section-heading">
+                    <button type="button" class="gear-section-toggle" data-gear-toggle="gear-finance-body" aria-expanded="false">
+                        <span class="gear-section-toggle-caret" aria-hidden="true">▸</span>
+                        <span>Investment &amp; Recovery</span>
+                    </button>
+                </h3>
+                <div class="gear-section-body" id="gear-finance-body" hidden>
+                    <section class="gear-table-wrap" aria-label="Finance table">
+                        <table class="data-table gear-finance-table">
+                            <thead>
+                                <tr>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="shoe">Shoe <span class="gear-finance-sort-indicator" id="gear-finance-sort-shoe">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="status">Status <span class="gear-finance-sort-indicator" id="gear-finance-sort-status">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="buy_price">Bought <span class="gear-finance-sort-indicator" id="gear-finance-sort-buy_price">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="sell_price">Sold For <span class="gear-finance-sort-indicator" id="gear-finance-sort-sell_price">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="price">Net Cost <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-finance-sort-indicator" id="gear-finance-sort-price">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="recovery">Recovery % <span class="gear-finance-sort-indicator" id="gear-finance-sort-recovery">-</span></button></th>
+                                    <th><button class="gear-sort-btn" data-gear-finance-sort="price_per_km">Net Cost/KM <abbr class="gear-tip" title="Retired shoe net cost = buy price minus sold price">?</abbr> <span class="gear-finance-sort-indicator" id="gear-finance-sort-price_per_km">-</span></button></th>
+                                </tr>
+                            </thead>
+                            <tbody id="gear-financeRows"></tbody>
+                        </table>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+        <button type="button" class="gear-sync-fab" id="gear-sync-fab" aria-label="Open Strava sync">⟳</button>
+
+        <div class="gear-lock-modal" id="gear-lock-modal" hidden>
+            <section class="gear-lock-panel" aria-label="Gear access lock">
+                <h3>Financial Details Lock</h3>
+                <p>All non-financial gear data is visible. Money-related values stay locked until you unlock them.</p>
+                <form class="gear-lock-form" id="gear-lock-form">
+                    <input class="gear-lock-input" id="gear-lock-input" type="password" placeholder="Password" autocomplete="current-password">
+                    <button class="gear-lock-button" type="submit">Unlock</button>
+                    <button class="gear-lock-secondary" id="gear-relock-button" type="button" hidden>Lock Again</button>
+                    <button class="gear-lock-secondary" id="gear-lock-close" type="button">Close</button>
+                </form>
+                <p class="gear-lock-message" id="gear-lock-message"></p>
             </section>
         </div>
     </div>
@@ -755,27 +934,32 @@
     ];
 
     let gearDashboardInitialized = false;
-    let gearAccessUnlocked = window.sessionStorage.getItem('athletics-gear-unlocked') === '1';
+    let gearAccessUnlocked = false;
     let gearCurrentData = [];
     const gearSortState = { key: null, direction: 'asc' };
+    const gearFinanceSortState = { key: null, direction: 'asc' };
     let gearScope = 'overall';
     const gearChartRef = { mileageChart: null, ppkChart: null, brandChart: null };
     const gearAccessPassword = 'gear';
+    const gearSyncAccessKey = 'sync';
+    let gearSyncUnlocked = false;
 
     function initializeGearDashboard() {
-        gearUpdateAccessState();
-        if (!gearAccessUnlocked) {
-            return;
-        }
-
         if (!gearDashboardInitialized) {
             gearCurrentData = gearSampleData.map(gearWithDerivedCosts);
             gearSetupSorting();
+            gearSetupFinanceSorting();
             gearSetupScopeToggle();
-            gearRenderTable(gearCurrentData);
-            gearRenderFinanceTable(gearCurrentData);
+            gearSetupSectionToggles();
+            gearSetupLockModalTriggers();
+            gearSetupQuickSecurityControl();
+            gearSetupSyncFab();
+            gearSetupBackendSync();
             gearDashboardInitialized = true;
         }
+        gearUpdateAccessState();
+        gearRenderTable(gearCurrentData);
+        gearRenderFinanceTable(gearCurrentData);
         gearRenderMetrics(gearScopedData(gearCurrentData));
         gearDestroyCharts();
         gearRenderCharts(gearCurrentData);
@@ -785,8 +969,11 @@
         const form = document.getElementById('gear-lock-form');
         const input = document.getElementById('gear-lock-input');
         const message = document.getElementById('gear-lock-message');
+        const relockButton = document.getElementById('gear-relock-button');
+        const closeButton = document.getElementById('gear-lock-close');
+        const modal = document.getElementById('gear-lock-modal');
 
-        if (!form || !input || !message) {
+        if (!form || !input || !message || !relockButton || !closeButton || !modal) {
             return;
         }
 
@@ -795,9 +982,9 @@
 
             if (input.value === gearAccessPassword) {
                 gearAccessUnlocked = true;
-                window.sessionStorage.setItem('athletics-gear-unlocked', '1');
-                message.textContent = '';
+                message.textContent = 'Financial details unlocked for this session.';
                 input.value = '';
+                modal.hidden = true;
                 initializeGearDashboard();
                 return;
             }
@@ -806,18 +993,88 @@
             input.select();
         });
 
+        relockButton.addEventListener('click', function() {
+            gearAccessUnlocked = false;
+            message.textContent = 'Financial details locked again.';
+            initializeGearDashboard();
+        });
+
+        closeButton.addEventListener('click', function() {
+            modal.hidden = true;
+        });
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) modal.hidden = true;
+        });
+
         gearUpdateAccessState();
     }
 
+    function gearSetupLockModalTriggers() {
+        const gearRoot = document.getElementById('gear');
+        const modal = document.getElementById('gear-lock-modal');
+        if (!gearRoot || !modal) return;
+        gearRoot.addEventListener('click', function(event) {
+            if (!event.target.closest('.gear-lock-trigger')) return;
+            if (gearAccessUnlocked) return;
+            modal.hidden = false;
+            const input = document.getElementById('gear-lock-input');
+            if (input && !input.hidden) input.focus();
+        });
+    }
+
+    function gearSetupSyncFab() {
+        const fab = document.getElementById('gear-sync-fab');
+        const panel = document.getElementById('gear-sync-panel');
+        const message = document.getElementById('gear-sync-message');
+        if (!fab || !panel) return;
+        fab.addEventListener('click', function() {
+            if (!gearSyncUnlocked) {
+                const value = window.prompt('Enter Sync Access Key');
+                if (value !== gearSyncAccessKey) {
+                    if (message) message.textContent = 'Sync access denied.';
+                    return;
+                }
+                gearSyncUnlocked = true;
+                if (message) message.textContent = 'Sync unlocked for this session.';
+            }
+            panel.hidden = !panel.hidden;
+        });
+    }
+
     function gearUpdateAccessState() {
-        const panel = document.getElementById('gear-lock-panel');
-        const content = document.getElementById('gear-dashboard-content');
-        if (!panel || !content) {
+        const input = document.getElementById('gear-lock-input');
+        const relockButton = document.getElementById('gear-relock-button');
+        const securityButton = document.getElementById('gear-security-button');
+        if (!input || !relockButton) {
             return;
         }
 
-        panel.hidden = gearAccessUnlocked;
-        content.hidden = !gearAccessUnlocked;
+        input.hidden = gearAccessUnlocked;
+        input.disabled = gearAccessUnlocked;
+        relockButton.hidden = !gearAccessUnlocked;
+        if (securityButton) {
+            securityButton.textContent = gearAccessUnlocked ? 'Lock 🔒' : '🔓 Unlock';
+            securityButton.setAttribute('aria-label', gearAccessUnlocked ? 'Lock financial details' : 'Unlock financial details');
+        }
+    }
+
+    function gearSetupQuickSecurityControl() {
+        const button = document.getElementById('gear-security-button');
+        const modal = document.getElementById('gear-lock-modal');
+        if (!button || !modal) return;
+        button.addEventListener('click', function() {
+            if (gearAccessUnlocked) {
+                gearAccessUnlocked = false;
+                const message = document.getElementById('gear-lock-message');
+                if (message) message.textContent = 'Financial details locked again.';
+                initializeGearDashboard();
+                return;
+            }
+            modal.hidden = false;
+            const input = document.getElementById('gear-lock-input');
+            if (input && !input.hidden) input.focus();
+        });
     }
 
     function gearScopedData(data) {
@@ -833,14 +1090,15 @@
         const weightedPpk = totalMileage > 0 ? totalSpend / totalMileage : gearSum(data.map(d => d.price_per_km)) / Math.max(1, pairs);
         document.getElementById('gear-pairsCount').textContent = String(pairs);
         document.getElementById('gear-totalMileage').textContent = gearFmtNum(totalMileage) + ' km';
-        document.getElementById('gear-totalSpend').textContent = gearFmtCur(totalSpend) + ' EUR';
-        document.getElementById('gear-avgPpk').textContent = gearFmtCur(weightedPpk) + ' EUR';
+        document.getElementById('gear-totalSpend').innerHTML = gearAccessUnlocked ? (gearFmtCur(totalSpend) + ' EUR') : gearLockToken('Locked');
+        document.getElementById('gear-avgPpk').innerHTML = gearAccessUnlocked ? (gearFmtCur(weightedPpk) + ' EUR') : gearLockToken('Locked');
     }
 
     function gearRenderTable(data) {
+        const scoped = gearScopedData(data);
         const body = document.getElementById('gear-gearRows');
         body.innerHTML = '';
-        data.forEach(row => {
+        scoped.forEach(row => {
             const tr = document.createElement('tr');
             tr.className = gearStatusRowClass(row.status);
             tr.innerHTML =
@@ -848,9 +1106,9 @@
                 '<td>' + gearEscape(row.brand) + '</td>' +
                 '<td>' + gearEscape(row.status || 'In Rotation') + '</td>' +
                 '<td>' + gearEscape(row.type || 'Running') + '</td>' +
-                '<td>' + gearFmtCur(row.price) + ' EUR</td>' +
+                '<td>' + gearMaskedCurrency(row.price) + '</td>' +
                 '<td>' + gearFmtNum(row.mileage) + ' km</td>' +
-                '<td>' + gearFmtCur(row.price_per_km) + ' EUR</td>';
+                '<td>' + gearMaskedCurrency(row.price_per_km) + '</td>';
             body.appendChild(tr);
         });
     }
@@ -858,11 +1116,11 @@
     function gearRenderFinanceTable(data) {
         const body = document.getElementById('gear-financeRows');
         body.innerHTML = '';
-        data.forEach(row => {
+        gearApplyFinanceSort(data).forEach(row => {
             const hasBuy = typeof row.buy_price === 'number' && Number.isFinite(row.buy_price);
             const hasSell = typeof row.sell_price === 'number' && Number.isFinite(row.sell_price);
-            const buyDisplay = hasBuy ? gearFmtCur(row.buy_price) + ' EUR' : gearFmtCur(row.price) + ' EUR';
-            const soldDisplay = hasSell ? gearFmtCur(row.sell_price) + ' EUR' : null;
+            const buyDisplay = hasBuy ? gearMaskedCurrency(row.buy_price) : gearMaskedCurrency(row.price);
+            const soldDisplay = hasSell ? gearMaskedCurrency(row.sell_price) : null;
             const recovery = (hasBuy && hasSell && row.buy_price > 0) ? ((row.sell_price / row.buy_price) * 100).toFixed(1) + '%' : null;
             const tr = document.createElement('tr');
             tr.className = gearStatusRowClass(row.status);
@@ -871,11 +1129,50 @@
                 '<td>' + gearEscape(row.status || 'In Rotation') + '</td>' +
                 '<td>' + buyDisplay + '</td>' +
                 '<td class="' + (soldDisplay ? '' : 'g-cell-na') + '">' + (soldDisplay || '\u2014') + '</td>' +
-                '<td>' + gearFmtCur(row.price) + ' EUR</td>' +
-                '<td class="g-cell-recovery ' + (recovery ? '' : 'g-cell-na') + '">' + (recovery || '\u2014') + '</td>' +
-                '<td>' + gearFmtCur(row.price_per_km) + ' EUR</td>';
+                '<td>' + gearMaskedCurrency(row.price) + '</td>' +
+                '<td class="g-cell-recovery ' + (recovery ? '' : 'g-cell-na') + '">' + (recovery ? gearMaskedPercent(recovery) : '\u2014') + '</td>' +
+                '<td>' + gearMaskedCurrency(row.price_per_km) + '</td>';
             body.appendChild(tr);
         });
+    }
+
+    function gearApplyFinanceSort(data) {
+        const key = gearFinanceSortState.key;
+        if (!key) return data;
+        const dir = gearFinanceSortState.direction === 'asc' ? 1 : -1;
+        const rows = data.slice();
+        const numeric = new Set(['buy_price', 'sell_price', 'price', 'recovery', 'price_per_km']);
+        rows.sort(function(a, b) {
+            const av = gearGetFinanceSortValue(a, key);
+            const bv = gearGetFinanceSortValue(b, key);
+            const aMissing = av === null || typeof av === 'undefined';
+            const bMissing = bv === null || typeof bv === 'undefined';
+            if (aMissing && bMissing) return 0;
+            if (aMissing) return 1;
+            if (bMissing) return -1;
+            if (numeric.has(key)) return ((Number(av) || 0) - (Number(bv) || 0)) * dir;
+            return String(av || '').localeCompare(String(bv || '')) * dir;
+        });
+        return rows;
+    }
+
+    function gearGetFinanceSortValue(row, key) {
+        if (key === 'shoe' || key === 'status') return row[key] || '';
+        if (key === 'buy_price') {
+            if (typeof row.buy_price === 'number' && Number.isFinite(row.buy_price)) return row.buy_price;
+            return row.price;
+        }
+        if (key === 'sell_price') {
+            if (typeof row.sell_price === 'number' && Number.isFinite(row.sell_price)) return row.sell_price;
+            return null;
+        }
+        if (key === 'recovery') {
+            if (typeof row.buy_price === 'number' && Number.isFinite(row.buy_price) && row.buy_price > 0 && typeof row.sell_price === 'number' && Number.isFinite(row.sell_price)) {
+                return (row.sell_price / row.buy_price) * 100;
+            }
+            return null;
+        }
+        return row[key];
     }
 
     function gearWithDerivedCosts(row) {
@@ -905,11 +1202,15 @@
             data: { labels: labels, datasets: [{ label: 'KM', data: cd.map(d => gearRound2(d.mileage)), backgroundColor: 'rgba(219,91,33,0.75)', borderColor: 'rgba(159,61,21,1)', borderWidth: 1, borderRadius: 6 }] },
             options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Kilometers' } } } }
         });
-        gearChartRef.ppkChart = new Chart(document.getElementById('gear-ppkChart'), {
-            type: 'bar',
-            data: { labels: labels, datasets: [{ label: 'Net EUR / KM', data: cd.map(d => gearRound2(d.price_per_km)), backgroundColor: 'rgba(38,121,196,0.72)', borderColor: 'rgba(19,76,127,1)', borderWidth: 1, borderRadius: 6 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Net EUR per km' } } } }
-        });
+        if (gearAccessUnlocked) {
+            gearChartRef.ppkChart = new Chart(document.getElementById('gear-ppkChart'), {
+                type: 'bar',
+                data: { labels: labels, datasets: [{ label: 'Net EUR / KM', data: cd.map(d => gearRound2(d.price_per_km)), backgroundColor: 'rgba(38,121,196,0.72)', borderColor: 'rgba(19,76,127,1)', borderWidth: 1, borderRadius: 6 }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Net EUR per km' } } } }
+            });
+        } else {
+            gearRenderLockedPpkChart();
+        }
         const bd = gearAggregateByBrand(cd);
         gearChartRef.brandChart = new Chart(document.getElementById('gear-brandChart'), {
             type: 'doughnut',
@@ -929,8 +1230,28 @@
         return { labels: entries.map(function(x) { return x[0]; }), values: entries.map(function(x) { return x[1]; }) };
     }
 
+    function gearRenderLockedPpkChart() {
+        const canvas = document.getElementById('gear-ppkChart');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        ctx.save();
+        ctx.fillStyle = '#f7f7f7';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#666';
+        ctx.font = '600 16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('\ud83d\udd12 Unlock to view net cost chart', w / 2, h / 2);
+        ctx.restore();
+    }
+
     function gearSetupSorting() {
         document.querySelectorAll('.gear-sort-btn').forEach(function(btn) {
+            if (btn.hasAttribute('data-gear-finance-sort')) return;
             btn.addEventListener('click', function() {
                 const key = btn.getAttribute('data-gear-sort');
                 if (!key) return;
@@ -948,6 +1269,166 @@
         });
     }
 
+    function gearSetupFinanceSorting() {
+        document.querySelectorAll('[data-gear-finance-sort]').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const key = btn.getAttribute('data-gear-finance-sort');
+                if (!key) return;
+                if (gearFinanceSortState.key === key) {
+                    gearFinanceSortState.direction = gearFinanceSortState.direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                    gearFinanceSortState.key = key;
+                    gearFinanceSortState.direction = 'asc';
+                }
+                gearRenderFinanceTable(gearCurrentData);
+                gearUpdateFinanceSortIndicators();
+            });
+        });
+    }
+
+    function gearSetupSectionToggles() {
+        document.querySelectorAll('.gear-section-toggle').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const targetId = btn.getAttribute('data-gear-toggle');
+                if (!targetId) return;
+                const body = document.getElementById(targetId);
+                if (!body) return;
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+                body.hidden = expanded;
+                const icon = btn.querySelector('.gear-section-toggle-caret');
+                if (icon) icon.textContent = expanded ? '▸' : '▾';
+            });
+        });
+    }
+
+    function gearSetupBackendSync() {
+        const syncBtn = document.getElementById('gear-sync-backend');
+        const lockBtn = document.getElementById('gear-sync-lock');
+        const input = document.getElementById('gear-sync-input');
+        const message = document.getElementById('gear-sync-message');
+        const panel = document.getElementById('gear-sync-panel');
+        if (!syncBtn || !lockBtn || !message || !input || !panel) return;
+
+        lockBtn.addEventListener('click', function() {
+            gearSyncUnlocked = false;
+            panel.hidden = true;
+            message.textContent = 'Sync locked.';
+        });
+
+        syncBtn.addEventListener('click', function() {
+            if (!gearSyncUnlocked) {
+                message.textContent = 'Sync is locked. Use the floating sync button and enter Sync Access Key.';
+                return;
+            }
+            const entries = gearParseManualSyncInput(input.value);
+            if (!entries.length) {
+                message.textContent = 'No valid lines found. Include shoe name and mileage, e.g. "Nike Vomero Plus 99.6 km".';
+                return;
+            }
+
+            const applied = gearApplyMileageSync(entries);
+            if (!applied.length) {
+                message.textContent = 'No matching shoe names found in your Gear table.';
+                return;
+            }
+
+            gearCurrentData = gearCurrentData.map(gearWithDerivedCosts);
+            initializeGearDashboard();
+            message.textContent = 'Synced mileage for ' + applied.length + ' shoe' + (applied.length === 1 ? '' : 's') + '.';
+        });
+    }
+
+    function gearParseManualSyncInput(text) {
+        return String(text || '').split(/\r?\n/).map(function(line) {
+            const clean = line.replace(/\s+/g, ' ').trim();
+            if (!clean) return null;
+            const match = clean.match(/^(.*?)[\s\t]+(\d+(?:[\.,]\d+)?)\s*(?:km)?\s*$/i);
+            if (!match) return null;
+            const name = String(match[1] || '').trim();
+            const mileage = Number(String(match[2] || '').replace(',', '.'));
+            if (!name || !Number.isFinite(mileage)) return null;
+            return { name: name, mileage: mileage };
+        }).filter(Boolean);
+    }
+
+    function gearApplyMileageSync(entries) {
+        const updated = [];
+        const usedRowIndexes = new Set();
+
+        entries.forEach(function(item) {
+            const idx = gearFindBestShoeMatchIndex(item.name, usedRowIndexes);
+            if (idx < 0) return;
+            gearCurrentData[idx].mileage = gearRound2(item.mileage);
+            usedRowIndexes.add(idx);
+            updated.push(gearCurrentData[idx].shoe);
+        });
+
+        return updated;
+    }
+
+    function gearFindBestShoeMatchIndex(sourceName, usedRowIndexes) {
+        const sourceNorm = gearNormalizeName(sourceName);
+        const sourceSimple = gearSimplifyName(sourceName);
+        const sourceBrand = gearGetBrandToken(sourceNorm);
+
+        let bestIndex = -1;
+        let bestScore = 0;
+
+        for (let i = 0; i < gearCurrentData.length; i += 1) {
+            if (usedRowIndexes.has(i)) continue;
+
+            const targetName = gearCurrentData[i].shoe;
+            const targetNorm = gearNormalizeName(targetName);
+            const targetSimple = gearSimplifyName(targetName);
+            const targetBrand = gearGetBrandToken(targetNorm);
+
+            if (sourceNorm === targetNorm || sourceSimple === targetSimple) {
+                return i;
+            }
+
+            let score = gearNameSimilarity(sourceSimple, targetSimple);
+
+            if (sourceBrand && targetBrand && sourceBrand !== targetBrand) {
+                score = score * 0.6;
+            }
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestIndex = i;
+            }
+        }
+
+        return bestScore >= 0.58 ? bestIndex : -1;
+    }
+
+    function gearNameSimilarity(a, b) {
+        const ta = new Set(String(a || '').split(' ').filter(Boolean));
+        const tb = new Set(String(b || '').split(' ').filter(Boolean));
+        if (!ta.size || !tb.size) return 0;
+
+        let intersection = 0;
+        ta.forEach(function(token) { if (tb.has(token)) intersection += 1; });
+
+        const denom = Math.max(ta.size, tb.size);
+        return intersection / denom;
+    }
+
+    function gearSimplifyName(v) {
+        const ignore = new Set(['zoom', 'nitro']);
+        return gearNormalizeName(v).split(' ').filter(function(token) {
+            return token && !ignore.has(token);
+        }).join(' ');
+    }
+
+    function gearGetBrandToken(v) {
+        return String(v || '').split(' ').filter(Boolean)[0] || '';
+    }
+
+    function gearNormalizeName(v) {
+        return String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    }
+
     function gearSetupScopeToggle() {
         document.querySelectorAll('.gear-scope-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
@@ -955,6 +1436,7 @@
                 if (!scope || scope === gearScope) return;
                 gearScope = scope;
                 gearUpdateScopeButtons();
+                gearRenderTable(gearCurrentData);
                 gearRenderMetrics(gearScopedData(gearCurrentData));
                 gearDestroyCharts();
                 gearRenderCharts(gearCurrentData);
@@ -988,10 +1470,29 @@
         if (node) node.textContent = icon;
     }
 
+    function gearUpdateFinanceSortIndicators() {
+        document.querySelectorAll('.gear-finance-sort-indicator').forEach(function(n) { n.textContent = '-'; });
+        if (!gearFinanceSortState.key) return;
+        const icon = gearFinanceSortState.direction === 'asc' ? '\u25b2' : '\u25bc';
+        const node = document.getElementById('gear-finance-sort-' + gearFinanceSortState.key);
+        if (node) node.textContent = icon;
+    }
+
     function gearFmtCur(v) { return gearRound2(v).toFixed(2); }
     function gearFmtNum(v) { return gearRound2(v).toLocaleString(); }
     function gearRound2(v) { return Math.round((Number(v) || 0) * 100) / 100; }
     function gearSum(arr) { return arr.reduce(function(a, c) { return a + (Number(c) || 0); }, 0); }
+    function gearLockToken(label) {
+        return '<button type="button" class="gear-lock-trigger" aria-label="Unlock financial details"><span class="gear-lock-inline"><span class="gear-lock-icon" aria-hidden="true">&#128274;</span><span>' + gearEscape(label) + '</span></span></button>';
+    }
+    function gearMaskedCurrency(v) {
+        if (!gearAccessUnlocked) return gearLockToken('Locked');
+        return gearFmtCur(v) + ' EUR';
+    }
+    function gearMaskedPercent(v) {
+        if (!gearAccessUnlocked) return gearLockToken('Locked');
+        return gearEscape(v);
+    }
     function gearEscape(v) {
         return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
