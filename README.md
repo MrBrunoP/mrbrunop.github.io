@@ -11,23 +11,6 @@ Main athlete pages:
 - Athletics profile main page: AthleticsDB.html
 - Athletics details page: AthleticsDB/AthleticsDetails.html
 
-## Recent Athletics Details Features
-
-The Athletics Details page currently includes:
-
-- Tabbed navigation for Personal Bests, Results, and Progression
-- Year filter for results
-- Updated 2026 race entries
-- Progression charts for:
-	- 10K (Road)
-	- Half Marathon
-- Trend stats above each chart:
-	- Best
-	- Avg last 3
-	- Since first
-- Human-readable stat format (for example: 47m51s, 2h10m17s)
-- Chart.js CDN fallback message if chart library fails to load
-- Header quick links to athlete page and Strava profile
 
 ## Data Source Pattern
 
