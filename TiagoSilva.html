@@ -17,7 +17,6 @@
         top: 0;
         z-index: 1000;
         background-color: #ffffff;
-        border-bottom: 1px solid #e5e5e5;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
       }
       .site-nav-inner {
@@ -442,6 +441,10 @@
               <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
               <b>2026</b> – Meia Maratona de Gaia 10K (JUN)
             </li>
+                        <li>
+                          <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
+                          <b>2026</b> – 5ª Meia-Maratona das Cantarinhas 10K (JUN)
+                        </li>
             <li>
               <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
               <b>2025</b> – 10K Trail (U17)
@@ -602,6 +605,14 @@
             <td>10K</td>
             <td>00:37:27.639</td>
           </tr>
+          <tr>
+            <td>2026</td>
+            <td>5ª Meia-Maratona das Cantarinhas</td>
+            <td>Bragança, Portugal</td>
+            <td bgcolor="silver">2nd (JUN)<br>22nd (Overall)</td>
+            <td>10K</td>
+            <td>00:37:17</td>
+          </tr>
         </tbody>
       </table>
         </div>
@@ -755,10 +766,12 @@
   const tiagoTenKElevationByCompetition = {
     'XIX S. Silvestre Cidade de Vila Real': 104,
     'Meia Maratona de Gaia': 38,
-    'Corrida da Liberdade': 98
+    'Corrida da Liberdade': 98,
+    '5ª Meia-Maratona das Cantarinhas': 80
   };
   const tiagoTenKSurfaceFactorByCompetition = {
-    'Corrida da Liberdade': 1.05
+    'Corrida da Liberdade': 1.05,
+    '5ª Meia-Maratona das Cantarinhas': 1.02
   };
 
   function tiagoComputeEffortIndex(seconds, distanceKm, elevationGainMeters, surfaceFactor) {
@@ -889,6 +902,7 @@
     if (competitionText === 'XIX S. Silvestre Cidade de Vila Real') return 'Vila Real';
     if (competitionText === 'Meia Maratona de Gaia') return 'Gaia';
     if (competitionText === 'Corrida da Liberdade') return 'Chaves';
+    if (competitionText === '5ª Meia-Maratona das Cantarinhas') return 'Bragança';
     return competitionText;
   }
 
