@@ -451,6 +451,10 @@
             </li>
             <li>
               <img src="./images/medal-bronze.svg" class="medal-icon" alt="Bronze Medal">
+              <b>2026</b> – Corrida de Perafita 2026 (JUN)
+            </li>
+            <li>
+              <img src="./images/medal-bronze.svg" class="medal-icon" alt="Bronze Medal">
               <b>2026</b> – Grande Trail Fisgas de Ermelo (U23)
             </li>
             <li>
@@ -613,6 +617,14 @@
             <td>10K</td>
             <td>00:37:17</td>
           </tr>
+          <tr>
+            <td>2026</td>
+            <td>Corrida de Perafita 2026</td>
+            <td>Perafita, Portugal</td>
+            <td bgcolor="#cc9966">3rd (JUN)<br>49th (Overall)</td>
+            <td>10K</td>
+            <td>00:39:00</td>
+          </tr>
         </tbody>
       </table>
         </div>
@@ -763,15 +775,12 @@
 <script>
   let tiagoProgression10kChart = null;
   let tiagoProgression10kEffortChart = null;
-  const tiagoTenKElevationByCompetition = {
-    'XIX S. Silvestre Cidade de Vila Real': 104,
-    'Meia Maratona de Gaia': 38,
-    'Corrida da Liberdade': 98,
-    '5ª Meia-Maratona das Cantarinhas': 80
-  };
-  const tiagoTenKSurfaceFactorByCompetition = {
-    'Corrida da Liberdade': 1.05,
-    '5ª Meia-Maratona das Cantarinhas': 1.02
+  const tiagoTenKCourseDataByCompetition = {
+    'XIX S. Silvestre Cidade de Vila Real': { distanceKm: 10, elevationGain: 104, surfaceFactor: 1 },
+    'Meia Maratona de Gaia': { distanceKm: 10, elevationGain: 38, surfaceFactor: 1 },
+    'Corrida da Liberdade': { distanceKm: 10, elevationGain: 98, surfaceFactor: 1.05 },
+    '5ª Meia-Maratona das Cantarinhas': { distanceKm: 10, elevationGain: 80, surfaceFactor: 1.02 },
+    'Corrida de Perafita 2026': { distanceKm: 10.14, elevationGain: 59, surfaceFactor: 1 }
   };
 
   function tiagoComputeEffortIndex(seconds, distanceKm, elevationGainMeters, surfaceFactor) {
@@ -873,9 +882,10 @@
         return;
       }
 
-      const distanceKm = 10;
-      const elevationGain = tiagoTenKElevationByCompetition[competitionText] || 0;
-      const surfaceFactor = tiagoTenKSurfaceFactorByCompetition[competitionText] || 1;
+      const courseData = tiagoTenKCourseDataByCompetition[competitionText] || {};
+      const distanceKm = courseData.distanceKm || 10;
+      const elevationGain = courseData.elevationGain || 0;
+      const surfaceFactor = courseData.surfaceFactor || 1;
       const effortIndex = tiagoComputeEffortIndex(seconds, distanceKm, elevationGain, surfaceFactor);
       const paceSecondsPerKm = seconds / distanceKm;
       const gainPerKm = elevationGain / distanceKm;
@@ -888,6 +898,7 @@
         competitionText: competitionText,
         yearText: yearText,
         seconds: seconds,
+        distanceKm: distanceKm,
         elevationGain: elevationGain,
         surfaceFactor: surfaceFactor,
         effortIndex: effortIndex,
@@ -903,6 +914,7 @@
     if (competitionText === 'Meia Maratona de Gaia') return 'Gaia';
     if (competitionText === 'Corrida da Liberdade') return 'Chaves';
     if (competitionText === '5ª Meia-Maratona das Cantarinhas') return 'Bragança';
+    if (competitionText === 'Corrida de Perafita 2026') return 'Perafita';
     return competitionText;
   }
 
@@ -955,7 +967,7 @@
     effortListEl.innerHTML = '';
     series.forEach((item) => {
       const li = document.createElement('li');
-      li.textContent = `${item.competitionText} (${item.yearText}): EI ${tiagoFormatEffortIndex(item.effortIndex)} | Elev +${item.elevationGain} m`;
+      li.textContent = `${item.competitionText} (${item.yearText}): EI ${tiagoFormatEffortIndex(item.effortIndex)} | ${item.distanceKm.toFixed(2)} km | Elev +${item.elevationGain} m`;
       effortListEl.appendChild(li);
     });
   }
@@ -1046,7 +1058,7 @@
               },
               label: function(context) {
                 const point = series[context.dataIndex];
-                return `Time: ${tiagoFormatSecondsForLabel(context.parsed.y)} | EI: ${tiagoFormatEffortIndex(point.effortIndex)} | Elev +${point.elevationGain} m`;
+                return `Time: ${tiagoFormatSecondsForLabel(context.parsed.y)} | EI: ${tiagoFormatEffortIndex(point.effortIndex)} | ${point.distanceKm.toFixed(2)} km | Elev +${point.elevationGain} m`;
               }
             }
           }
@@ -1105,7 +1117,7 @@
               },
               label: function(context) {
                 const point = series[context.dataIndex];
-                return `Adjusted: ${tiagoFormatSecondsForLabel(context.parsed.y)} | Elev +${point.elevationGain} m | Surface x${point.surfaceFactor.toFixed(2)}`;
+                return `Adjusted: ${tiagoFormatSecondsForLabel(context.parsed.y)} | ${point.distanceKm.toFixed(2)} km | Elev +${point.elevationGain} m | Surface x${point.surfaceFactor.toFixed(2)}`;
               }
             }
           }
