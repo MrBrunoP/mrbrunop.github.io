@@ -431,6 +431,10 @@
           <ul>
             <li>
               <img src="./images/medal-gold.svg" class="medal-icon" alt="Gold Medal">
+              <b>2026</b> – 11.ª Night Run Cidade de Vila Real (JUN)
+            </li>
+            <li>
+              <img src="./images/medal-gold.svg" class="medal-icon" alt="Gold Medal">
               <b>2026</b> – Corrida da Liberdade (U23)
             </li>
             <li>
@@ -439,11 +443,11 @@
             </li>
                         <li>
               <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
-              <b>2026</b> – Meia Maratona de Gaia 10K (JUN)
+              <b>2026</b> – 5ª Meia-Maratona das Cantarinhas 10K (JUN)
             </li>
                         <li>
                           <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
-                          <b>2026</b> – 5ª Meia-Maratona das Cantarinhas 10K (JUN)
+                          <b>2026</b> – Meia Maratona de Gaia 10K (JUN)
                         </li>
             <li>
               <img src="./images/medal-silver.svg" class="medal-icon" alt="Silver Medal">
@@ -625,6 +629,14 @@
             <td>10K</td>
             <td>00:39:00</td>
           </tr>
+          <tr>
+            <td>2026</td>
+            <td>11.ª Night Run Cidade de Vila Real</td>
+            <td>Vila Real, Portugal</td>
+            <td bgcolor="gold">1st (JUN)<br>7th (Overall)</td>
+            <td>10K</td>
+            <td>00:38:55</td>
+          </tr>
         </tbody>
       </table>
         </div>
@@ -780,7 +792,8 @@
     'Meia Maratona de Gaia': { distanceKm: 10, elevationGain: 38, surfaceFactor: 1 },
     'Corrida da Liberdade': { distanceKm: 10, elevationGain: 98, surfaceFactor: 1.05 },
     '5ª Meia-Maratona das Cantarinhas': { distanceKm: 10, elevationGain: 80, surfaceFactor: 1.02 },
-    'Corrida de Perafita 2026': { distanceKm: 10.14, elevationGain: 59, surfaceFactor: 1 }
+    'Corrida de Perafita 2026': { distanceKm: 10.14, elevationGain: 59, surfaceFactor: 1 },
+    '11.ª Night Run Cidade de Vila Real': { distanceKm: 10, elevationGain: 110, surfaceFactor: 1.02 }
   };
 
   function tiagoComputeEffortIndex(seconds, distanceKm, elevationGainMeters, surfaceFactor) {
@@ -915,6 +928,7 @@
     if (competitionText === 'Corrida da Liberdade') return 'Chaves';
     if (competitionText === '5ª Meia-Maratona das Cantarinhas') return 'Bragança';
     if (competitionText === 'Corrida de Perafita 2026') return 'Perafita';
+    if (competitionText === '11.ª Night Run Cidade de Vila Real') return 'Vila Real';
     return competitionText;
   }
 
