@@ -1,5 +1,7 @@
 // Function to switch between tabs
 function openTab(tabId, element) {
+    const target = document.getElementById(tabId);
+    if (!target || !element) return;
     // Hide all tab content
     var tabContents = document.getElementsByClassName('tab-content');
     for (var i = 0; i < tabContents.length; i++) {
@@ -13,13 +15,13 @@ function openTab(tabId, element) {
     }
 
     // Show the selected tab content and activate its button
-    document.getElementById(tabId).classList.add('active');
+    target.classList.add('active');
     element.classList.add('active');
 
     if (tabId === 'progression') {
         initializeProgressionCharts();
     }
-    if (tabId === 'gear') {
+    if (tabId === 'gear' && typeof initializeGearDashboard === 'function') {
         initializeGearDashboard();
     }
 }
@@ -43,8 +45,13 @@ let progression10kChart = null;
 let progressionHalfChart = null;
 
 function parseDateFromResults(value) {
-    const parsed = new Date(value + ' UTC');
-    return Number.isNaN(parsed.getTime()) ? null : parsed;
+    const match = String(value || '').trim().match(/^(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})$/);
+    if (!match) return null;
+    const month = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'].indexOf(match[2].toLowerCase());
+    if (month < 0) return null;
+    const day = Number(match[1]), year = Number(match[3]);
+    const parsed = new Date(Date.UTC(year, month, day));
+    return parsed.getUTCFullYear() === year && parsed.getUTCMonth() === month && parsed.getUTCDate() === day ? parsed : null;
 }
 
 function parseTimeToSeconds(value) {
@@ -54,7 +61,10 @@ function parseTimeToSeconds(value) {
     }
 
     // Supports: hh:mm:ss(.ms), mm:ss(.ms), ss(.ms)
+    if (!/^\d+(?::\d{1,2}){0,2}(?:\.\d+)?$/.test(clean)) return null;
     const parts = clean.split(':');
+    if (parts.slice(1).some(part => Number(part) >= 60)) return null;
+    if (parts.some(part => !Number.isFinite(Number(part)))) return null;
     if (parts.length === 3) {
         const h = Number(parts[0]);
         const m = Number(parts[1]);
@@ -113,18 +123,19 @@ function formatDurationReadable(totalSeconds) {
 
 function readProgressionSeriesFromResults(disciplineMatcher) {
     const rows = document.querySelectorAll('#results .data-table tbody tr');
+    const columns = Array.from(document.querySelectorAll('#results .data-table thead th'));
+    const indexes = ['date', 'discipline', 'performance', 'competition'].map(field =>
+        columns.findIndex(column => column.dataset.resultField === field));
+    if (indexes.some(index => index < 0)) return [];
     const series = [];
 
     rows.forEach((row) => {
         const cells = row.querySelectorAll('td');
-        if (cells.length < 4) {
+        if (indexes.some(index => index >= cells.length)) {
             return;
         }
 
-        const dateText = cells[0].textContent.trim();
-        const disciplineText = cells[1].textContent.trim();
-        const performanceText = cells[2].textContent.trim();
-        const competitionText = cells[3].textContent.trim();
+        const [dateText, disciplineText, performanceText, competitionText] = indexes.map(index => cells[index].textContent.trim());
 
         if (!disciplineMatcher(disciplineText)) {
             return;
@@ -309,28 +320,31 @@ function initializeProgressionCharts() {
     if (progressionChartsInitialized) {
         return;
     }
-    progressionChartsInitialized = true;
-
     const chartAvailable = typeof Chart !== 'undefined';
     setChartFallbackVisibility(!chartAvailable);
 
     const tenKSeries = readProgressionSeriesFromResults(function(discipline) {
-        return discipline === '10K (Road)';
+        return discipline.replace(/\s+/g, ' ').trim().toLowerCase() === '10k (road)';
     });
 
     const halfSeries = readProgressionSeriesFromResults(function(discipline) {
-        return discipline === 'Half Marathon';
+        return discipline.replace(/\s+/g, ' ').trim().toLowerCase() === 'half marathon';
     });
 
     setChartOrEmptyState(tenKSeries, 'progression-10k-chart', 'progression-10k-empty', '10k', '10K (Road)', 'progression-10k', chartAvailable);
     setChartOrEmptyState(halfSeries, 'progression-half-chart', 'progression-half-empty', 'half', 'Half Marathon', 'progression-half', chartAvailable);
+    progressionChartsInitialized = chartAvailable;
 }
 
 // Set the initial active tab on page load
 document.addEventListener('DOMContentLoaded', () => {
     // Check if a tab is specified in the URL or default to the first one
-    const initialTabButton = document.querySelector('.tab-navigation .tab-button.active');
-    const initialTabContent = document.getElementById(initialTabButton.getAttribute('onclick').match(/'([^']*)'/)[1]);
+    const tabButtons = Array.from(document.querySelectorAll('.tab-navigation .tab-button'));
+    const requestedTab = window.location.hash.slice(1);
+    const initialTabButton = tabButtons.find(button => button.dataset.tab === requestedTab)
+        || document.querySelector('.tab-navigation .tab-button.active');
+    const initialTabId = initialTabButton?.dataset.tab;
+    const initialTabContent = initialTabId ? document.getElementById(initialTabId) : null;
 
     if (initialTabButton && initialTabContent) {
         openTab(initialTabContent.id, initialTabButton);

@@ -327,21 +327,21 @@
     </div>
 
     <div class="tab-navigation">
-        <button class="tab-button active" onclick="openTab('personal-bests', this)"><span class="tab-icon" aria-hidden="true">◈</span> Personal Bests</button>
-        <button class="tab-button" onclick="openTab('results', this)"><span class="tab-icon" aria-hidden="true">☷</span> Results</button>
+        <button class="tab-button active" data-tab="personal-bests" onclick="openTab('personal-bests', this)"><span class="tab-icon" aria-hidden="true">◈</span> Personal Bests</button>
+        <button class="tab-button" data-tab="results" onclick="openTab('results', this)"><span class="tab-icon" aria-hidden="true">☷</span> Results</button>
         <button class="tab-button disabled"><span class="tab-icon" aria-hidden="true">★</span> Honours</button>
-        <button class="tab-button" onclick="openTab('progression', this)"><span class="tab-icon" aria-hidden="true">↗</span> Progression</button>
-        <button class="tab-button" onclick="openTab('gear', this)"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation" focusable="false" style="width:1em;height:1em;display:block;fill:currentColor;"><path d="M4 15.2c0 1.2 1 2.2 2.2 2.2h9.6c1.7 0 3.3-.6 4.6-1.6l1.6-1.3-2.1-2.1-2.6 1.8H14l-3.6-3.6 1.1-1.1-1.6-1.6-1.1 1.1L5.9 7.2 4 9.1l2.8 2.8H4.9c-.5 0-.9.4-.9.9v2.4z"></path></svg></span> Gear</button>
+        <button class="tab-button" data-tab="progression" onclick="openTab('progression', this)"><span class="tab-icon" aria-hidden="true">↗</span> Progression</button>
+        <button class="tab-button" data-tab="gear" onclick="openTab('gear', this)"><span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="presentation" focusable="false" style="width:1em;height:1em;display:block;fill:currentColor;"><path d="M4 15.2c0 1.2 1 2.2 2.2 2.2h9.6c1.7 0 3.3-.6 4.6-1.6l1.6-1.3-2.1-2.1-2.6 1.8H14l-3.6-3.6 1.1-1.1-1.6-1.6-1.1 1.1L5.9 7.2 4 9.1l2.8 2.8H4.9c-.5 0-.9.4-.9.9v2.4z"></path></svg></span> Gear</button>
     </div>
 
     <div id="personal-bests" class="tab-content active">
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Discipline</th>
-                    <th>Performance</th>
-                    <th>Competition</th>
+                    <th data-result-field="date">Date</th>
+                    <th data-result-field="discipline">Discipline</th>
+                    <th data-result-field="performance">Performance</th>
+                    <th data-result-field="competition">Competition</th>
                     <th></th>
                     <th>Category/Race</th>
                     <th>Place</th>
@@ -484,10 +484,10 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Discipline</th>
-                    <th>Performance</th>
-                    <th>Competition</th>
+                    <th data-result-field="date">Date</th>
+                    <th data-result-field="discipline">Discipline</th>
+                    <th data-result-field="performance">Performance</th>
+                    <th data-result-field="competition">Competition</th>
                     <th></th>
                     <th>Category/Race</th>
                     <th>Place</th>
@@ -834,25 +834,26 @@
 
     <div id="gear" class="tab-content">
         <section class="gear-sync-panel" id="gear-sync-panel" aria-label="Strava mileage sync" hidden>
-            <h3>Strava Mileage Sync</h3>
-            <p class="gear-sync-help">Copy your shoes list from Strava, paste it below, then click sync.</p>
+            <h3>Update Mileage</h3>
+            <p class="gear-sync-help">Copy your shoes list from Strava and paste it below. Mileage updates are saved in this browser only.</p>
             <div class="gear-sync-actions">
                 <a class="gear-lock-secondary" href="https://www.strava.com/athletes/128022452" target="_blank" rel="noopener noreferrer">Open Strava Profile</a>
-                <button class="gear-lock-button" type="button" id="gear-sync-backend">Sync from Text</button>
-                <button class="gear-lock-secondary" type="button" id="gear-sync-lock">Lock Sync</button>
+                <button class="gear-lock-button" type="button" id="gear-sync-backend">Update Mileage</button>
+                <button class="gear-lock-secondary" type="button" id="gear-sync-lock">Close</button>
             </div>
             <textarea class="gear-sync-textarea" id="gear-sync-input" placeholder="Paste lines like:\nASICS Trabuco Max 3 127.9 km\nNike Zoom Fly 6 50.8 km"></textarea>
             <p class="gear-sync-message" id="gear-sync-message"></p>
         </section>
 
         <div id="gear-dashboard-content">
+            <p id="gear-chart-fallback" role="status" hidden>Charts could not load. Your data is still available in the tables below.</p>
             <section class="gear-scope-filter" aria-label="Data scope">
                 <span class="gear-filter-label">View scope:</span>
                 <button type="button" class="gear-scope-btn gear-scope-active" data-gear-scope="overall">Overall</button>
                 <button type="button" class="gear-scope-btn" data-gear-scope="in_rotation">In Rotation</button>
                 <button type="button" class="gear-scope-btn" data-gear-scope="retired">Retired</button>
                 <div class="gear-security-quick">
-                    <button type="button" class="gear-security-button" id="gear-security-button" aria-label="Unlock financial details">🔓 Unlock</button>
+                    <button type="button" class="gear-security-button" id="gear-security-button" aria-label="Import private costs">Import private costs</button>
                 </div>
             </section>
 
@@ -948,13 +949,13 @@
         <button type="button" class="gear-sync-fab" id="gear-sync-fab" aria-label="Open Strava sync">⟳</button>
 
         <div class="gear-lock-modal" id="gear-lock-modal" hidden>
-            <section class="gear-lock-panel" aria-label="Gear access lock">
-                <h3>Financial Details Lock</h3>
-                <p>All non-financial gear data is visible. Money-related values stay locked until you unlock them.</p>
+            <section class="gear-lock-panel" aria-label="Import private costs">
+                <h3>Private Financial Details</h3>
+                <p>Import your private JSON file to view costs locally. The file is not uploaded or saved by this page. Clear the values when finished.</p>
                 <form class="gear-lock-form" id="gear-lock-form">
-                    <input class="gear-lock-input" id="gear-lock-input" type="password" placeholder="Password" autocomplete="current-password">
-                    <button class="gear-lock-button" type="submit">Unlock</button>
-                    <button class="gear-lock-secondary" id="gear-relock-button" type="button" hidden>Lock Again</button>
+                    <input class="gear-lock-input" id="gear-lock-input" type="file" accept=".json,application/json" aria-label="Private costs JSON file">
+                    <button class="gear-lock-button" type="submit">Import</button>
+                    <button class="gear-lock-secondary" id="gear-relock-button" type="button" hidden>Clear private costs</button>
                     <button class="gear-lock-secondary" id="gear-lock-close" type="button">Close</button>
                 </form>
                 <p class="gear-lock-message" id="gear-lock-message"></p>
@@ -964,595 +965,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script>
-    const gearSampleData = [
-        { shoe: "Adidas Adizero Evo SL", brand: "Adidas", status: "In Rotation", type: "Running", price: 120.00, mileage: 285.6, price_per_km: 0.42 },
-        { shoe: "ASICS Trabuco Max 3", brand: "ASICS", status: "In Rotation", type: "Trail", price: 92.64, mileage: 127.9, price_per_km: 0.72 },
-        { shoe: "Nike Vomero Plus", brand: "Nike", status: "In Rotation", type: "Running", price: 77.89, mileage: 99.6, price_per_km: 0.78 },
-        { shoe: "Nike Fly 6", brand: "Nike", status: "In Rotation", type: "Running", price: 101.00, mileage: 44.9, price_per_km: 2.25 },
-        { shoe: "Anta C202 Zone 2", brand: "Anta", status: "In Rotation", type: "Running", price: 98.29, mileage: 63.0, price_per_km: 1.56 },
-        { shoe: "PUMA Nitro Elite 4", brand: "PUMA", status: "In Rotation", type: "Running", price: 145.00, mileage: 18.5, price_per_km: 7.84 },
-        { shoe: "PUMA MagMax Nitro 2", brand: "PUMA", status: "In Rotation", type: "Running", price: 106.44, mileage: 30.2, price_per_km: 3.52 },
-        { shoe: "Kiprun TR2", brand: "Kiprun", status: "In Rotation", type: "Trail", price: 14.00, mileage: 16.5, price_per_km: 0.85 },
-        { shoe: "ASICS Gel Nimbus 27 TR", brand: "ASICS", status: "To Sell", type: "Trail", price: 129.99, mileage: 200.5, price_per_km: 0.65 },
-        { shoe: "Adidas Equipment Adios Pro", brand: "Adidas", status: "To Sell", type: "Running", price: 94.20, mileage: 17.4, price_per_km: 5.41 },
-        { shoe: "Adidas Adizero Adios 9", brand: "Adidas", status: "To Sell", type: "Running", price: 80.47, mileage: 4.3, price_per_km: 0.81 },
-        { shoe: "Nike Pegasus Trail 4", brand: "Nike", status: "Retired", type: "Trail", buy_price: 82.35, sell_price: 50.00, mileage: 466.3 },
-        { shoe: "Asics Novablast 4", brand: "ASICS", status: "Retired", type: "Running", buy_price: 99.15, sell_price: 50.00, mileage: 385.8 },
-        { shoe: "Kiprun KD900X LD", brand: "Kiprun", status: "Retired", type: "Running", buy_price: 141.09, sell_price: 60.00, mileage: 115.1 },
-        { shoe: "Nike ZoomX Streakfly", brand: "Nike", status: "Retired", type: "Running", buy_price: 117.99, sell_price: 95.00, mileage: 95.3 },
-        { shoe: "Salomon Aero Glide 3", brand: "Salomon", status: "Retired", type: "Running", buy_price: 151.29, sell_price: 65.00, mileage: 87.6 },
-        { shoe: "Adidas Adizero Boston 13", brand: "Adidas", status: "Retired", type: "Running", buy_price: 124.77, sell_price: 80.00, mileage: 68.2 },
-        { shoe: "Adidas Takumi Sen 10", brand: "Adidas", status: "Retired", type: "Running", buy_price: 93.65, sell_price: 60.00, mileage: 56.8 },
-        { shoe: "Adidas Adizero Boston 12", brand: "Adidas", status: "Retired", type: "Running", buy_price: 94.57, sell_price: 75.00, mileage: 53.3 }
-    ];
-
-    let gearDashboardInitialized = false;
-    let gearAccessUnlocked = false;
-    let gearCurrentData = [];
-    const gearSortState = { key: null, direction: 'asc' };
-    const gearFinanceSortState = { key: null, direction: 'asc' };
-    let gearScope = 'overall';
-    const gearChartRef = { mileageChart: null, ppkChart: null, brandChart: null };
-    const gearAccessPassword = 'gear';
-    const gearSyncAccessKey = 'sync';
-    let gearSyncUnlocked = false;
-
-    function initializeGearDashboard() {
-        if (!gearDashboardInitialized) {
-            gearCurrentData = gearSampleData.map(gearWithDerivedCosts);
-            gearSetupSorting();
-            gearSetupFinanceSorting();
-            gearSetupScopeToggle();
-            gearSetupSectionToggles();
-            gearSetupLockModalTriggers();
-            gearSetupQuickSecurityControl();
-            gearSetupSyncFab();
-            gearSetupBackendSync();
-            gearDashboardInitialized = true;
-        }
-        gearUpdateAccessState();
-        gearRenderTable(gearCurrentData);
-        gearRenderFinanceTable(gearCurrentData);
-        gearRenderMetrics(gearScopedData(gearCurrentData));
-        gearDestroyCharts();
-        gearRenderCharts(gearCurrentData);
-    }
-
-    function gearSetupAccessGate() {
-        const form = document.getElementById('gear-lock-form');
-        const input = document.getElementById('gear-lock-input');
-        const message = document.getElementById('gear-lock-message');
-        const relockButton = document.getElementById('gear-relock-button');
-        const closeButton = document.getElementById('gear-lock-close');
-        const modal = document.getElementById('gear-lock-modal');
-
-        if (!form || !input || !message || !relockButton || !closeButton || !modal) {
-            return;
-        }
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            if (input.value === gearAccessPassword) {
-                gearAccessUnlocked = true;
-                message.textContent = 'Financial details unlocked for this session.';
-                input.value = '';
-                modal.hidden = true;
-                initializeGearDashboard();
-                return;
-            }
-
-            message.textContent = 'Wrong password.';
-            input.select();
-        });
-
-        relockButton.addEventListener('click', function() {
-            gearAccessUnlocked = false;
-            message.textContent = 'Financial details locked again.';
-            initializeGearDashboard();
-        });
-
-        closeButton.addEventListener('click', function() {
-            modal.hidden = true;
-        });
-
-        modal.addEventListener('click', function(event) {
-            if (event.target === modal) modal.hidden = true;
-        });
-
-        gearUpdateAccessState();
-    }
-
-    function gearSetupLockModalTriggers() {
-        const gearRoot = document.getElementById('gear');
-        const modal = document.getElementById('gear-lock-modal');
-        if (!gearRoot || !modal) return;
-        gearRoot.addEventListener('click', function(event) {
-            if (!event.target.closest('.gear-lock-trigger')) return;
-            if (gearAccessUnlocked) return;
-            modal.hidden = false;
-            const input = document.getElementById('gear-lock-input');
-            if (input && !input.hidden) input.focus();
-        });
-    }
-
-    function gearSetupSyncFab() {
-        const fab = document.getElementById('gear-sync-fab');
-        const panel = document.getElementById('gear-sync-panel');
-        const message = document.getElementById('gear-sync-message');
-        if (!fab || !panel) return;
-        fab.addEventListener('click', function() {
-            if (!gearSyncUnlocked) {
-                const value = window.prompt('Enter Sync Access Key');
-                if (value !== gearSyncAccessKey) {
-                    if (message) message.textContent = 'Sync access denied.';
-                    return;
-                }
-                gearSyncUnlocked = true;
-                if (message) message.textContent = 'Sync unlocked for this session.';
-            }
-            panel.hidden = !panel.hidden;
-        });
-    }
-
-    function gearUpdateAccessState() {
-        const input = document.getElementById('gear-lock-input');
-        const relockButton = document.getElementById('gear-relock-button');
-        const securityButton = document.getElementById('gear-security-button');
-        if (!input || !relockButton) {
-            return;
-        }
-
-        input.hidden = gearAccessUnlocked;
-        input.disabled = gearAccessUnlocked;
-        relockButton.hidden = !gearAccessUnlocked;
-        if (securityButton) {
-            securityButton.textContent = gearAccessUnlocked ? 'Lock 🔒' : '🔓 Unlock';
-            securityButton.setAttribute('aria-label', gearAccessUnlocked ? 'Lock financial details' : 'Unlock financial details');
-        }
-    }
-
-    function gearSetupQuickSecurityControl() {
-        const button = document.getElementById('gear-security-button');
-        const modal = document.getElementById('gear-lock-modal');
-        if (!button || !modal) return;
-        button.addEventListener('click', function() {
-            if (gearAccessUnlocked) {
-                gearAccessUnlocked = false;
-                const message = document.getElementById('gear-lock-message');
-                if (message) message.textContent = 'Financial details locked again.';
-                initializeGearDashboard();
-                return;
-            }
-            modal.hidden = false;
-            const input = document.getElementById('gear-lock-input');
-            if (input && !input.hidden) input.focus();
-        });
-    }
-
-    function gearScopedData(data) {
-        if (gearScope === 'in_rotation') return data.filter(d => String(d.status || '').toLowerCase() === 'in rotation');
-        if (gearScope === 'retired') return data.filter(d => String(d.status || '').toLowerCase() === 'retired');
-        return data;
-    }
-
-    function gearRenderMetrics(data) {
-        const pairs = data.length;
-        const totalMileage = gearSum(data.map(d => d.mileage));
-        const totalSpend = gearSum(data.map(d => d.price));
-        const weightedPpk = totalMileage > 0 ? totalSpend / totalMileage : gearSum(data.map(d => d.price_per_km)) / Math.max(1, pairs);
-        document.getElementById('gear-pairsCount').textContent = String(pairs);
-        document.getElementById('gear-totalMileage').textContent = gearFmtNum(totalMileage) + ' km';
-        document.getElementById('gear-totalSpend').innerHTML = gearAccessUnlocked ? (gearFmtCur(totalSpend) + ' EUR') : gearLockToken('Locked');
-        document.getElementById('gear-avgPpk').innerHTML = gearAccessUnlocked ? (gearFmtCur(weightedPpk) + ' EUR') : gearLockToken('Locked');
-    }
-
-    function gearRenderTable(data) {
-        const scoped = gearScopedData(data);
-        const body = document.getElementById('gear-gearRows');
-        body.innerHTML = '';
-        scoped.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.className = gearStatusRowClass(row.status);
-            tr.innerHTML =
-                '<td>' + gearEscape(row.shoe) + '</td>' +
-                '<td>' + gearEscape(row.brand) + '</td>' +
-                '<td>' + gearEscape(row.status || 'In Rotation') + '</td>' +
-                '<td>' + gearEscape(row.type || 'Running') + '</td>' +
-                '<td>' + gearMaskedCurrency(row.price) + '</td>' +
-                '<td>' + gearFmtNum(row.mileage) + ' km</td>' +
-                '<td>' + gearMaskedCurrency(row.price_per_km) + '</td>';
-            body.appendChild(tr);
-        });
-    }
-
-    function gearRenderFinanceTable(data) {
-        const body = document.getElementById('gear-financeRows');
-        body.innerHTML = '';
-        gearApplyFinanceSort(data).forEach(row => {
-            const hasBuy = typeof row.buy_price === 'number' && Number.isFinite(row.buy_price);
-            const hasSell = typeof row.sell_price === 'number' && Number.isFinite(row.sell_price);
-            const buyDisplay = hasBuy ? gearMaskedCurrency(row.buy_price) : gearMaskedCurrency(row.price);
-            const soldDisplay = hasSell ? gearMaskedCurrency(row.sell_price) : null;
-            const recovery = (hasBuy && hasSell && row.buy_price > 0) ? ((row.sell_price / row.buy_price) * 100).toFixed(1) + '%' : null;
-            const tr = document.createElement('tr');
-            tr.className = gearStatusRowClass(row.status);
-            tr.innerHTML =
-                '<td>' + gearEscape(row.shoe) + '</td>' +
-                '<td>' + gearEscape(row.status || 'In Rotation') + '</td>' +
-                '<td>' + buyDisplay + '</td>' +
-                '<td class="' + (soldDisplay ? '' : 'g-cell-na') + '">' + (soldDisplay || '\u2014') + '</td>' +
-                '<td>' + gearMaskedCurrency(row.price) + '</td>' +
-                '<td class="g-cell-recovery ' + (recovery ? '' : 'g-cell-na') + '">' + (recovery ? gearMaskedPercent(recovery) : '\u2014') + '</td>' +
-                '<td>' + gearMaskedCurrency(row.price_per_km) + '</td>';
-            body.appendChild(tr);
-        });
-    }
-
-    function gearApplyFinanceSort(data) {
-        const key = gearFinanceSortState.key;
-        if (!key) return data;
-        const dir = gearFinanceSortState.direction === 'asc' ? 1 : -1;
-        const rows = data.slice();
-        const numeric = new Set(['buy_price', 'sell_price', 'price', 'recovery', 'price_per_km']);
-        rows.sort(function(a, b) {
-            const av = gearGetFinanceSortValue(a, key);
-            const bv = gearGetFinanceSortValue(b, key);
-            const aMissing = av === null || typeof av === 'undefined';
-            const bMissing = bv === null || typeof bv === 'undefined';
-            if (aMissing && bMissing) return 0;
-            if (aMissing) return 1;
-            if (bMissing) return -1;
-            if (numeric.has(key)) return ((Number(av) || 0) - (Number(bv) || 0)) * dir;
-            return String(av || '').localeCompare(String(bv || '')) * dir;
-        });
-        return rows;
-    }
-
-    function gearGetFinanceSortValue(row, key) {
-        if (key === 'shoe' || key === 'status') return row[key] || '';
-        if (key === 'buy_price') {
-            if (typeof row.buy_price === 'number' && Number.isFinite(row.buy_price)) return row.buy_price;
-            return row.price;
-        }
-        if (key === 'sell_price') {
-            if (typeof row.sell_price === 'number' && Number.isFinite(row.sell_price)) return row.sell_price;
-            return null;
-        }
-        if (key === 'recovery') {
-            if (typeof row.buy_price === 'number' && Number.isFinite(row.buy_price) && row.buy_price > 0 && typeof row.sell_price === 'number' && Number.isFinite(row.sell_price)) {
-                return (row.sell_price / row.buy_price) * 100;
-            }
-            return null;
-        }
-        return row[key];
-    }
-
-    function gearWithDerivedCosts(row) {
-        const hasBuy = typeof row.buy_price === 'number' && Number.isFinite(row.buy_price);
-        const hasSell = typeof row.sell_price === 'number' && Number.isFinite(row.sell_price);
-        let netCost = Number(row.price) || 0;
-        if (hasBuy || hasSell) netCost = (row.buy_price || 0) - (row.sell_price || 0);
-        const mileage = Number(row.mileage) || 0;
-        const ppk = mileage > 0 ? netCost / mileage : (Number(row.price_per_km) || 0);
-        return Object.assign({}, row, { price: gearRound2(netCost), price_per_km: gearRound2(ppk) });
-    }
-
-    function gearStatusRowClass(status) {
-        const k = String(status || '').toLowerCase();
-        if (k === 'in rotation') return 'gear-status-row-in-rotation';
-        if (k === 'to sell') return 'gear-status-row-to-sell';
-        if (k === 'sold') return 'gear-status-row-sold';
-        if (k === 'retired') return 'gear-status-row-retired';
-        return '';
-    }
-
-    function gearRenderCharts(data) {
-        const cd = gearScopedData(data);
-        const labels = cd.map(d => d.shoe);
-        gearChartRef.mileageChart = new Chart(document.getElementById('gear-mileageChart'), {
-            type: 'bar',
-            data: { labels: labels, datasets: [{ label: 'KM', data: cd.map(d => gearRound2(d.mileage)), backgroundColor: 'rgba(219,91,33,0.75)', borderColor: 'rgba(159,61,21,1)', borderWidth: 1, borderRadius: 6 }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Kilometers' } } } }
-        });
-        if (gearAccessUnlocked) {
-            gearChartRef.ppkChart = new Chart(document.getElementById('gear-ppkChart'), {
-                type: 'bar',
-                data: { labels: labels, datasets: [{ label: 'Net EUR / KM', data: cd.map(d => gearRound2(d.price_per_km)), backgroundColor: 'rgba(38,121,196,0.72)', borderColor: 'rgba(19,76,127,1)', borderWidth: 1, borderRadius: 6 }] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Net EUR per km' } } } }
-            });
-        } else {
-            gearRenderLockedPpkChart();
-        }
-        const bd = gearAggregateByBrand(cd);
-        gearChartRef.brandChart = new Chart(document.getElementById('gear-brandChart'), {
-            type: 'doughnut',
-            data: { labels: bd.labels, datasets: [{ data: bd.values, backgroundColor: ['#db5b21','#2679c4','#0f8a5f','#9f3d15','#e1a838','#5c4d7d'] }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-        });
-    }
-
-    function gearDestroyCharts() {
-        Object.keys(gearChartRef).forEach(function(k) { if (gearChartRef[k]) { gearChartRef[k].destroy(); gearChartRef[k] = null; } });
-    }
-
-    function gearAggregateByBrand(data) {
-        const map = new Map();
-        data.forEach(function(row) { const b = row.brand || 'Unknown'; map.set(b, (map.get(b) || 0) + 1); });
-        const entries = Array.from(map.entries()).sort(function(a, b) { return b[1] - a[1]; });
-        return { labels: entries.map(function(x) { return x[0]; }), values: entries.map(function(x) { return x[1]; }) };
-    }
-
-    function gearRenderLockedPpkChart() {
-        const canvas = document.getElementById('gear-ppkChart');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-        const w = canvas.width;
-        const h = canvas.height;
-        ctx.clearRect(0, 0, w, h);
-        ctx.save();
-        ctx.fillStyle = '#f7f7f7';
-        ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = '#666';
-        ctx.font = '600 16px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText('\ud83d\udd12 Unlock to view net cost chart', w / 2, h / 2);
-        ctx.restore();
-    }
-
-    function gearSetupSorting() {
-        document.querySelectorAll('.gear-sort-btn').forEach(function(btn) {
-            if (btn.hasAttribute('data-gear-finance-sort')) return;
-            btn.addEventListener('click', function() {
-                const key = btn.getAttribute('data-gear-sort');
-                if (!key) return;
-                if (gearSortState.key === key) {
-                    gearSortState.direction = gearSortState.direction === 'asc' ? 'desc' : 'asc';
-                } else {
-                    gearSortState.key = key;
-                    gearSortState.direction = 'asc';
-                }
-                gearSortData();
-                gearRenderTable(gearCurrentData);
-                gearRenderFinanceTable(gearCurrentData);
-                gearUpdateSortIndicators();
-            });
-        });
-    }
-
-    function gearSetupFinanceSorting() {
-        document.querySelectorAll('[data-gear-finance-sort]').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const key = btn.getAttribute('data-gear-finance-sort');
-                if (!key) return;
-                if (gearFinanceSortState.key === key) {
-                    gearFinanceSortState.direction = gearFinanceSortState.direction === 'asc' ? 'desc' : 'asc';
-                } else {
-                    gearFinanceSortState.key = key;
-                    gearFinanceSortState.direction = 'asc';
-                }
-                gearRenderFinanceTable(gearCurrentData);
-                gearUpdateFinanceSortIndicators();
-            });
-        });
-    }
-
-    function gearSetupSectionToggles() {
-        document.querySelectorAll('.gear-section-toggle').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const targetId = btn.getAttribute('data-gear-toggle');
-                if (!targetId) return;
-                const body = document.getElementById(targetId);
-                if (!body) return;
-                const expanded = btn.getAttribute('aria-expanded') === 'true';
-                btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-                body.hidden = expanded;
-                const icon = btn.querySelector('.gear-section-toggle-caret');
-                if (icon) icon.textContent = expanded ? '▸' : '▾';
-            });
-        });
-    }
-
-    function gearSetupBackendSync() {
-        const syncBtn = document.getElementById('gear-sync-backend');
-        const lockBtn = document.getElementById('gear-sync-lock');
-        const input = document.getElementById('gear-sync-input');
-        const message = document.getElementById('gear-sync-message');
-        const panel = document.getElementById('gear-sync-panel');
-        if (!syncBtn || !lockBtn || !message || !input || !panel) return;
-
-        lockBtn.addEventListener('click', function() {
-            gearSyncUnlocked = false;
-            panel.hidden = true;
-            message.textContent = 'Sync locked.';
-        });
-
-        syncBtn.addEventListener('click', function() {
-            if (!gearSyncUnlocked) {
-                message.textContent = 'Sync is locked. Use the floating sync button and enter Sync Access Key.';
-                return;
-            }
-            const entries = gearParseManualSyncInput(input.value);
-            if (!entries.length) {
-                message.textContent = 'No valid lines found. Include shoe name and mileage, e.g. "Nike Vomero Plus 99.6 km".';
-                return;
-            }
-
-            const applied = gearApplyMileageSync(entries);
-            if (!applied.length) {
-                message.textContent = 'No matching shoe names found in your Gear table.';
-                return;
-            }
-
-            gearCurrentData = gearCurrentData.map(gearWithDerivedCosts);
-            initializeGearDashboard();
-            message.textContent = 'Synced mileage for ' + applied.length + ' shoe' + (applied.length === 1 ? '' : 's') + '.';
-        });
-    }
-
-    function gearParseManualSyncInput(text) {
-        return String(text || '').split(/\r?\n/).map(function(line) {
-            const clean = line.replace(/\s+/g, ' ').trim();
-            if (!clean) return null;
-            const match = clean.match(/^(.*?)[\s\t]+(\d+(?:[\.,]\d+)?)\s*(?:km)?\s*$/i);
-            if (!match) return null;
-            const name = String(match[1] || '').trim();
-            const mileage = Number(String(match[2] || '').replace(',', '.'));
-            if (!name || !Number.isFinite(mileage)) return null;
-            return { name: name, mileage: mileage };
-        }).filter(Boolean);
-    }
-
-    function gearApplyMileageSync(entries) {
-        const updated = [];
-        const usedRowIndexes = new Set();
-
-        entries.forEach(function(item) {
-            const idx = gearFindBestShoeMatchIndex(item.name, usedRowIndexes);
-            if (idx < 0) return;
-            gearCurrentData[idx].mileage = gearRound2(item.mileage);
-            usedRowIndexes.add(idx);
-            updated.push(gearCurrentData[idx].shoe);
-        });
-
-        return updated;
-    }
-
-    function gearFindBestShoeMatchIndex(sourceName, usedRowIndexes) {
-        const sourceNorm = gearNormalizeName(sourceName);
-        const sourceSimple = gearSimplifyName(sourceName);
-        const sourceBrand = gearGetBrandToken(sourceNorm);
-
-        let bestIndex = -1;
-        let bestScore = 0;
-
-        for (let i = 0; i < gearCurrentData.length; i += 1) {
-            if (usedRowIndexes.has(i)) continue;
-
-            const targetName = gearCurrentData[i].shoe;
-            const targetNorm = gearNormalizeName(targetName);
-            const targetSimple = gearSimplifyName(targetName);
-            const targetBrand = gearGetBrandToken(targetNorm);
-
-            if (sourceNorm === targetNorm || sourceSimple === targetSimple) {
-                return i;
-            }
-
-            let score = gearNameSimilarity(sourceSimple, targetSimple);
-
-            if (sourceBrand && targetBrand && sourceBrand !== targetBrand) {
-                score = score * 0.6;
-            }
-
-            if (score > bestScore) {
-                bestScore = score;
-                bestIndex = i;
-            }
-        }
-
-        return bestScore >= 0.58 ? bestIndex : -1;
-    }
-
-    function gearNameSimilarity(a, b) {
-        const ta = new Set(String(a || '').split(' ').filter(Boolean));
-        const tb = new Set(String(b || '').split(' ').filter(Boolean));
-        if (!ta.size || !tb.size) return 0;
-
-        let intersection = 0;
-        ta.forEach(function(token) { if (tb.has(token)) intersection += 1; });
-
-        const denom = Math.max(ta.size, tb.size);
-        return intersection / denom;
-    }
-
-    function gearSimplifyName(v) {
-        const ignore = new Set(['zoom', 'nitro']);
-        return gearNormalizeName(v).split(' ').filter(function(token) {
-            return token && !ignore.has(token);
-        }).join(' ');
-    }
-
-    function gearGetBrandToken(v) {
-        return String(v || '').split(' ').filter(Boolean)[0] || '';
-    }
-
-    function gearNormalizeName(v) {
-        return String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-    }
-
-    function gearSetupScopeToggle() {
-        document.querySelectorAll('.gear-scope-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const scope = btn.getAttribute('data-gear-scope');
-                if (!scope || scope === gearScope) return;
-                gearScope = scope;
-                gearUpdateScopeButtons();
-                gearRenderTable(gearCurrentData);
-                gearRenderMetrics(gearScopedData(gearCurrentData));
-                gearDestroyCharts();
-                gearRenderCharts(gearCurrentData);
-            });
-        });
-    }
-
-    function gearUpdateScopeButtons() {
-        document.querySelectorAll('.gear-scope-btn').forEach(function(btn) {
-            btn.classList.toggle('gear-scope-active', btn.getAttribute('data-gear-scope') === gearScope);
-        });
-    }
-
-    function gearSortData() {
-        const key = gearSortState.key;
-        if (!key) return;
-        const dir = gearSortState.direction === 'asc' ? 1 : -1;
-        const numeric = new Set(['price', 'mileage', 'price_per_km']);
-        gearCurrentData.sort(function(a, b) {
-            const av = a[key], bv = b[key];
-            if (numeric.has(key)) return ((Number(av) || 0) - (Number(bv) || 0)) * dir;
-            return String(av || '').localeCompare(String(bv || '')) * dir;
-        });
-    }
-
-    function gearUpdateSortIndicators() {
-        document.querySelectorAll('.gear-sort-indicator').forEach(function(n) { n.textContent = '-'; });
-        if (!gearSortState.key) return;
-        const icon = gearSortState.direction === 'asc' ? '\u25b2' : '\u25bc';
-        const node = document.getElementById('gear-sort-' + gearSortState.key);
-        if (node) node.textContent = icon;
-    }
-
-    function gearUpdateFinanceSortIndicators() {
-        document.querySelectorAll('.gear-finance-sort-indicator').forEach(function(n) { n.textContent = '-'; });
-        if (!gearFinanceSortState.key) return;
-        const icon = gearFinanceSortState.direction === 'asc' ? '\u25b2' : '\u25bc';
-        const node = document.getElementById('gear-finance-sort-' + gearFinanceSortState.key);
-        if (node) node.textContent = icon;
-    }
-
-    function gearFmtCur(v) { return gearRound2(v).toFixed(2); }
-    function gearFmtNum(v) { return gearRound2(v).toLocaleString(); }
-    function gearRound2(v) { return Math.round((Number(v) || 0) * 100) / 100; }
-    function gearSum(arr) { return arr.reduce(function(a, c) { return a + (Number(c) || 0); }, 0); }
-    function gearLockToken(label) {
-        return '<button type="button" class="gear-lock-trigger" aria-label="Unlock financial details"><span class="gear-lock-inline"><span class="gear-lock-icon" aria-hidden="true">&#128274;</span><span>' + gearEscape(label) + '</span></span></button>';
-    }
-    function gearMaskedCurrency(v) {
-        if (!gearAccessUnlocked) return gearLockToken('Locked');
-        return gearFmtCur(v) + ' EUR';
-    }
-    function gearMaskedPercent(v) {
-        if (!gearAccessUnlocked) return gearLockToken('Locked');
-        return gearEscape(v);
-    }
-    function gearEscape(v) {
-        return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    }
-
-    gearSetupAccessGate();
-</script>
+<script src="js/gear.js"></script>
 <script src="js/athletics.js"></script>
 
 </body>

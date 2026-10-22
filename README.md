@@ -34,3 +34,30 @@ Open the website files directly in a browser or serve the repository root with a
 ## Notes
 
 - This is a content-first static site, so consistency of naming and date/time formats is important for chart and stats parsing.
+
+## Private equipment costs
+
+Public equipment data and dashboard behavior live in `AthleticsDB/js/gear.js`.
+`AthleticsDB/Gear.html` redirects to the same dashboard at `AthleticsDetails.html#gear`.
+Costs are not included in the public dataset. Choose **Import private costs** and select
+a local JSON array containing every shoe's exact name and either `price`, or `buy_price`
+and optional `sell_price`. Values must be non-negative numbers. The dashboard validates
+the whole file before applying it. **Clear private costs** removes imported values.
+
+Financial data stays in page memory; it is not uploaded or persisted by the dashboard.
+Keep private files outside the published repository; `*.private.json` is also ignored by Git.
+The `.gitignore` rule does not stop a static server from serving a file placed in its root.
+Mileage updates are stored separately in this browser, without financial fields, and
+do not change the published data or sync between devices. If browser storage is unavailable,
+the dashboard reports that the update lasts only until reload.
+
+Removing data from current files does not remove earlier public versions or Git history.
+Exported credentials from the old site should be revoked if still active.
+
+## Validation
+
+Run `node scripts/check-site.cjs` from the repository root. It checks local HTML references
+(including filename case), inline JavaScript syntax, date/time parsing, private import and
+clearing, chart-library failure handling, and mileage storage. No installation is needed.
+Result dates use `DD Mon YYYY` with English month abbreviations; times use seconds,
+`mm:ss`, or `hh:mm:ss`, with optional decimal seconds.
