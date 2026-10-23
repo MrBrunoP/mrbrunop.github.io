@@ -28,6 +28,11 @@ function openTab(tabId, element) {
 
 // Function to filter results by year
 function filterResults() {
+    const table = document.querySelector('#results table[data-race-results]');
+    if (table && window.AthleticsRaces) {
+        window.AthleticsRaces.refresh(table);
+        return;
+    }
     var selectedYear = document.getElementById('year-select').value;
     var tableRows = document.querySelectorAll('#results .data-table tbody tr');
 

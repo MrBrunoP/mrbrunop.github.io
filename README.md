@@ -35,6 +35,21 @@ Open the website files directly in a browser or serve the repository root with a
 
 - This is a content-first static site, so consistency of naming and date/time formats is important for chart and stats parsing.
 
+## Athletics layout
+
+The athletics pages follow the original photography design. Their shared styles and
+mobile menu live in `AthleticsDB/css/portfolio-layout.css` and
+`AthleticsDB/js/portfolio-layout.js`. These files are loaded only by athletics pages.
+After changing navigation links in `index.html`, run
+`node scripts/build-athletics-layout.cjs` to update the athletics navigation.
+The script reads the photography menu without modifying photography pages or race data.
+Navigation remains available without JavaScript.
+
+`AthleticsDB/js/race-filters.js` adds surface filters to the marked results tables.
+The detailed page combines these with its year filter. Trail progression lists each
+course separately; road charts retain their own distance-specific series. Use
+`data-surface="mixed"` when a race's event label does not describe its mixed terrain.
+
 ## Private equipment costs
 
 Public equipment data and dashboard behavior live in `AthleticsDB/js/gear.js`.

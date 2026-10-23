@@ -3,6 +3,33 @@ const path = require('node:path');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
+const raceFilters = require('../AthleticsDB/js/race-filters.js');
+for (const [discipline, surface] of [
+    ['10K', 'road'], ['Half Marathon', 'road'], ['2 Mile', 'road'],
+    ['10K Mini Trail', 'trail'], ['15K Trail (842 D+)', 'trail'],
+    ['10K (Road/Trail)', 'mixed'], ['1000 metres', 'track'],
+    ['110m hurdles', 'track'], ['Shot put (5kg)', 'track'], ['', 'other'],
+]) assert.equal(raceFilters.classifyDiscipline(discipline), surface);
+assert.equal(raceFilters.classifyDiscipline('10K', 'mixed'), 'mixed');
+// Shared competition/year cells must survive surface filtering in the profile tables.
+const cell = (textContent, rowSpan = 1, colSpan = 1) => ({ textContent, rowSpan, colSpan });
+const syntheticRows = [
+    { cells: [cell('Track club', 1, 6)], dataset: {} },
+    { cells: [cell('2011', 2), cell('Track meeting', 2), cell('Guimarães', 2), cell('5th'), cell('100 metres'), cell('14.17')], dataset: {} },
+    { cells: [cell('10th'), cell('Long jump'), cell('4.25 m')], dataset: {} },
+    { cells: [cell('NAVR', 1, 6)], dataset: {} },
+    { cells: ['2026', 'Trail race', 'Tresminas', '6th', '15K Trail', '02:51:53'].map(text => cell(text)), dataset: {} },
+];
+const raceModel = raceFilters.readTable({
+    tHead: { rows: [{ cells: ['date', 'competition', 'venue', 'position', 'discipline', 'performance'].map(resultField => ({ dataset: { resultField } })) }] },
+    tBodies: [{ rows: syntheticRows }],
+});
+assert.equal(raceModel.records.length, 3);
+assert.equal(raceModel.records[1].competition, 'Track meeting');
+assert.equal(raceModel.records[1].date, '2011');
+assert.equal(raceModel.records[1].surface, 'track');
+assert.equal(raceModel.groups[0].records.length, 2);
+assert.equal(raceModel.groups[1].records[0].surface, 'trail');
 function walk(dir) {
     return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry =>
         ['.git', 'node_modules'].includes(entry.name) ? [] : entry.isDirectory()

@@ -1,0 +1,143 @@
+/* The photography theme is the visual reference. Only athletics pages load this file. */
+body.athletics-page {
+    --athletics-accent: #ffca00;
+    margin: 0;
+    background: #fff;
+    color: #444;
+    font: 13px/1.65 "Input Mono Narrow Extra Light", monospace;
+}
+.athletics-page *, .athletics-page *::before, .athletics-page *::after { box-sizing: border-box; }
+.athletics-page [hidden] { display: none !important; }
+.athletics-page .race-filters { margin: 16px 0; }
+.athletics-page .race-filter-buttons { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0; }
+.athletics-page .race-filter-button { padding: 8px 0; border: 0; border-bottom: 2px solid transparent; background: #fff; color: #555; cursor: pointer; }
+.athletics-page .race-filter-button:hover { color: #111; border-bottom-color: #ddd; }
+.athletics-page .race-filter-button[aria-pressed="true"] { color: #111; border-bottom-color: var(--athletics-accent); }
+.athletics-page .race-filter-status { margin: 6px 0; font-size: 11px; color: #666; }
+.athletics-page .race-filter-empty { padding: 20px 0; color: #666; }
+.athletics-page .trail-results-list { margin: 16px 0; padding: 0; list-style: none; }
+.athletics-page .trail-results-list li { padding: 14px 0; border-top: 1px solid #e5e5e5; }
+.athletics-page .trail-results-list strong, .athletics-page .trail-results-list span { display: block; }
+.athletics-page .trail-results-list span { margin-top: 5px; font-variant-numeric: tabular-nums; }
+.athletics-page button, .athletics-page select, .athletics-page input { font: inherit; }
+.athletics-page :focus-visible { outline: 2px solid #555; outline-offset: 4px; }
+.athletics-page .athlete-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 5.5%;
+    width: 160px;
+    padding-top: 100px;
+    overflow-y: auto;
+    background: #fff;
+    z-index: 50;
+}
+.athletics-page .athlete-brand {
+    display: block;
+    padding-bottom: 12px;
+    color: #2e2e2e;
+    font: bold 26px/1.2 "Benton Sans Bold", sans-serif;
+    text-decoration: none;
+}
+.athletics-page .athlete-navigation { padding: 25px 0; }
+.athletics-page .athlete-navigation a {
+    display: block;
+    padding: 5px 5px 5px 3px;
+    color: #444;
+    font: 13px/1.4 "Input Mono Narrow Regular", monospace;
+    text-decoration: none;
+}
+.athletics-page .athlete-navigation a:hover,
+.athletics-page .athlete-navigation a[aria-current] { color: var(--athletics-accent); }
+.athletics-page .athlete-footer { padding: 25px 3px 40px; color: #666; font: 11px/1.2 "Input Mono Narrow Regular", monospace; }
+.athletics-page .athlete-social { display: flex; gap: 8px; margin-bottom: 12px; }
+.athletics-page .athlete-social a { color: #555; }
+.athletics-page .athlete-social a:hover { color: #ce5a61; }
+.athletics-page .athlete-social svg { display: block; width: 14px; height: 14px; fill: currentColor; }
+.athletics-page .athlete-footer p { max-width: 140px; margin: 0; }
+.athletics-page .athlete-menu-toggle { display: none; }
+.athletics-page .athlete-content { margin: 100px 5.5% 60px calc(5.5% + 200px); max-width: 1500px; min-width: 0; }
+.athletics-page .athlete-skip { position: fixed; top: -100px; left: 20px; z-index: 100; background: #fff; color: #444; padding: 12px; }
+.athletics-page .athlete-skip:focus { top: 10px; }
+.athletics-page .container,
+.athletics-page .athletics-profile-container { width: 100%; max-width: none; margin: 0; padding: 0; box-shadow: none; border-radius: 0; background: #fff; font: inherit; color: inherit; overflow: visible; display: flow-root; }
+.athletics-page h1, .athletics-page h2, .athletics-page h3, .athletics-page .collapsible-summary {
+    color: #000;
+    font-family: "Benton Sans Bold", sans-serif;
+    font-weight: normal;
+    line-height: 1.3;
+}
+.athletics-page h1, .athletics-page .profile-name { font-size: 26px; margin-top: 0; }
+.athletics-page h2, .athletics-page .collapsible-summary { font-size: 18px; }
+.athletics-page .collapsible-summary { justify-content: space-between; gap: 16px; min-height: 44px; }
+.athletics-page .collapsible-label { gap: 10px; line-height: 1.4; }
+.athletics-page .section-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: 0 0 20px; color: #555; }
+.athletics-page .section-icon svg, .athletics-page .collapsible-arrow svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.athletics-page .collapsible-arrow { display: inline-flex; width: 16px; height: 16px; flex: 0 0 16px; color: #666; transition: transform 0.2s ease; }
+.athletics-page .collapsible-section[open] > .collapsible-summary .collapsible-arrow { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+    .athletics-page .collapsible-arrow { transition: none; }
+}
+.athletics-page h3 { font-size: 15px; }
+.athletics-page .main-content { font-size: 13px; margin-right: 270px; min-width: 0; }
+.athletics-page .section { margin-top: 30px; }
+.athletics-page .section h2 { padding-bottom: 10px; border-color: #e5e5e5; }
+.athletics-page .athlete-content a { color: #444; text-decoration-color: var(--athletics-accent); text-underline-offset: 4px; }
+.athletics-page .athlete-content a:hover { text-decoration: underline; text-decoration-color: var(--athletics-accent); }
+.athletics-page .infobox { width: 240px; padding: 12px; margin-left: 30px; background: #fff; border-color: #e5e5e5; font-size: 12px; }
+.athletics-page .infobox-title { transform: none; }
+.athletics-page .infobox th { background: #f6f6f4; }
+.athletics-page .infobox table { width: 100%; }
+.athletics-page .infobox ul { padding-left: 18px; }
+.athletics-page .profile-header { padding: 0 0 24px; background: #fff; border-color: #e5e5e5; }
+.athletics-page .profile-header .profile-name { margin: 0; }
+.athletics-page .tab-navigation { flex-wrap: wrap; gap: 0 18px; }
+.athletics-page .tab-button { padding: 14px 0; font-size: 13px; font-weight: normal; }
+.athletics-page .tab-button.active { border-color: var(--athletics-accent); }
+.athletics-page .tab-content { padding: 20px 0; max-width: 100%; }
+.athletics-page .filter-controls { flex-wrap: wrap; gap: 8px; background: #fff; border-radius: 0; }
+.athletics-page .athletics-table-scroll { max-width: 100%; overflow-x: auto; }
+.athletics-page .section table, .athletics-page .data-table { font-size: 12px; font-variant-numeric: tabular-nums; }
+.athletics-page .section table th, .athletics-page .data-table th { background: #f6f6f4; font-family: "Input Mono Narrow Regular", monospace; font-weight: normal; }
+.athletics-page .data-table .pb-group th { padding: 14px 10px; background: #fff; color: #111; font-family: "Benton Sans Bold", sans-serif; font-size: 14px; text-align: left; border-top: 2px solid #ffca00; }
+.athletics-page .section table td, .athletics-page .section table th,
+.athletics-page .data-table td, .athletics-page .data-table th { padding: 10px; border-color: #e5e5e5; }
+.athletics-page .gear-card, .athletics-page .gear-metric { border-radius: 0; box-shadow: none; }
+.athletics-page .gear-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.athletics-page .gear-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.athletics-page .gear-card, .athletics-page .gear-metric, .athletics-page .gear-chart-box { min-width: 0; }
+.athletics-page .gear-metric-v { overflow-wrap: anywhere; }
+.athletics-page .gear-scope-btn.gear-scope-active { background: var(--athletics-accent); border-color: var(--athletics-accent); color: #222; }
+.athletics-page.athletics-reviews .athlete-content header { text-align: left; }
+.athletics-page.athletics-reviews .athlete-content main { border-radius: 0; box-shadow: none; padding: 0; }
+.athletics-page.athletics-reviews .shoe-card { border-radius: 0; box-shadow: none; border: 1px solid #e5e5e5; background: #fff; }
+.athletics-page.athletics-reviews .shoe-card:hover { transform: none; border-color: var(--athletics-accent); }
+.athletics-page.athletics-reviews .athlete-content p { font-size: 13px; }
+@media (min-width: 769px) and (max-width: 1180px) {
+    .athletics-page .infobox { float: none; width: 100%; max-width: 500px; margin: 0 0 30px; }
+    .athletics-page .main-content { margin-right: 0; }
+}
+@media (max-width: 768px) {
+    .athletics-page .athlete-sidebar { position: relative; left: auto; width: 100%; padding: 20px 5.5%; overflow: visible; }
+    .athletics-page .athlete-brand { max-width: calc(100% - 60px); padding: 0; font-size: 24px; }
+    .athletics-page .athlete-menu-toggle:not([hidden]) { display: block; position: absolute; top: 14px; right: 5.5%; min-width: 44px; min-height: 44px; padding: 8px 0; border: 0; color: #444; background: #fff; cursor: pointer; }
+    .athletics-page .athlete-sidebar.menu-ready .athlete-menu-panel { display: none; }
+    .athletics-page .athlete-sidebar.menu-open .athlete-menu-panel { display: block; }
+    .athletics-page .athlete-navigation { padding: 22px 0 10px; }
+    .athletics-page .athlete-navigation a { padding: 12px 3px; }
+    .athletics-page .athlete-footer { padding: 15px 3px; }
+    .athletics-page .athlete-content { margin: 24px 5.5% 40px; }
+    .athletics-page .infobox { float: none; width: 100%; margin: 0 0 28px; }
+    .athletics-page .main-content { margin-right: 0; overflow: visible; }
+    .athletics-page .section table { display: block; min-width: 0; }
+    .athletics-page .section table thead { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .athletics-page .section table td { overflow-wrap: anywhere; }
+    .athletics-page .section table td[data-label]::before { content: attr(data-label); display: block; color: #666; font: 10px/1.5 "Input Mono Narrow Regular", monospace; margin-bottom: 3px; }
+    .athletics-page .section table tr { border-radius: 0; }
+    .athletics-page .gear-grid { grid-template-columns: minmax(0, 1fr); }
+    .athletics-page .gear-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .athletics-page .tab-navigation { gap: 0 16px; }
+    .athletics-page .tab-button { min-height: 44px; }
+    .athletics-page .race-filter-button { min-height: 44px; }
+    .athletics-page.athletics-reviews .athlete-content .grid { grid-template-columns: minmax(0, 1fr); }
+}
