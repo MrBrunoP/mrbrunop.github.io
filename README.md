@@ -35,6 +35,14 @@ Open the website files directly in a browser or serve the repository root with a
 
 - This is a content-first static site, so consistency of naming and date/time formats is important for chart and stats parsing.
 
+## Sidebar navigation
+
+The menu uses direct links in this order: Overview, Portfolio, Projects, Analog,
+Video; Research, Athlete Profile; Blog. Small gaps separate the three groups.
+Run `node scripts/build-photography-navigation.cjs` to apply the order to desktop
+and mobile photography menus and refresh the shared content-page navigation.
+Grouping styles live in `assets/navigation.css`; there are no nested submenus.
+
 ## Photography selection workflow
 
 The local selection is kept outside the website in the Windows Pictures folder,
@@ -49,6 +57,23 @@ Use filename order (`001-...`, `002-...`), with the first photo as the proposed
 category cover, and optional `LEGENDAS.txt` entries (`filename | caption`).
 Prepare optimized web copies and preserve the selection files, source photos,
 and existing photography layout. These folders do not publish automatically.
+
+## Research profile and publications
+
+`Research.html` contains a short research profile and bibliography, with the site's
+existing sidebar and external Google Scholar and Ciência Vitae profile links.
+`Publications.html` redirects to it and preserves existing year anchors.
+Edit the profile and research outputs in `site/publications.json`
+and run `node scripts/build-publications.cjs` to rebuild it and refresh its navigation.
+Entries are grouped by year, newest first, with filters for journal articles,
+conference papers, posters and book chapter contributions. All entries remain
+readable without JavaScript. Posters link to public records, without uploading
+private poster files. Book authors and Bruno's chapter contributions are identified
+separately; they must not be presented as authorship of the whole book.
+DOI links are used where verified; other titles link to a publisher or Scholar record.
+The source is a curated snapshot, not a live Scholar integration. The unrelated
+environmental-law article was excluded at the owner's request. A duplicate entry and
+the master's dissertation are also omitted; the complete CV stays on Ciência Vitae.
 
 ## Athletics layout
 

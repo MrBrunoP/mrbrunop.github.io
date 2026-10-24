@@ -1,0 +1,6 @@
+/* Direct links in three visual groups; no extra headings or nested menus. */
+.menu-nav > li.nav-group-start,
+.mobile-menu-links > a.nav-group-start,
+.athlete-navigation > a.nav-group-start {
+    margin-top: 16px;
+}

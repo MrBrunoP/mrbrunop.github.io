@@ -1,8 +1,8 @@
-// Update only athletics navigation. Photography pages are read-only references.
+// Update the shared sidebar on content pages. Photography pages are read-only references.
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
-const targets = ['AthleticsDB.html', 'TiagoSilva.html', 'AthleticsReferences.html', 'AthleticsDB/AthleticsDetails.html',
+const targets = ['AthleticsDB.html', 'TiagoSilva.html', 'AthleticsReferences.html', 'AthleticsDB/AthleticsDetails.html', 'Research.html',
     ...fs.readdirSync(path.join(root, 'shoes')).filter(name => name.endsWith('.html')).map(name => `shoes/${name}`)];
 const photo = fs.readFileSync(path.join(root, 'index.html'), 'utf8').replace(/\r\n/g, '\n');
 const menu = photo.match(/<ul class="menu-nav[\s\S]*?<\/ul>/)[0];
@@ -11,6 +11,7 @@ const social = photo.match(/<div id="social"[\s\S]*?<\/ul>/)[0];
 const socialLinks = [...social.matchAll(/<a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
 for (const target of targets) {
     const prefix = target.includes('/') ? '../' : './';
+    const activeSection = target === 'Research.html' ? 'Research.html' : 'AthleticsDB.html';
     const nav = `<!-- athletics:navigation -->
 <a class="athlete-skip" href="#athlete-content">Skip to content</a>
 <header class="athlete-sidebar">
@@ -18,7 +19,7 @@ for (const target of targets) {
     <button class="athlete-menu-toggle" type="button" aria-controls="athlete-menu-panel" aria-expanded="false" hidden>Menu ☰</button>
     <div class="athlete-menu-panel" id="athlete-menu-panel">
         <nav class="athlete-navigation" aria-label="Main navigation">
-${links.map(([, url, label]) => `            <a href="${prefix}${url}"${url === 'AthleticsDB.html' ? ' aria-current="' + (target === url ? 'page' : 'location') + '"' : ''}>${label}</a>`).join('\n')}
+${links.map(([, url, label]) => `            <a href="${prefix}${url}"${['Research.html', 'Blog.html'].includes(url) ? ' class="nav-group-start"' : ''}${url === activeSection ? ' aria-current="' + (target === url ? 'page' : 'location') + '"' : ''}>${label}</a>`).join('\n')}
         </nav>
         <footer class="athlete-footer">
             <div class="athlete-social">
@@ -36,11 +37,15 @@ ${socialLinks.map(([, url, svg]) => `                <a href="${url}" target="_b
     const assets = `<!-- athletics:assets -->
 <link rel="stylesheet" href="${prefix}Overview/webtype_fonts.min-51d9b9edb8f956fb39da113609d790ba607fa4fbda053af8e378bb9233ef4a39.css">
 <link rel="stylesheet" href="${prefix}AthleticsDB/css/portfolio-layout.css">
+<link rel="stylesheet" href="${prefix}assets/navigation.css">
 <script src="${prefix}AthleticsDB/js/portfolio-layout.js" defer></script>
 <!-- /athletics:assets -->`;
     if (html.includes('<!-- athletics:navigation -->')) {
         html = html.replace(/<!-- athletics:navigation -->[\s\S]*?<!-- \/athletics:navigation -->/, nav)
             .replace(/<!-- athletics:assets -->[\s\S]*?<!-- \/athletics:assets -->/, assets);
+    } else if (html.includes('id="athlete-content"')) {
+        html = html.replace('</head>', `${assets}\n</head>`)
+            .replace(/<body([^>]*)>/, `<body$1>\n${nav}`);
     } else {
         html = html.replace(/<nav class="site-nav"[\s\S]*?<\/nav>/, '')
             .replace('</head>', `${assets}\n</head>`)
@@ -53,4 +58,4 @@ ${socialLinks.map(([, url, svg]) => `                <a href="${url}" target="_b
     html = html.replace(/(id="athlete-content"[^>]*>)\s+(?=<div class="(?:container|athletics-profile-container))/, '$1\n\n');
     fs.writeFileSync(file, html.replace(/\n/g, eol));
 }
-console.log(`Updated navigation on ${targets.length} athletics pages. Photography unchanged.`);
+console.log(`Updated navigation on ${targets.length} content pages. Photography unchanged.`);
