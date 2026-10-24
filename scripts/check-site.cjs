@@ -3,6 +3,44 @@ const path = require('node:path');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
+// Reproduce navigating immediately after Overview loads, while delayed refreshes are pending.
+const overviewHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const overviewFallback = [...overviewHtml.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)]
+    .find(match => match[1].includes('function applyMobileGalleryFallback()'))[1];
+function checkOverviewNavigation(startAtSecond) {
+    let activeIndex = startAtSecond ? 1 : 0;
+    const pending = [], events = {};
+    const images = ['./Overview/IMG_5881-Pano-Edit.jpg', './Overview/bruno-yamazaky-efcO0fw396I-unsplash.jpg']
+        .map((src, index) => ({
+            attributes: { src, 'data-src': src }, style: {},
+            classList: { add() {}, remove() {} },
+            getAttribute(name) { return this.attributes[name] || null; },
+            setAttribute(name, value) { this.attributes[name] = value; },
+            removeAttribute(name) { delete this.attributes[name]; },
+            closest() { return { classList: { contains: () => activeIndex === index } }; },
+        }));
+    const secondSource = images[1].attributes.src;
+    vm.runInNewContext(overviewFallback, {
+        document: {
+            body: { classList: { contains: () => true } },
+            querySelector: selector => selector.includes('flex-active-slide') ? images[activeIndex] : images[0],
+            querySelectorAll: () => images,
+        },
+        window: {
+            matchMedia: () => ({ matches: false }),
+            setTimeout: callback => pending.push(callback),
+            addEventListener: (name, callback) => { events[name] = callback; },
+        },
+    });
+    activeIndex = 1;
+    events.load?.();
+    events.pageshow?.();
+    pending.forEach(callback => callback());
+    assert.equal(images[1].attributes.src, secondSource, 'Delayed Overview refresh must not replace the second photograph');
+    assert.equal(images[1].attributes['data-src'], secondSource);
+}
+checkOverviewNavigation(false);
+checkOverviewNavigation(true);
 const raceFilters = require('../AthleticsDB/js/race-filters.js');
 for (const [discipline, surface] of [
     ['10K', 'road'], ['Half Marathon', 'road'], ['2 Mile', 'road'],

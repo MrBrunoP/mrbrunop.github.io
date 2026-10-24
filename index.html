@@ -151,6 +151,7 @@ try{function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){retur
 
 
 
+<link rel="stylesheet" href="./assets/gallery-controls.css">
 </head>
 <body class="page_11765393 gallery_page gallery" style="">
 	
@@ -306,7 +307,10 @@ try{function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){retur
               <span class="counter">(<span id="current">1</span> of <span id="total">18</span>)</span>
             </span>
             <span class="title" style="display: none;">Overview</span>
-            <a href="https://portfolio-xqbvjrq.format.com/#" class="open-close-thumbs icon-grid"></a>
+            <button type="button" class="open-close-thumbs icon-grid" aria-label="Show or hide photo thumbnails" title="Show or hide thumbnails">
+              <svg class="photo-grid-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M3 3h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4zM3 10h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4zM3 17h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4z"></path></svg>
+              <svg class="photo-close-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+            </button>
           </div>
           <div class="flexslider js_max_height_target" style="opacity: 1;">
             <ul class="assets_container slides">
@@ -1317,47 +1321,8 @@ try{function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){retur
 	<script src="./Overview/theme.js"></script>
   <script>
   (function () {
-    var localHeroPath = './Overview/IMG_5881-Pano-Edit.jpg';
-
     function isMobileGallery() {
       return document.body.classList.contains('gallery') && window.matchMedia('(max-width: 767px)').matches;
-    }
-
-    function forceHeroImage(img) {
-      if (!img) {
-        return;
-      }
-      img.removeAttribute('srcset');
-      img.removeAttribute('data-srcset');
-      img.removeAttribute('sizes');
-      img.removeAttribute('data-sizes');
-      img.classList.remove('lazyload', 'lazyloading');
-      img.classList.add('lazyloaded', 'lazyautosizes');
-      img.setAttribute('src', localHeroPath);
-      img.setAttribute('data-src', localHeroPath);
-      img.style.visibility = 'visible';
-      img.style.opacity = '1';
-      img.style.display = 'block';
-    }
-
-    function updateHeroCandidates() {
-      // Patch the currently active slide first.
-      forceHeroImage(document.querySelector('#assets .slides > li.flex-active-slide img'));
-
-      // First visible slot in the slider.
-      forceHeroImage(document.querySelector('#assets .slides > li:first-child img'));
-
-      // Also patch any slide image still referencing the old source (including flexslider clones).
-      var allSlideImages = document.querySelectorAll('#assets .slides li img');
-      for (var i = 0; i < allSlideImages.length; i++) {
-        var img = allSlideImages[i];
-        var li = img.closest('li');
-        var isActive = li && li.classList.contains('flex-active-slide');
-        var marker = [img.getAttribute('src'), img.getAttribute('data-src'), img.getAttribute('srcset'), img.getAttribute('data-srcset')].join(' ');
-        if (marker.indexOf('nB8hG0t.jpg') !== -1 || marker.indexOf('IMG_5881-Pano-Edit.jpg') !== -1 || i === 0 || isActive) {
-          forceHeroImage(img);
-        }
-      }
     }
 
     function showSlideContent(slide) {
@@ -1430,7 +1395,6 @@ try{function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){retur
     }
 
     function refreshGalleryState() {
-      updateHeroCandidates();
       applyMobileGalleryFallback();
     }
 

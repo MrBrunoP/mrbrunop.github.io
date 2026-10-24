@@ -35,6 +35,21 @@ Open the website files directly in a browser or serve the repository root with a
 
 - This is a content-first static site, so consistency of naming and date/time formats is important for chart and stats parsing.
 
+## Photography selection workflow
+
+The local selection is kept outside the website in the Windows Pictures folder,
+under `Portfolio - Selecao`. Its `COMO USAR.txt` explains the workflow.
+Gallery folders match the existing pages: `Landscape`, `Lifestyle`, `Nature`,
+`Portrait`, `Product`, plus `Analog` and homepage highlights in `Overview`.
+`00 - Por escolher` is a staging folder and must never be published.
+
+When the owner requests an update, a populated category contains its complete
+desired selection; an empty category leaves the current gallery unchanged.
+Use filename order (`001-...`, `002-...`), with the first photo as the proposed
+category cover, and optional `LEGENDAS.txt` entries (`filename | caption`).
+Prepare optimized web copies and preserve the selection files, source photos,
+and existing photography layout. These folders do not publish automatically.
+
 ## Athletics layout
 
 The athletics pages follow the original photography design. Their shared styles and

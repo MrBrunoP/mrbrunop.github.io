@@ -1,0 +1,23 @@
+/* Keep the original gallery controls, without relying on the icon font. */
+body.gallery #assets .open-close-thumbs {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 6px;
+    border: 0;
+    background: transparent;
+    color: #ffca00;
+    cursor: pointer;
+    vertical-align: middle;
+}
+body.gallery #assets .open-close-thumbs::before { content: none; }
+body.gallery #assets .open-close-thumbs:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+body.gallery #assets .open-close-thumbs svg { display: block; width: 16px; height: 16px; }
+body.gallery #assets .open-close-thumbs .photo-close-icon,
+body.gallery #assets .open-close-thumbs.icon-close .photo-grid-icon { display: none; }
+body.gallery #assets .open-close-thumbs.icon-close .photo-close-icon { display: block; }

@@ -141,6 +141,7 @@ try{function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){retur
 
 
 
+<link rel="stylesheet" href="./assets/gallery-controls.css">
 </head>
 <body class="page_11765762 gallery_page gallery" style="">
 	
@@ -441,7 +442,10 @@ try{function css_browser_selector(u){var ua=u.toLowerCase(),is=function(t){retur
               <span class="counter">(<span id="current">1</span> of <span id="total">1</span>)</span>
             </span>
             <span class="title"></span>
-            <a href="./Product.html#" class="open-close-thumbs icon-grid"></a>
+            <button type="button" class="open-close-thumbs icon-grid" aria-label="Show or hide photo thumbnails" title="Show or hide thumbnails">
+              <svg class="photo-grid-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M3 3h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4zM3 10h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4zM3 17h4v4H3zm7 0h4v4h-4zm7 0h4v4h-4z"></path></svg>
+              <svg class="photo-close-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+            </button>
           </div>
           <div class="flexslider js_max_height_target">
             <ul class="assets_container slides">
