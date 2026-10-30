@@ -102,6 +102,8 @@ body.athletics-page {
 .athletics-page .data-table .pb-group th { padding: 14px 10px; background: #fff; color: #111; font-family: "Benton Sans Bold", sans-serif; font-size: 14px; text-align: left; border-top: 2px solid #ffca00; }
 .athletics-page .section table td, .athletics-page .section table th,
 .athletics-page .data-table td, .athletics-page .data-table th { padding: 10px; border-color: #e5e5e5; }
+.athletics-page #results .data-table td:first-child,
+.athletics-page #personal-bests .data-table td:first-child { white-space: nowrap; }
 .athletics-page .gear-card, .athletics-page .gear-metric { border-radius: 0; box-shadow: none; }
 .athletics-page .gear-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .athletics-page .gear-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); }

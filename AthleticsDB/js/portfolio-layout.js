@@ -23,7 +23,7 @@
         sidebar.querySelectorAll('nav a').forEach(link => link.addEventListener('click', closeMenu));
         window.matchMedia('(max-width: 768px)').addEventListener('change', closeMenu);
     }
-    document.querySelectorAll('.section table').forEach(table => {
+    document.querySelectorAll('.section table, #results .data-table, #personal-bests .data-table').forEach(table => {
         const headers = Array.from(table.querySelectorAll('thead th'), th => th.textContent.trim());
         if (!headers.length) return;
         Array.from(table.tBodies).forEach(body => {
@@ -44,7 +44,7 @@
         wrapper.className = 'athletics-table-scroll';
         wrapper.tabIndex = 0;
         wrapper.setAttribute('role', 'region');
-        wrapper.setAttribute('aria-label', table.closest('.section').querySelector('h2, summary')?.textContent.trim() || 'Results');
+        wrapper.setAttribute('aria-label', table.closest('.section')?.querySelector('h2, summary')?.textContent.trim() || (table.closest('#personal-bests') ? 'Personal bests' : 'Results'));
         table.before(wrapper);
         wrapper.append(table);
     });

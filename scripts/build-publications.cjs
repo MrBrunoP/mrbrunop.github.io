@@ -11,7 +11,7 @@ for (const publication of data.publications) {
     const key = publication.title.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
     if (!publication.title || !Number.isInteger(publication.year) || !typeLabels[publication.type] || seen.has(key)) throw new Error('Missing or duplicated publication: ' + publication.title);
     seen.add(key);
-    if (!['https:'].includes(new URL(publication.url).protocol)) throw new Error('Publication links must use HTTPS');
+    if (publication.url && !['https:'].includes(new URL(publication.url).protocol)) throw new Error('Publication links must use HTTPS');
 }
 const sections = years.map(year => `    <section class="publication-year" id="year-${year}" aria-labelledby="heading-${year}">
       <h3 id="heading-${year}">${year}</h3>
@@ -19,10 +19,10 @@ const sections = years.map(year => `    <section class="publication-year" id="ye
 ${data.publications.filter(publication => publication.year === year).map(publication => `        <li class="publication" data-type="${publication.type}">
           <article>
             <p class="publication-type">${typeLabels[publication.type]}${publication.date ? ` · <time datetime="${escape(publication.date)}">${new Date(publication.date + '-01T12:00:00Z').toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' })}</time>` : ''}</p>
-            <h4><a href="${escape(publication.url)}" target="_blank" rel="noopener noreferrer">${escape(publication.title)}</a></h4>
+            <h4>${publication.url ? `<a href="${escape(publication.url)}" target="_blank" rel="noopener noreferrer">${escape(publication.title)}</a>` : escape(publication.title)}</h4>
             <p class="publication-authors">${escape(publication.authors)}${publication.contribution ? ` · ${escape(publication.contribution)}` : ''}</p>
             ${publication.book ? `<p class="publication-book">In <cite>${escape(publication.book)}</cite></p>` : ''}
-            ${publication.venue ? `<p class="publication-venue">${escape(publication.venue)}</p>` : ''}
+            ${publication.venue ? `<p class="publication-venue">${escape(publication.venue)}</p>` : ''}${publication.status ? `\n            <p class="publication-venue">${escape(publication.status)}</p>` : ''}
             ${publication.bookAuthors ? `<p class="publication-venue">Book authors: ${escape(publication.bookAuthors)}</p>` : ''}
             ${publication.isbn ? `<p class="publication-venue">ISBN ${escape(publication.isbn)}</p>` : ''}
           </article>

@@ -1,20 +1,31 @@
 {
   "name": "Bruno Peixoto",
-  "updated": "2026-10-24",
+  "updated": "2026-10-30",
   "profiles": {
     "scholar": "https://scholar.google.com/citations?user=ueEyv1AAAAAJ&sortby=pubdate",
     "cienciavitae": "https://www.cienciavitae.pt/portal/en/F11F-5BD0-7D49"
   },
   "publications": [
     {
+      "id": "icgi-2026-efl-motivation-anxiety",
+      "title": "Immersive Virtual Reality Listening Over a Semester: Effects on EFL Motivation and Anxiety",
+      "authors": "B Peixoto, G Gonçalves, M Bessa, LCP Bessa, M Melo",
+      "venue": "33rd International Conference on Graphics and Interaction (ICGI 2026)",
+      "year": 2026,
+      "date": "2026-10",
+      "type": "conference",
+      "status": "Presented · Pre-proceedings (unpublished preprint version)"
+    },
+    {
       "id": "olpn-zPbct0C",
       "title": "Authoring tools for immersive virtual, augmented and mixed reality: A systematic review of content creation platforms, emerging technologies, and their limitations",
       "authors": "R Rodrigues, G Gonçalves, R Machado, B Peixoto, M Bessa, M Melo",
-      "venue": "Computers & Graphics",
+      "venue": "Computers & Graphics 140, 104750 · Special Section on RAGI 2026",
       "year": 2026,
       "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&user=ueEyv1AAAAAJ&citation_for_view=ueEyv1AAAAAJ%3Aolpn-zPbct0C",
       "doi": "10.1016/j.cag.2026.104750",
       "url": "https://doi.org/10.1016/j.cag.2026.104750",
+      "status": "Presented at ICGI 2026",
       "type": "journal"
     },
     {
